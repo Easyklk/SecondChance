@@ -10,7 +10,7 @@ package Modelo;
  */
 public class Mascota {
 
-    private String codigoIdentificador;
+    private String codIdentificador;
     private String nombre;
     private String especie;
     private String raza;
@@ -20,7 +20,7 @@ public class Mascota {
     private String descripcion;
 
     public Mascota() {
-        this.codigoIdentificador = "";
+        this.codIdentificador = "";
         this.nombre = "";
         this.especie = "";
         this.raza = "";
@@ -30,12 +30,12 @@ public class Mascota {
         this.descripcion = "";
     }
 
-    public String getCodigoIdentificador() {
-        return codigoIdentificador;
+    public String getCodIdentificador() {
+        return codIdentificador;
     }
 
-    public void setCodigoIdentificador(String codigoIdentificador) {
-        this.codigoIdentificador = codigoIdentificador;
+    public void setCodIdentificador(String codIdentificador) {
+        this.codIdentificador = codIdentificador;
     }
 
     public String getNombre() {
@@ -96,7 +96,7 @@ public class Mascota {
 
     @Override
     public String toString() {
-        return "Mascota{" + "Identificador:" + codigoIdentificador + ", Nombre:" + nombre + ", Especie:" + especie + ", Raza:" + raza + ", Fecha de Acogida:" + fechaAcogida + ", Foto:" + foto + ", CIF Protectora:" + cifProtectora + ", Descripcion:" + descripcion + '}';
+        return "Mascota{" + "Identificador:" + codIdentificador + ", Nombre:" + nombre + ", Especie:" + especie + ", Raza:" + raza + ", Fecha de Acogida:" + fechaAcogida + ", Foto:" + foto + ", CIF Protectora:" + cifProtectora + ", Descripcion:" + descripcion + '}';
     }
 
 }

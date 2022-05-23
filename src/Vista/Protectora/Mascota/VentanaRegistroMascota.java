@@ -4,16 +4,24 @@
  */
 package Vista.Protectora.Mascota;
 
+import Controlador.Constantes;
+import Modelo.Mascota;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalProtectora;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 
@@ -24,6 +32,8 @@ import javax.swing.text.MaskFormatter;
 public class VentanaRegistroMascota extends javax.swing.JFrame {
 
     private MaskFormatter mascara;
+    private Image foto;
+    private File archivo;
 
     /**
      * Creates new form VentanaRegistro
@@ -45,6 +55,18 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(VentanaRegistroMascota.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private static boolean insertarMascota(Mascota mascota) {
+        String values = "codIdentificador=" + mascota.getCodIdentificador() + "&nombre=" + mascota.getNombre() + "&especie=" + mascota.getEspecie() + "&raza=" + mascota.getRaza()
+                + "&fechaAcogida=" + mascota.getFechaAcogida() + "&foto=" + mascota.getFoto() + "&cifProtectora=" + mascota.getCifProtectora()
+                + "&descripcion=" + mascota.getDescripcion();
+        String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_INSERT_MASCOTA, values);
+        System.out.println(resultado);
+        if (resultado.equals("false")) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -225,6 +247,28 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 
     private void jbRegisrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegisrarActionPerformed
         // TODO add your handling code here:
+        byte[] foto = null;
+        try {
+            FileInputStream fis = new FileInputStream(archivo);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum);
+            }
+            foto = bos.toByteArray();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        Mascota mascota = new Mascota();
+        mascota.setCodIdentificador("1");
+        mascota.setNombre("a");
+        mascota.setEspecie("a");
+        mascota.setRaza("a");
+        mascota.setFechaAcogida("a");
+//        mascota.setFoto();
+        mascota.setCodIdentificador("1");
+        insertarMascota(mascota);
+
     }//GEN-LAST:event_jbRegisrarActionPerformed
 
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
@@ -235,12 +279,14 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser jfcFoto = new JFileChooser();
         jfcFoto.setDialogTitle("Seleccionar Foto");
-        jfcFoto.setCurrentDirectory(new File("C:\\Users\\Practica\\Pictures")); //Seleccionar ruta por defecto cuando se abre el fileChooser
+        String directoryName = System.getProperty("user.dir");
+        System.out.println(directoryName);
+        jfcFoto.setCurrentDirectory(new File("C:\\Users\\" + directoryName + "\\Pictures")); //Seleccionar ruta por defecto cuando se abre el fileChooser
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Ficheros de imagen", "jpeg", "jpg", "png");
         jfcFoto.setFileFilter(filter);
         int ventanaFoto = jfcFoto.showOpenDialog(this);
         if (ventanaFoto == JFileChooser.APPROVE_OPTION) {
-            File archivo = jfcFoto.getSelectedFile();
+            archivo = jfcFoto.getSelectedFile();
 //            JOptionPane.showMessageDialog(this, "El archivo seleccionado: " + archivo.getName());
 //            jLabel8.setText(String.valueOf(archivo));
             Image foto = getToolkit().getImage(String.valueOf(archivo));

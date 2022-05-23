@@ -10,21 +10,20 @@ package Modelo;
  */
 public class Consulta {
 
-    private int codConsulta;
+    private  int codConsulta;
     private String codMascota;
     private String dniVoluntario;
     private String horario;
     private String informacion;
 
     public Consulta() {
-        this.codConsulta = 0;
         this.codMascota = "";
         this.dniVoluntario = "";
         this.horario = "";
         this.informacion = "";
     }
 
-    public Consulta(int codConsulta, String codMascota, String dniVoluntario, String horario, String informacion) {
+    public Consulta(String codMascota, String dniVoluntario, String horario, String informacion) {
         this.codConsulta = codConsulta;
         this.codMascota = codMascota;
         this.dniVoluntario = dniVoluntario;

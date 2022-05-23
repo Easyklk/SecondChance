@@ -12,17 +12,17 @@ public class Usuario {
 
     private String email;
     private String password;
-    private boolean voluntario;
-    private boolean administrador;
+    private int voluntario;
+    private int administrador;
 
     public Usuario() {
         this.email = "";
         this.password = "";
-        this.voluntario = false;
-        this.administrador = false;
+        this.voluntario = 0;
+        this.administrador = 0;
     }
 
-    public Usuario(String email, String password, boolean voluntario, boolean administrador) {
+    public Usuario(String email, String password, int voluntario, int administrador) {
         this.email = email;
         this.password = password;
         this.voluntario = voluntario;
@@ -45,11 +45,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public boolean isVoluntario() {
+    public int isVoluntario() {
         return voluntario;
     }
 
-    public void setVoluntario(boolean voluntario) {
+    public void setVoluntario(int voluntario) {
         this.voluntario = voluntario;
     }
 

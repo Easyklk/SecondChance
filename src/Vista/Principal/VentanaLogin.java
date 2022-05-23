@@ -8,10 +8,13 @@ import Controlador.Constantes;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.awt.Color;
 import java.awt.Image;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -31,8 +34,8 @@ public class VentanaLogin extends javax.swing.JFrame {
         setIconImage(icon);
     }
 
-    public static boolean logueo(String email, String pass) {
-        String values = "email=" + email + "&password=" + pass;
+    public static boolean logueo(String email, String password) {
+        String values = "email=" + email + "&password=" + password;
         String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO, values);
         System.out.println(resultado);
         if (resultado.equals("false")) {
@@ -46,7 +49,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         ArrayList<Usuario> listaAdministrador = gson.fromJson(resultado, listType);
 
         return listaAdministrador.size() > 0;
-
     }
 
     /**
@@ -68,6 +70,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jbLogin = new javax.swing.JButton();
         jlCerrar = new javax.swing.JLabel();
         jbLogin1 = new javax.swing.JButton();
+        jlError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -98,7 +101,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1.add(jpfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 211, 211, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
-        jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 109, -1, -1));
+        jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
         jbLogin.setText("Iniciar Sesión");
         jbLogin.setToolTipText("Pulse este boton para ir iniciar sesión...");
@@ -126,6 +129,10 @@ public class VentanaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbLogin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 243, -1, -1));
+
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 51));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 105, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,12 +163,23 @@ public class VentanaLogin extends javax.swing.JFrame {
 
     private void jbLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogin1ActionPerformed
         // TODO add your handling code here:
-//        VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
-//        this.setVisible(false);
-//        vPrincipalAdmin.setVisible(true);
-        String myPass = String.valueOf(jpfPassword.getPassword());
-        boolean a = logueo(jtfUsuario.getText().trim(), myPass);
-        System.out.println(a);
+        String pass = String.valueOf(jpfPassword.getPassword());
+        System.out.println(logueo(jtfUsuario.getText().trim(), pass));
+        if (!jtfUsuario.getText().trim().isEmpty() && !pass.isEmpty()) {
+            if (logueo(jtfUsuario.getText().trim(), pass) == true) {
+                VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
+                this.setVisible(false);
+                vPrincipalAdmin.setVisible(true);
+            } else {
+                jlError.setText("¡Usuario y/o contraseña incorrectos!");
+                jtfUsuario.setBorder(new LineBorder(Color.red, 2));
+                jpfPassword.setBorder(new LineBorder(Color.red, 2));
+            }
+        } else {
+            jlError.setText("¡Rellene todos los campos!");
+            jtfUsuario.setBorder(new LineBorder(Color.red, 2));
+            jpfPassword.setBorder(new LineBorder(Color.red, 2));
+        }
     }//GEN-LAST:event_jbLogin1ActionPerformed
 
     /**
@@ -205,6 +223,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     private javax.swing.JButton jbLogin;
     private javax.swing.JButton jbLogin1;
     private javax.swing.JLabel jlCerrar;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlPassword;
     private javax.swing.JLabel jlTitulo;
