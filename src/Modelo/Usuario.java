@@ -45,12 +45,20 @@ public class Usuario {
         this.password = password;
     }
 
-    public int isVoluntario() {
+    public int getVoluntario() {
         return voluntario;
     }
 
     public void setVoluntario(int voluntario) {
         this.voluntario = voluntario;
+    }
+
+    public int getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(int administrador) {
+        this.administrador = administrador;
     }
 
     @Override

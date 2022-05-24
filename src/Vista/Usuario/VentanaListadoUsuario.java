@@ -4,9 +4,13 @@
  */
 package Vista.Usuario;
 
+import Controlador.GestionarUsuario;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +18,15 @@ import javax.swing.ImageIcon;
  */
 public class VentanaListadoUsuario extends javax.swing.JFrame {
 
+    DefaultTableModel modelo;
+
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaListadoUsuario() {
         initComponents();
+        rellenarTabla();
+        modelo = new DefaultTableModel();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -33,13 +41,23 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jltitulo2 = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jbVolver = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtUsuarios = new javax.swing.JTable();
+        jtfEmail = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jbBuscar = new javax.swing.JButton();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Usuario");
@@ -71,12 +89,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
-
-        jtaListado.setColumns(20);
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 360, 250));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 450, -1, -1));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -89,6 +102,46 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
+        jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Email", "Voluntario", "Administrador"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtUsuarios);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, -1, 220));
+        jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 140, 30));
+
+        jLabel1.setText("Email:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
+
+        jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, -1, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
         pack();
@@ -96,13 +149,20 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
+        rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-       VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
+        VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
         this.setVisible(false);
         vPrincipalAdmin.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        System.out.println(GestionarUsuario.obtenerUsuario(jtfEmail.getText())
+        );
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,12 +203,39 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JTable jtUsuarios;
+    private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
+
+    private void rellenarTabla() {
+        ArrayList<Usuario> alUsuarios = GestionarUsuario.listarUsuarios();
+        modelo = (DefaultTableModel) jtUsuarios.getModel();
+        Object[] ob = new Object[3];
+        for (int i = 0; i < alUsuarios.size(); i++) {
+            ob[0] = alUsuarios.get(i).getEmail();
+            if (alUsuarios.get(i).getVoluntario() == 0) {
+                ob[1] = "No";
+            } else {
+                ob[1] = "Sí";
+            }
+            if (alUsuarios.get(i).getAdministrador() == 0) {
+                ob[2] = "No";
+            } else {
+                ob[2] = "Sí";
+            }
+            modelo.addRow(ob);
+        }
+        jtUsuarios.setModel(modelo);
+    }
 }

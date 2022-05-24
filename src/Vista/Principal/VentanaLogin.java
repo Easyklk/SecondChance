@@ -5,6 +5,7 @@
 package Vista.Principal;
 
 import Controlador.Constantes;
+import Controlador.GestionarLogin;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,26 +30,8 @@ public class VentanaLogin extends javax.swing.JFrame {
     public VentanaLogin() {
         initComponents();
         setLocationRelativeTo(null);
-//        jlLogo.setIcon(img);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
-    }
-
-    public static boolean logueo(String email, String password) {
-        String values = "email=" + email + "&password=" + password;
-        String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO, values);
-        System.out.println(resultado);
-        if (resultado.equals("false")) {
-            return false;
-        }
-
-        Gson gson = new Gson();
-        TypeToken<List<Usuario>> listToken = new TypeToken<List<Usuario>>() {
-        };
-        java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Usuario> listaAdministrador = gson.fromJson(resultado, listType);
-
-        return listaAdministrador.size() > 0;
     }
 
     /**
@@ -119,7 +102,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 jlCerrarMouseClicked(evt);
             }
         });
-        jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 60, 40));
+        jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 50, 40));
 
         jbLogin1.setText("Iniciar Sesión");
         jbLogin1.setToolTipText("Pulse este boton para ir iniciar sesión...");
@@ -164,9 +147,8 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void jbLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogin1ActionPerformed
         // TODO add your handling code here:
         String pass = String.valueOf(jpfPassword.getPassword());
-        System.out.println(logueo(jtfUsuario.getText().trim(), pass));
         if (!jtfUsuario.getText().trim().isEmpty() && !pass.isEmpty()) {
-            if (logueo(jtfUsuario.getText().trim(), pass) == true) {
+            if (GestionarLogin.logueo(jtfUsuario.getText().trim(), pass) == true) {
                 VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
                 this.setVisible(false);
                 vPrincipalAdmin.setVisible(true);

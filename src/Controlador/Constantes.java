@@ -44,6 +44,7 @@ public interface Constantes {
     public static final String URL_LISTADOS_USUARIO = SERVERUSUARIO + "listarUsuario.php";
 
     public static final String URL_LISTADOS_MASCOTA_ID = SERVERMASCOTA + "consultaMascotaID.php";
+    public static final String URL_LISTADOS_USUARIO_EMAIL = SERVERUSUARIO + "obtenerUsuarioEmail.php";
 
     public static final String CR_OK = "CR_OK";
     public static final String CR_ERROR = "CR_ERROR";
