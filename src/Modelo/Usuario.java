@@ -63,7 +63,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "email:" + email + ", es voluntario:" + voluntario + ", es administrador:" + administrador + '}';
+        return "EMAIL:" + email + ", VOLUNTARIO:" + voluntario + ", ADMINISTRADOR:" + administrador;
     }
 
 }

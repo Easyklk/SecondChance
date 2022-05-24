@@ -7,9 +7,12 @@ package Vista.Usuario;
 import Controlador.GestionarUsuario;
 import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,15 +21,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaListadoUsuario extends javax.swing.JFrame {
 
-    DefaultTableModel modelo;
+    private DefaultTableModel modelo;
 
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaListadoUsuario() {
         initComponents();
-        rellenarTabla();
         modelo = new DefaultTableModel();
+        rellenarTabla();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -148,9 +151,11 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
-        // TODO add your handling code here:
+        jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        vaciarTabla();
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
+
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
@@ -160,8 +165,12 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
-        System.out.println(GestionarUsuario.obtenerUsuario(jtfEmail.getText())
-        );
+        if (!jtfEmail.getText().isEmpty()) {
+            vaciarTabla();
+            buscarUsario();
+        } else {
+            jtfEmail.setBorder(new LineBorder(Color.red, 2));
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
@@ -220,6 +229,34 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
     private void rellenarTabla() {
         ArrayList<Usuario> alUsuarios = GestionarUsuario.listarUsuarios();
+        modelo = (DefaultTableModel) jtUsuarios.getModel();
+        Object[] ob = new Object[3];
+        for (int i = 0; i < alUsuarios.size(); i++) {
+            ob[0] = alUsuarios.get(i).getEmail();
+            if (alUsuarios.get(i).getVoluntario() == 0) {
+                ob[1] = "No";
+            } else {
+                ob[1] = "Sí";
+            }
+            if (alUsuarios.get(i).getAdministrador() == 0) {
+                ob[2] = "No";
+            } else {
+                ob[2] = "Sí";
+            }
+            modelo.addRow(ob);
+        }
+        jtUsuarios.setModel(modelo);
+    }
+
+    private void vaciarTabla() {
+        // TODO add your handling code here:
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
+    private void buscarUsario() {
+        ArrayList<Usuario> alUsuarios = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
         modelo = (DefaultTableModel) jtUsuarios.getModel();
         Object[] ob = new Object[3];
         for (int i = 0; i < alUsuarios.size(); i++) {

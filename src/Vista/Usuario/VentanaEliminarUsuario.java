@@ -4,9 +4,17 @@
  */
 package Vista.Usuario;
 
+import Controlador.Constantes;
+import Controlador.GestionarUsuario;
+import Modelo.Usuario;
+import Utilidades.HttpRequest;
 import Vista.Principal.VentanaPrincipalAdmin;
+import java.awt.Color;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -47,6 +55,8 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Usuario");
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(null);
+        setPreferredSize(null);
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,7 +84,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
                 jbEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 100, 50));
+        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 100, 50));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -85,15 +95,17 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
                 jbVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+        jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
+        jtaListado.setEditable(false);
         jtaListado.setColumns(20);
         jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtaListado.setLineWrap(true);
         jtaListado.setRows(5);
         jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 80));
+        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 40));
 
-        jtfEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfEmail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jtfEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfEmailActionPerformed(evt);
@@ -114,13 +126,24 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
+        if (!jtfEmail.getText().isEmpty()) {
+            jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+            jtaListado.setText("");
+            String values = "email=" + jtfEmail.getText();
+            System.out.println(values);
+            String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_USUARIO, values);
+            System.out.println(resultado);
+        } else {
+            jtfEmail.setBorder(new LineBorder(Color.red, 2));
+        }
+
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jtfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfEmailActionPerformed
@@ -128,7 +151,13 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfEmailActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
+        if (!jtfEmail.getText().isEmpty()) {
+            jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+            jtaListado.setText("");
+            buscarUsario();
+        } else {
+            jtfEmail.setBorder(new LineBorder(Color.red, 2));
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
@@ -148,7 +177,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -189,4 +218,11 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextArea jtaListado;
     private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
+
+    private void buscarUsario() {
+        ArrayList<Usuario> alUsuarios = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+        Usuario usuarioEliminar = alUsuarios.get(0);
+
+        jtaListado.setText(alUsuarios.get(0).toString());
+    }
 }

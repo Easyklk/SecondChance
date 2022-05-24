@@ -5,9 +5,17 @@
 package Vista.Protectora;
 
 import Controlador.Constantes;
+import Controlador.GestionarProtectora;
+import Controlador.GestionarUsuario;
+import Modelo.Protectora;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
+import java.awt.Color;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -130,6 +138,13 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
+        if (!jtfCif.getText().isEmpty()) {
+            jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+            jtaListado.setText("");
+            buscarProtectora();
+        } else {
+            jtfCif.setBorder(new LineBorder(Color.red, 2));
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
@@ -150,7 +165,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -169,21 +184,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -205,4 +206,10 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     private javax.swing.JTextArea jtaListado;
     private javax.swing.JTextField jtfCif;
     // End of variables declaration//GEN-END:variables
+
+    private void buscarProtectora() {
+        ArrayList<Protectora> alProtectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        Protectora protectoraEliminar = alProtectora.get(0);
+        jtaListado.setText(alProtectora.get(0).toString());
+    }
 }

@@ -18,7 +18,8 @@ public interface Constantes {
     public static final String SERVERUSUARIO = "http://localhost/SecondChance/ScriptsUsuarios/";
     public static final String SERVERVOLUNTARIO = "http://localhost/SecondChance/ScriptsVoluntarios/";
 
-    public static final String URL_LOGUEO = SERVERUSUARIO + "consultaUsuario.php";
+    public static final String URL_LOGUEO_ADMIN = SERVERUSUARIO + "consultaUsuario.php";
+    public static final String URL_LOGUEO_PROTECTORA = SERVERPROTECTORA + "consultaProtectora.php";
 
     public static final String URL_INSERT_CONSULTA = SERVERCONSULTA + "insertarConsulta.php";
     public static final String URL_INSERT_MASCOTA = SERVERMASCOTA + "insertarMascota.php";
@@ -44,7 +45,8 @@ public interface Constantes {
     public static final String URL_LISTADOS_USUARIO = SERVERUSUARIO + "listarUsuario.php";
 
     public static final String URL_LISTADOS_MASCOTA_ID = SERVERMASCOTA + "consultaMascotaID.php";
-    public static final String URL_LISTADOS_USUARIO_EMAIL = SERVERUSUARIO + "obtenerUsuarioEmail.php";
+    public static final String URL_LISTADOS_USUARIO_EMAIL = SERVERUSUARIO + "consultaUsuarioEmail.php";
+    public static final String URL_LISTADOS_PROTECTORA_CIF = SERVERUSUARIO + "consultaProtectoraCif.php";
 
     public static final String CR_OK = "CR_OK";
     public static final String CR_ERROR = "CR_ERROR";

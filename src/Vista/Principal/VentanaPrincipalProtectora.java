@@ -57,15 +57,12 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Protectora");
-        setMinimumSize(null);
         setPreferredSize(null);
         setSize(new java.awt.Dimension(600, 250));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMinimumSize(null);
         jPanel1.setName("Principal"); // NOI18N
-        jPanel1.setPreferredSize(null);
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

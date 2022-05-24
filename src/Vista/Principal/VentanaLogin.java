@@ -148,10 +148,14 @@ public class VentanaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         String pass = String.valueOf(jpfPassword.getPassword());
         if (!jtfUsuario.getText().trim().isEmpty() && !pass.isEmpty()) {
-            if (GestionarLogin.logueo(jtfUsuario.getText().trim(), pass) == true) {
+            if (GestionarLogin.logueoAdmin(jtfUsuario.getText().trim(), pass) == true) {
                 VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
                 this.setVisible(false);
                 vPrincipalAdmin.setVisible(true);
+            } else if (GestionarLogin.logueoProtectora(jtfUsuario.getText().trim(), pass) == true) {
+                VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
+                this.setVisible(false);
+                vPrincipalProtectora.setVisible(true);
             } else {
                 jlError.setText("¡Usuario y/o contraseña incorrectos!");
                 jtfUsuario.setBorder(new LineBorder(Color.red, 2));

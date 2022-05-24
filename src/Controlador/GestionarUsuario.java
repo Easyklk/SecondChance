@@ -51,9 +51,9 @@ public class GestionarUsuario {
         TypeToken<List<Usuario>> listToken = new TypeToken<List<Usuario>>() {
         };
         java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Usuario> listaAdministrador = gson.fromJson(resultado, listType);
+        ArrayList<Usuario> listaUsuario = gson.fromJson(resultado, listType);
 
-        return listaAdministrador;
+        return listaUsuario;
     }
 
 }

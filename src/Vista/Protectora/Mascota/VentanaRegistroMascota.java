@@ -291,7 +291,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 //            jLabel8.setText(String.valueOf(archivo));
             Image foto = getToolkit().getImage(String.valueOf(archivo));
             foto = foto.getScaledInstance(70, 70, Image.SCALE_DEFAULT);
-            jLabel8.setIcon(new ImageIcon(foto));
+            jLabel8.setIcon(new ImageIcon(foto));   
         }
     }//GEN-LAST:event_jbSeleccionarFotoActionPerformed
 
