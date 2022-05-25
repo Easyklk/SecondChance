@@ -7,7 +7,7 @@ package Vista.Usuario;
 import Controlador.Constantes;
 import Controlador.GestionarUsuario;
 import Modelo.Usuario;
-import Utilidades.HttpRequest;
+import Controlador.HttpRequest;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
 import java.awt.Image;
@@ -55,7 +55,6 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Usuario");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(null);
         setPreferredSize(null);
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));

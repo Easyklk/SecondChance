@@ -14,9 +14,9 @@ public class Mascota {
     private String nombre;
     private String especie;
     private String raza;
-    private String fechaAcogida;
+    private String fecha_acogida;
     private String foto;
-    private String cifProtectora;
+    private String cif_protectora;
     private String descripcion;
 
     public Mascota() {
@@ -24,9 +24,9 @@ public class Mascota {
         this.nombre = "";
         this.especie = "";
         this.raza = "";
-        this.fechaAcogida = "";
+        this.fecha_acogida = "";
         this.foto = "";
-        this.cifProtectora = "";
+        this.cif_protectora = "";
         this.descripcion = "";
     }
 
@@ -63,11 +63,11 @@ public class Mascota {
     }
 
     public String getFechaAcogida() {
-        return fechaAcogida;
+        return fecha_acogida;
     }
 
     public void setFechaAcogida(String fechaAcogida) {
-        this.fechaAcogida = fechaAcogida;
+        this.fecha_acogida = fechaAcogida;
     }
 
     public String getFoto() {
@@ -79,11 +79,11 @@ public class Mascota {
     }
 
     public String getCifProtectora() {
-        return cifProtectora;
+        return cif_protectora;
     }
 
     public void setCifProtectora(String cifProtectora) {
-        this.cifProtectora = cifProtectora;
+        this.cif_protectora = cifProtectora;
     }
 
     public String getDescripcion() {
@@ -96,7 +96,7 @@ public class Mascota {
 
     @Override
     public String toString() {
-        return "Mascota{" + "Identificador:" + codIdentificador + ", Nombre:" + nombre + ", Especie:" + especie + ", Raza:" + raza + ", Fecha de Acogida:" + fechaAcogida + ", Foto:" + foto + ", CIF Protectora:" + cifProtectora + ", Descripcion:" + descripcion + '}';
+        return "Mascota{" + "Identificador:" + codIdentificador + ", Nombre:" + nombre + ", Especie:" + especie + ", Raza:" + raza + ", Fecha de Acogida:" + fecha_acogida + ", Foto:" + foto + ", CIF Protectora:" + cif_protectora + ", Descripcion:" + descripcion + '}';
     }
 
 }

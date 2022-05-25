@@ -9,30 +9,28 @@ package Modelo;
  * @author Easyklk
  */
 public class Protectora {
+
     private String cif;
-    private String nombre;
-    private String razonSocial;
+    private String nombre_protectora;
+    private String razon_social;
     private String email;
-    private String password;
     private String telefono;
     private String ubicacion;
 
     public Protectora() {
-    this.cif="";
-    this.nombre="";
-    this.razonSocial="";
-    this.email="";
-    this.password="";
-    this.telefono="";
-    this.ubicacion="";
+        this.cif = "";
+        this.nombre_protectora = "";
+        this.razon_social = "";
+        this.email = "";
+        this.telefono = "";
+        this.ubicacion = "";
     }
 
-    public Protectora(String cif, String nombreProtectora, String razonSocial, String email, String password, String telefono, String ubicacion) {
+    public Protectora(String cif, String nombreProtectora, String razonSocial, String email, String telefono, String ubicacion) {
         this.cif = cif;
-        this.nombre = nombreProtectora;
-        this.razonSocial = razonSocial;
+        this.nombre_protectora = nombreProtectora;
+        this.razon_social = razonSocial;
         this.email = email;
-        this.password = password;
         this.telefono = telefono;
         this.ubicacion = ubicacion;
     }
@@ -46,19 +44,19 @@ public class Protectora {
     }
 
     public String getNombreProtectora() {
-        return nombre;
+        return nombre_protectora;
     }
 
     public void setNombreProtectora(String nombreProtectora) {
-        this.nombre = nombreProtectora;
+        this.nombre_protectora = nombreProtectora;
     }
 
     public String getRazonSocial() {
-        return razonSocial;
+        return razon_social;
     }
 
     public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
+        this.razon_social = razonSocial;
     }
 
     public String getEmail() {
@@ -67,14 +65,6 @@ public class Protectora {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getTelefono() {
@@ -95,6 +85,6 @@ public class Protectora {
 
     @Override
     public String toString() {
-        return "Protectora{" + "CIF:" + cif + ", Nombre:" + nombre + ", Razon Social:" + razonSocial + ", email:" + email + ", Telefono:" + telefono + ", Ubicacion:" + ubicacion + '}';
+        return "Protectora{" + "CIF:" + cif + ", Nombre:" + nombre_protectora + ", Razon Social:" + razon_social + ", email:" + email + ", Telefono:" + telefono + ", Ubicacion:" + ubicacion + '}';
     }
 }

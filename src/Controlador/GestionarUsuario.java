@@ -26,7 +26,7 @@ public class GestionarUsuario {
     }
 
     public static ArrayList listarUsuarios() {
-        String resultado = Utilidades.HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_USUARIO);
+        String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_USUARIO);
         if (resultado.equals("false")) {
 //            return false;
             System.out.println("False");
@@ -41,7 +41,7 @@ public class GestionarUsuario {
 
     public static ArrayList obtenerUsuario(String email) {
         String values = "email=" + email;
-        String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_USUARIO_EMAIL, values);
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_USUARIO_EMAIL, values);
         System.out.println(resultado);
         if (resultado.equals("false")) {
 //            return false;

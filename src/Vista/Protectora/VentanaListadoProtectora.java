@@ -4,9 +4,18 @@
  */
 package Vista.Protectora;
 
+import Controlador.GestionarProtectora;
+import Controlador.GestionarUsuario;
+import Modelo.Protectora;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
+import java.awt.Color;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +23,15 @@ import javax.swing.ImageIcon;
  */
 public class VentanaListadoProtectora extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaListadoProtectora() {
         initComponents();
+        modelo = new DefaultTableModel();
+        rellenarTabla();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -38,8 +51,11 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jbVolver1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtProtectoras = new javax.swing.JTable();
+        jtfCif = new javax.swing.JTextField();
+        jbBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,10 +70,10 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
 
         jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jltitulo2.setText("Listado de Protectoras");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
-        jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
 
         jlTitulo.setFont(new java.awt.Font("Segoe Print", 0, 52)); // NOI18N
         jlTitulo.setText("Second Chance");
@@ -72,12 +88,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
-
-        jtaListado.setColumns(20);
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 360, 250));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 450, -1, -1));
 
         jbVolver1.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -90,8 +101,45 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/gradient.gif"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, -1, 500));
+        jtProtectoras.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CIF", "Nombre", "Razon Social", "email", "Teléfono", "Ubicación"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtProtectoras);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 550, 220));
+        jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 140, 30));
+
+        jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, -1, 30));
+
+        jLabel1.setText("CIF:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -100,6 +148,9 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
+        jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        vaciarTabla();
+        rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
 
     private void jbVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolver1ActionPerformed
@@ -107,6 +158,16 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         this.setVisible(false);
         vPrincipalAdmin.setVisible(true);
     }//GEN-LAST:event_jbVolver1ActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        if (!jtfCif.getText().isEmpty()) {
+            vaciarTabla();
+            buscarProtectora();
+        } else {
+            jtfCif.setBorder(new LineBorder(Color.red, 2));
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,21 +199,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -165,11 +212,53 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver1;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JTable jtProtectoras;
+    private javax.swing.JTextField jtfCif;
     // End of variables declaration//GEN-END:variables
+
+    private void vaciarTabla() {
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
+    private void rellenarTabla() {
+        ArrayList<Protectora> alProtectoras = GestionarProtectora.listarProtectora();
+        modelo = (DefaultTableModel) jtProtectoras.getModel();
+        Object[] ob = new Object[6];
+        System.out.println(alProtectoras.get(0).toString());
+        for (int i = 0; i < alProtectoras.size(); i++) {
+            ob[0] = alProtectoras.get(i).getCif();
+            ob[1] = alProtectoras.get(i).getNombreProtectora();
+            ob[2] = alProtectoras.get(i).getRazonSocial();
+            ob[3] = alProtectoras.get(i).getEmail();
+            ob[4] = alProtectoras.get(i).getTelefono();
+            ob[5] = alProtectoras.get(i).getUbicacion();
+            modelo.addRow(ob);
+        }
+        jtProtectoras.setModel(modelo);
+    }
+
+    private void buscarProtectora() {
+        ArrayList<Protectora> alProtectoras = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        modelo = (DefaultTableModel) jtProtectoras.getModel();
+        Object[] ob = new Object[6];
+        for (int i = 0; i < alProtectoras.size(); i++) {
+            ob[0] = alProtectoras.get(i).getCif();
+            ob[1] = alProtectoras.get(i).getNombreProtectora();
+            ob[2] = alProtectoras.get(i).getRazonSocial();
+            ob[3] = alProtectoras.get(i).getEmail();
+            ob[4] = alProtectoras.get(i).getTelefono();
+            ob[5] = alProtectoras.get(i).getUbicacion();
+            modelo.addRow(ob);
+        }
+        jtProtectoras.setModel(modelo);
+    }
 }

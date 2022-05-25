@@ -46,13 +46,12 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jlTitulo = new javax.swing.JLabel();
         jlUsuario = new javax.swing.JLabel();
-        jtfUsuario = new javax.swing.JTextField();
+        jtfEmail = new javax.swing.JTextField();
         jlPassword = new javax.swing.JLabel();
         jpfPassword = new javax.swing.JPasswordField();
         jlLogo = new javax.swing.JLabel();
-        jbLogin = new javax.swing.JButton();
         jlCerrar = new javax.swing.JLabel();
-        jbLogin1 = new javax.swing.JButton();
+        jbLogin = new javax.swing.JButton();
         jlError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,11 +69,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 11, -1, -1));
 
         jlUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jlUsuario.setText("Usuario:");
+        jlUsuario.setText("Email:");
         jPanel1.add(jlUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 128, -1, -1));
 
-        jtfUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel1.add(jtfUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 156, 211, -1));
+        jtfEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 156, 211, -1));
 
         jlPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jlPassword.setText("Contraseña:");
@@ -86,15 +85,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
-        jbLogin.setText("Iniciar Sesión");
-        jbLogin.setToolTipText("Pulse este boton para ir iniciar sesión...");
-        jbLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbLoginActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, -1, -1));
-
         jlCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cerrar.png"))); // NOI18N
         jlCerrar.setToolTipText("Cerrar la aplicación...");
         jlCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,14 +94,14 @@ public class VentanaLogin extends javax.swing.JFrame {
         });
         jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 50, 40));
 
-        jbLogin1.setText("Iniciar Sesión");
-        jbLogin1.setToolTipText("Pulse este boton para ir iniciar sesión...");
-        jbLogin1.addActionListener(new java.awt.event.ActionListener() {
+        jbLogin.setText("Iniciar Sesión");
+        jbLogin.setToolTipText("Pulse este boton para ir iniciar sesión...");
+        jbLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbLogin1ActionPerformed(evt);
+                jbLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jbLogin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 243, -1, -1));
+        jPanel1.add(jbLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 120, -1));
 
         jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jlError.setForeground(new java.awt.Color(255, 0, 51));
@@ -133,40 +123,35 @@ public class VentanaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
-        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
-        this.setVisible(false);
-        vPrincipalProtectora.setVisible(true);
-    }//GEN-LAST:event_jbLoginActionPerformed
-
     private void jlCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlCerrarMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jlCerrarMouseClicked
 
-    private void jbLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogin1ActionPerformed
+    private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
-        String pass = String.valueOf(jpfPassword.getPassword());
-        if (!jtfUsuario.getText().trim().isEmpty() && !pass.isEmpty()) {
-            if (GestionarLogin.logueoAdmin(jtfUsuario.getText().trim(), pass) == true) {
+        if (!jtfEmail.getText().trim().isEmpty() && jpfPassword.getPassword().length != 0) {
+            String pass = GestionarLogin.getMD5(String.valueOf(jpfPassword.getPassword()));
+            String email = jtfEmail.getText().trim();
+            if (GestionarLogin.logueoAdmin(email, pass) == true) {
                 VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
                 this.setVisible(false);
                 vPrincipalAdmin.setVisible(true);
-            } else if (GestionarLogin.logueoProtectora(jtfUsuario.getText().trim(), pass) == true) {
+            } else if (GestionarLogin.logueoProtectora(email, pass) == true) {
                 VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
                 this.setVisible(false);
                 vPrincipalProtectora.setVisible(true);
             } else {
-                jlError.setText("¡Usuario y/o contraseña incorrectos!");
-                jtfUsuario.setBorder(new LineBorder(Color.red, 2));
-                jpfPassword.setBorder(new LineBorder(Color.red, 2));
+                jlError.setText("¡Email y/o contraseña incorrectos!");
+                jtfEmail.setBorder(new LineBorder(Color.red, 1));
+                jpfPassword.setBorder(new LineBorder(Color.red, 1));
             }
         } else {
             jlError.setText("¡Rellene todos los campos!");
-            jtfUsuario.setBorder(new LineBorder(Color.red, 2));
-            jpfPassword.setBorder(new LineBorder(Color.red, 2));
+            jtfEmail.setBorder(new LineBorder(Color.red, 1));
+            jpfPassword.setBorder(new LineBorder(Color.red, 1));
         }
-    }//GEN-LAST:event_jbLogin1ActionPerformed
+    }//GEN-LAST:event_jbLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,7 +192,6 @@ public class VentanaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbLogin;
-    private javax.swing.JButton jbLogin1;
     private javax.swing.JLabel jlCerrar;
     private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
@@ -215,6 +199,6 @@ public class VentanaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlUsuario;
     private javax.swing.JPasswordField jpfPassword;
-    private javax.swing.JTextField jtfUsuario;
+    private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package Vista.Protectora.Mascota;
 
 import Controlador.Constantes;
+import Controlador.Utilidades;
 import Modelo.Mascota;
 import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalProtectora;
@@ -61,7 +62,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         String values = "codIdentificador=" + mascota.getCodIdentificador() + "&nombre=" + mascota.getNombre() + "&especie=" + mascota.getEspecie() + "&raza=" + mascota.getRaza()
                 + "&fechaAcogida=" + mascota.getFechaAcogida() + "&foto=" + mascota.getFoto() + "&cifProtectora=" + mascota.getCifProtectora()
                 + "&descripcion=" + mascota.getDescripcion();
-        String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_INSERT_MASCOTA, values);
+        String resultado = Controlador.HttpRequest.GET_REQUEST(Constantes.URL_INSERT_MASCOTA, values);
         System.out.println(resultado);
         if (resultado.equals("false")) {
             return false;
@@ -247,28 +248,8 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 
     private void jbRegisrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegisrarActionPerformed
         // TODO add your handling code here:
-        byte[] foto = null;
-        try {
-            FileInputStream fis = new FileInputStream(archivo);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, readNum);
-            }
-            foto = bos.toByteArray();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        Mascota mascota = new Mascota();
-        mascota.setCodIdentificador("1");
-        mascota.setNombre("a");
-        mascota.setEspecie("a");
-        mascota.setRaza("a");
-        mascota.setFechaAcogida("a");
-//        mascota.setFoto();
-        mascota.setCodIdentificador("1");
-        insertarMascota(mascota);
-
+        System.out.println(archivo.getName());
+        Utilidades.subirFTP(archivo.getName(), archivo.getParent());
     }//GEN-LAST:event_jbRegisrarActionPerformed
 
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
@@ -279,19 +260,16 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser jfcFoto = new JFileChooser();
         jfcFoto.setDialogTitle("Seleccionar Foto");
-        String directoryName = System.getProperty("user.dir");
-        System.out.println(directoryName);
-        jfcFoto.setCurrentDirectory(new File("C:\\Users\\" + directoryName + "\\Pictures")); //Seleccionar ruta por defecto cuando se abre el fileChooser
+        String directoryName = System.getProperty("user.home");
+        jfcFoto.setCurrentDirectory(new File(directoryName + "\\Pictures")); //Seleccionar ruta por defecto cuando se abre el fileChooser
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Ficheros de imagen", "jpeg", "jpg", "png");
         jfcFoto.setFileFilter(filter);
         int ventanaFoto = jfcFoto.showOpenDialog(this);
         if (ventanaFoto == JFileChooser.APPROVE_OPTION) {
             archivo = jfcFoto.getSelectedFile();
-//            JOptionPane.showMessageDialog(this, "El archivo seleccionado: " + archivo.getName());
-//            jLabel8.setText(String.valueOf(archivo));
             Image foto = getToolkit().getImage(String.valueOf(archivo));
             foto = foto.getScaledInstance(70, 70, Image.SCALE_DEFAULT);
-            jLabel8.setIcon(new ImageIcon(foto));   
+            jLabel8.setIcon(new ImageIcon(foto));
         }
     }//GEN-LAST:event_jbSeleccionarFotoActionPerformed
 

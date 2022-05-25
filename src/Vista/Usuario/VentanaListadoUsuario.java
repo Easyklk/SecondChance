@@ -74,7 +74,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
         jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jltitulo2.setText("Listado de Usuarios");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -110,14 +110,14 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Email", "Voluntario", "Administrador"
+                "Email", "Voluntario", "Protectora", "Administrador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -130,7 +130,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtUsuarios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, -1, 220));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, 220));
         jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 140, 30));
 
         jLabel1.setText("Email:");
@@ -230,7 +230,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     private void rellenarTabla() {
         ArrayList<Usuario> alUsuarios = GestionarUsuario.listarUsuarios();
         modelo = (DefaultTableModel) jtUsuarios.getModel();
-        Object[] ob = new Object[3];
+        Object[] ob = new Object[4];
         for (int i = 0; i < alUsuarios.size(); i++) {
             ob[0] = alUsuarios.get(i).getEmail();
             if (alUsuarios.get(i).getVoluntario() == 0) {
@@ -238,10 +238,15 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
             } else {
                 ob[1] = "Sí";
             }
-            if (alUsuarios.get(i).getAdministrador() == 0) {
+            if (alUsuarios.get(i).getProtectora() == 0) {
                 ob[2] = "No";
             } else {
                 ob[2] = "Sí";
+            }
+            if (alUsuarios.get(i).getAdministrador() == 0) {
+                ob[3] = "No";
+            } else {
+                ob[3] = "Sí";
             }
             modelo.addRow(ob);
         }

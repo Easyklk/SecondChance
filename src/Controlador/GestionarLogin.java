@@ -36,9 +36,8 @@ public class GestionarLogin {
     }
 
     public static boolean logueoAdmin(String email, String password) {
-        String values = "email=" + email + "&password=" + getMD5(password);
-        String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_ADMIN, values);
-//        System.out.println(resultado);
+        String values = "email=" + email + "&password=" + password;
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_ADMIN, values);
         if (resultado.equals("false")) {
             return false;
         }
@@ -53,9 +52,8 @@ public class GestionarLogin {
     }
 
     public static boolean logueoProtectora(String email, String password) {
-        String values = "email=" + email + "&password=" + getMD5(password);
-        String resultado = Utilidades.HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_PROTECTORA, values);
-        System.out.println(resultado);
+        String values = "email=" + email + "&password=" + password;
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_PROTECTORA, values);
         if (resultado.equals("false")) {
             return false;
         }

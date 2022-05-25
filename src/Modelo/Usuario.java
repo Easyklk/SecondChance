@@ -13,19 +13,22 @@ public class Usuario {
     private String email;
     private String password;
     private int voluntario;
+    private int protectora;
     private int administrador;
 
     public Usuario() {
         this.email = "";
         this.password = "";
         this.voluntario = 0;
+        this.protectora = 0;
         this.administrador = 0;
     }
 
-    public Usuario(String email, String password, int voluntario, int administrador) {
+    public Usuario(String email, String password, int voluntario, int protectora, int administrador) {
         this.email = email;
         this.password = password;
         this.voluntario = voluntario;
+        this.protectora = protectora;
         this.administrador = administrador;
     }
 
@@ -53,6 +56,14 @@ public class Usuario {
         this.voluntario = voluntario;
     }
 
+    public int getProtectora() {
+        return protectora;
+    }
+
+    public void setProtectora(int protectora) {
+        this.protectora = protectora;
+    }
+
     public int getAdministrador() {
         return administrador;
     }
@@ -63,7 +74,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "EMAIL:" + email + ", VOLUNTARIO:" + voluntario + ", ADMINISTRADOR:" + administrador;
+        return "email: " + email + ", Voluntario: " + voluntario + ", Protectoria: " + protectora + ", Administrador: " + administrador + '}';
     }
 
 }

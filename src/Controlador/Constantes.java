@@ -12,6 +12,7 @@ public interface Constantes {
 
     public static final String UNO = "administrador";
     public static final String DOS = "protectora";
+    public static final String SERVER = "C:/xampp/htdocs/SecondChance/";
     public static final String SERVERCONSULTA = "http://localhost/SecondChance/ScriptsConsultas/";
     public static final String SERVERMASCOTA = "http://localhost/SecondChance/ScriptsMascotas/";
     public static final String SERVERPROTECTORA = "http://localhost/SecondChance/ScriptsProtectoras/";
@@ -46,7 +47,7 @@ public interface Constantes {
 
     public static final String URL_LISTADOS_MASCOTA_ID = SERVERMASCOTA + "consultaMascotaID.php";
     public static final String URL_LISTADOS_USUARIO_EMAIL = SERVERUSUARIO + "consultaUsuarioEmail.php";
-    public static final String URL_LISTADOS_PROTECTORA_CIF = SERVERUSUARIO + "consultaProtectoraCif.php";
+    public static final String URL_LISTADOS_PROTECTORA_CIF = SERVERPROTECTORA + "consultaProtectoraCif.php";
 
     public static final String CR_OK = "CR_OK";
     public static final String CR_ERROR = "CR_ERROR";
