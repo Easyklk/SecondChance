@@ -247,18 +247,17 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
     }
 
     private void buscarProtectora() {
-        ArrayList<Protectora> alProtectoras = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        Protectora protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
         modelo = (DefaultTableModel) jtProtectoras.getModel();
         Object[] ob = new Object[6];
-        for (int i = 0; i < alProtectoras.size(); i++) {
-            ob[0] = alProtectoras.get(i).getCif();
-            ob[1] = alProtectoras.get(i).getNombreProtectora();
-            ob[2] = alProtectoras.get(i).getRazonSocial();
-            ob[3] = alProtectoras.get(i).getEmail();
-            ob[4] = alProtectoras.get(i).getTelefono();
-            ob[5] = alProtectoras.get(i).getUbicacion();
-            modelo.addRow(ob);
-        }
+        ob[0] = protectora.getCif();
+        ob[1] = protectora.getNombreProtectora();
+        ob[2] = protectora.getRazonSocial();
+        ob[3] = protectora.getEmail();
+        ob[4] = protectora.getTelefono();
+        ob[5] = protectora.getUbicacion();
+        modelo.addRow(ob);
+
         jtProtectoras.setModel(modelo);
     }
 }

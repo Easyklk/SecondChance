@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
  * @author Easyklk
  */
 public class GestionarProtectora {
-    
+
     public static Protectora obtenerProtectora(String cif) {
         String values = "cif=" + cif;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_CIF, values);
@@ -33,7 +33,7 @@ public class GestionarProtectora {
         ArrayList<Protectora> alProtectoras = gson.fromJson(resultado, listType);
         return alProtectoras.get(0);
     }
-    
+
     public static ArrayList<Protectora> listarProtectora() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_PROTECTORAS);
         System.out.println(resultado.toString());
@@ -48,7 +48,7 @@ public class GestionarProtectora {
         ArrayList<Protectora> alProtectoras = gson.fromJson(resultado, listType);
         return alProtectoras;
     }
-    
+
     public static String insertarProtectora(Protectora protectora) {
         String values = "cif=" + protectora.getCif() + "&nombre_protectora=" + protectora.getNombreProtectora() + "&razon_social=" + protectora.getRazonSocial()
                 + "&email=" + protectora.getEmail() + "&telefono=" + protectora.getTelefono() + "&ubicacion=" + protectora.getUbicacion();
@@ -56,5 +56,11 @@ public class GestionarProtectora {
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_INSERT_PROTECTORA, values);
         return resultado;
     }
-    
+
+    public static String eliminarPortectora(Protectora protectora) {
+        String values = "cif=" + protectora.getCif();
+        String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_PROTECTORA, values);
+        return resultado;
+    }
+
 }

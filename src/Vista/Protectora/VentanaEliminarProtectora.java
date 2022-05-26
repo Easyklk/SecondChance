@@ -6,11 +6,12 @@ package Vista.Protectora;
 
 import Controlador.Constantes;
 import Controlador.GestionarProtectora;
+import Controlador.GestionarUsuario;
 import Modelo.Protectora;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
 import java.awt.Image;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -99,6 +100,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
 
         jtaListado.setColumns(20);
         jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtaListado.setLineWrap(true);
         jtaListado.setRows(5);
         jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 80));
@@ -133,7 +135,11 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         // TODO add your handling code here:
 //        protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText().trim());
         Protectora protectoraEliminar = GestionarProtectora.obtenerProtectora(jtfCif.getText());
-        
+        Usuario usuario = GestionarUsuario.obtenerUsuario(protectoraEliminar.getEmail());
+        String usuarioborrado = GestionarUsuario.eliminarUsuario(usuario);
+        String protectoraEliminada = GestionarProtectora.eliminarPortectora(protectoraEliminar);
+        System.out.println("USUARIO: " + usuarioborrado);
+        System.out.println("PROTECTORA: " + protectoraEliminada);
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jtfCifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCifActionPerformed
@@ -213,8 +219,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     // End of variables declaration//GEN-END:variables
 
     private void buscarProtectora() {
-//        ArrayList<Protectora> alProtectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
-//        Protectora protectoraEliminar = alProtectora.get(0);
-//        jtaListado.setText(alProtectora.get(0).toString());
+        Protectora protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        jtaListado.setText(protectora.toString());
     }
 }

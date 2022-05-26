@@ -219,9 +219,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void buscarUsario() {
-        ArrayList<Usuario> alUsuarios = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
-        Usuario usuarioEliminar = alUsuarios.get(0);
-
-        jtaListado.setText(alUsuarios.get(0).toString());
+        Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+        jtaListado.setText(usuario.toString());
     }
 }

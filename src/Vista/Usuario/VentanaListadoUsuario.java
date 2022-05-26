@@ -77,7 +77,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
-        jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
 
         jlTitulo.setFont(new java.awt.Font("Segoe Print", 0, 52)); // NOI18N
         jlTitulo.setText("Second Chance");
@@ -130,7 +130,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtUsuarios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, -1, 220));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, 220));
         jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 140, 30));
 
         jLabel1.setText("Email:");
@@ -261,23 +261,26 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     }
 
     private void buscarUsario() {
-        ArrayList<Usuario> alUsuarios = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+        Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
         modelo = (DefaultTableModel) jtUsuarios.getModel();
-        Object[] ob = new Object[3];
-        for (int i = 0; i < alUsuarios.size(); i++) {
-            ob[0] = alUsuarios.get(i).getEmail();
-            if (alUsuarios.get(i).getVoluntario() == 0) {
-                ob[1] = "No";
-            } else {
-                ob[1] = "Sí";
-            }
-            if (alUsuarios.get(i).getAdministrador() == 0) {
-                ob[2] = "No";
-            } else {
-                ob[2] = "Sí";
-            }
-            modelo.addRow(ob);
+        Object[] ob = new Object[4];
+        ob[0] = usuario.getEmail();
+        if (usuario.getVoluntario() == 0) {
+            ob[1] = "No";
+        } else {
+            ob[1] = "Sí";
         }
+        if (usuario.getProtectora() == 0) {
+            ob[2] = "No";
+        } else {
+            ob[2] = "Sí";
+        }
+        if (usuario.getAdministrador() == 0) {
+            ob[3] = "No";
+        } else {
+            ob[3] = "Sí";
+        }
+        modelo.addRow(ob);
         jtUsuarios.setModel(modelo);
     }
 }

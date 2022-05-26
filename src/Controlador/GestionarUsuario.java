@@ -40,7 +40,7 @@ public class GestionarUsuario {
         return listaAdministrador;
     }
 
-    public static ArrayList obtenerUsuario(String email) {
+    public static Usuario obtenerUsuario(String email) {
         String values = "email=" + email;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_USUARIO_EMAIL, values);
         System.out.println(resultado);
@@ -54,7 +54,7 @@ public class GestionarUsuario {
         java.lang.reflect.Type listType = listToken.getType();
         ArrayList<Usuario> listaUsuario = gson.fromJson(resultado, listType);
 
-        return listaUsuario;
+        return listaUsuario.get(0);
     }
 
     public static String insertarUsuario(Usuario usuario) {
@@ -65,4 +65,9 @@ public class GestionarUsuario {
         return resultado;
     }
 
+    public static String eliminarUsuario(Usuario usuario) {
+        String values = "email=" + usuario.getEmail();
+        String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_USUARIO, values);
+        return resultado;
+    }
 }

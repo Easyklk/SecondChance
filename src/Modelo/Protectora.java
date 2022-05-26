@@ -85,6 +85,6 @@ public class Protectora {
 
     @Override
     public String toString() {
-        return "Protectora{" + "CIF:" + cif + ", Nombre:" + nombre_protectora + ", Razon Social:" + razon_social + ", email:" + email + ", Telefono:" + telefono + ", Ubicacion:" + ubicacion + '}';
+        return "CIF:" + cif + ", Nombre:" + nombre_protectora + ", Razon Social:" + razon_social + ", email:" + email + ", Telefono:" + telefono + ", Ubicacion:" + ubicacion;
     }
 }
