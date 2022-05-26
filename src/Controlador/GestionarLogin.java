@@ -19,25 +19,12 @@ import java.util.List;
  */
 public class GestionarLogin {
 
-    public static String getMD5(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.getBytes());
-            BigInteger number = new BigInteger(1, messageDigest);
-            String hashtext = number.toString(16);
-
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
 
     public static boolean logueoAdmin(String email, String password) {
         String values = "email=" + email + "&password=" + password;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_ADMIN, values);
+        System.out.println(resultado);
         if (resultado.equals("false")) {
             return false;
         }
@@ -47,7 +34,6 @@ public class GestionarLogin {
         };
         java.lang.reflect.Type listType = listToken.getType();
         ArrayList<Usuario> arUsuarios = gson.fromJson(resultado, listType);
-
         return arUsuarios.size() > 0;
     }
 

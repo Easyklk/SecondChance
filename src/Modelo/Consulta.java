@@ -10,49 +10,49 @@ package Modelo;
  */
 public class Consulta {
 
-    private  int codConsulta;
-    private String codMascota;
-    private String dniVoluntario;
+    private int cod_consulta;
+    private String cod_mascota;
+    private String dni_voluntario;
     private String horario;
     private String informacion;
 
     public Consulta() {
-        this.codMascota = "";
-        this.dniVoluntario = "";
+        this.cod_mascota = "";
+        this.dni_voluntario = "";
         this.horario = "";
         this.informacion = "";
     }
 
     public Consulta(String codMascota, String dniVoluntario, String horario, String informacion) {
-        this.codConsulta = codConsulta;
-        this.codMascota = codMascota;
-        this.dniVoluntario = dniVoluntario;
+        this.cod_consulta = cod_consulta;
+        this.cod_mascota = codMascota;
+        this.dni_voluntario = dniVoluntario;
         this.horario = horario;
         this.informacion = informacion;
     }
 
     public int getCodConsulta() {
-        return codConsulta;
+        return cod_consulta;
     }
 
     public void setCodConsulta(int codConsulta) {
-        this.codConsulta = codConsulta;
+        this.cod_consulta = codConsulta;
     }
 
     public String getCodMascota() {
-        return codMascota;
+        return cod_mascota;
     }
 
     public void setCodMascota(String codMascota) {
-        this.codMascota = codMascota;
+        this.cod_mascota = codMascota;
     }
 
     public String getDniVoluntario() {
-        return dniVoluntario;
+        return dni_voluntario;
     }
 
     public void setDniVoluntario(String dniVoluntario) {
-        this.dniVoluntario = dniVoluntario;
+        this.dni_voluntario = dniVoluntario;
     }
 
     public String getHorario() {
@@ -73,7 +73,7 @@ public class Consulta {
 
     @Override
     public String toString() {
-        return "Consulta{" + "Codigo Consulta:" + codConsulta + ", Codigo Mascota:" + codMascota + ", DNI Voluntario:" + dniVoluntario + ", Horario:" + horario + ", Informacion:" + informacion + '}';
+        return "Consulta{" + "Codigo Consulta:" + cod_consulta + ", Codigo Mascota:" + cod_mascota + ", DNI Voluntario:" + dni_voluntario + ", Horario:" + horario + ", Informacion:" + informacion + '}';
     }
 
 }

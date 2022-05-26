@@ -26,19 +26,16 @@ public interface Constantes {
     public static final String URL_INSERT_MASCOTA = SERVERMASCOTA + "insertarMascota.php";
     public static final String URL_INSERT_PROTECTORA = SERVERPROTECTORA + "insertarProtectora.php";
     public static final String URL_INSERT_USUARIO = SERVERUSUARIO + "insertarUsuario.php";
-    public static final String URL_INSERT_VOLUNTARIO = SERVERVOLUNTARIO + "insertarVoluntario.php";
 
     public static final String URL_DELETE_CONSULTA = SERVERCONSULTA + "borrarConsulta.php";
     public static final String URL_DELETE_MASCOTA = SERVERMASCOTA + "borrarMascota.php";
     public static final String URL_DELETE_PROTECTORA = SERVERPROTECTORA + "borrarProtectora.php";
     public static final String URL_DELETE_USUARIO = SERVERUSUARIO + "borrarUsuario.php";
-    public static final String URL_DELETE_VOLUNTARIO = SERVERVOLUNTARIO + "borrarVoluntario.php";
 
     public static final String URL_UPDATE_CONSULTA = SERVERCONSULTA + "modificarConsulta.php";
     public static final String URL_UPDATE_MASCOTA = SERVERMASCOTA + "modificarMascota.php";
     public static final String URL_UPDATE_PROTECTORA = SERVERPROTECTORA + "modificarProtectora.php";
     public static final String URL_UPDATE_USUARIO = SERVERUSUARIO + "modificarUsuario.php";
-    public static final String URL_UPDATE_VOLUNTARIO = SERVERVOLUNTARIO + "modificarVoluntario.php";
 
     public static final String URL_LISTADOS_CONSULTAS = SERVERCONSULTA + "listarConsultas.php";
     public static final String URL_LISTADOS_PROTECTORAS = SERVERPROTECTORA + "listarProtectora.php";

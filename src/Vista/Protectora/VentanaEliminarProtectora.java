@@ -6,9 +6,7 @@ package Vista.Protectora;
 
 import Controlador.Constantes;
 import Controlador.GestionarProtectora;
-import Controlador.GestionarUsuario;
 import Modelo.Protectora;
-import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
 import java.awt.Image;
@@ -22,6 +20,8 @@ import javax.swing.border.LineBorder;
  * @author UsuarioPracticas
  */
 public class VentanaEliminarProtectora extends javax.swing.JFrame implements Constantes {
+
+    private Protectora protectora;
 
     /**
      * Creates new form VentanaRegistro
@@ -78,6 +78,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setToolTipText("Pulse este boton para eliminar la protectora...");
+        jbEliminar.setEnabled(false);
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarActionPerformed(evt);
@@ -130,6 +131,9 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
+//        protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText().trim());
+        Protectora protectoraEliminar = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jtfCifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCifActionPerformed
@@ -142,8 +146,9 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
             jtaListado.setText("");
             buscarProtectora();
+            jbEliminar.setEnabled(true);
         } else {
-            jtfCif.setBorder(new LineBorder(Color.red, 2));
+            jtfCif.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -208,8 +213,8 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     // End of variables declaration//GEN-END:variables
 
     private void buscarProtectora() {
-        ArrayList<Protectora> alProtectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
-        Protectora protectoraEliminar = alProtectora.get(0);
-        jtaListado.setText(alProtectora.get(0).toString());
+//        ArrayList<Protectora> alProtectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+//        Protectora protectoraEliminar = alProtectora.get(0);
+//        jtaListado.setText(alProtectora.get(0).toString());
     }
 }

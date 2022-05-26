@@ -6,6 +6,7 @@ package Vista.Principal;
 
 import Controlador.Constantes;
 import Controlador.GestionarLogin;
+import Controlador.Utilidades;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -131,7 +132,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
         if (!jtfEmail.getText().trim().isEmpty() && jpfPassword.getPassword().length != 0) {
-            String pass = GestionarLogin.getMD5(String.valueOf(jpfPassword.getPassword()));
+            String pass = Utilidades.getMD5(String.valueOf(jpfPassword.getPassword()));
             String email = jtfEmail.getText().trim();
             if (GestionarLogin.logueoAdmin(email, pass) == true) {
                 VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();

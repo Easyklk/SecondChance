@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Protectora;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -54,6 +55,14 @@ public class GestionarUsuario {
         ArrayList<Usuario> listaUsuario = gson.fromJson(resultado, listType);
 
         return listaUsuario;
+    }
+
+    public static String insertarUsuario(Usuario usuario) {
+        String values = "email=" + usuario.getEmail() + "&password=" + usuario.getPassword() + "&voluntario=" + usuario.getVoluntario()
+                + "&protectora=" + usuario.getProtectora() + "&administrador=" + usuario.getAdministrador();
+        System.out.println(values);
+        String resultado = HttpRequest.POST_REQUEST(Constantes.URL_INSERT_USUARIO, values);
+        return resultado;
     }
 
 }
