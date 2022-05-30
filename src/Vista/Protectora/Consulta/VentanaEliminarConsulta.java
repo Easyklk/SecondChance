@@ -4,7 +4,8 @@
  */
 package Vista.Protectora.Consulta;
 
-import Vista.Protectora.Mascota.*;
+import Controlador.GestionarConsulta;
+import Modelo.Consulta;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -130,6 +131,8 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
+        Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodigo.getText().trim());
+        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed

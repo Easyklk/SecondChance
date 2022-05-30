@@ -42,6 +42,7 @@ public interface Constantes {
     public static final String URL_LISTADOS_MASCOTA = SERVERMASCOTA + "listarMascota.php";
     public static final String URL_LISTADOS_USUARIO = SERVERUSUARIO + "listarUsuario.php";
 
+    public static final String URL_LISTADOS_CONSULTA_COD = SERVERCONSULTA + "consultaConsultaCod.php";
     public static final String URL_LISTADOS_MASCOTA_ID = SERVERMASCOTA + "consultaMascotaID.php";
     public static final String URL_LISTADOS_USUARIO_EMAIL = SERVERUSUARIO + "consultaUsuarioEmail.php";
     public static final String URL_LISTADOS_PROTECTORA_CIF = SERVERPROTECTORA + "consultaProtectoraCif.php";

@@ -24,7 +24,6 @@ public class Consulta {
     }
 
     public Consulta(String codMascota, String dniVoluntario, String horario, String informacion) {
-        this.cod_consulta = cod_consulta;
         this.cod_mascota = codMascota;
         this.dni_voluntario = dniVoluntario;
         this.horario = horario;

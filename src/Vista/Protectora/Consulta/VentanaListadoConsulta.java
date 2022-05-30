@@ -39,8 +39,12 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jbVolver1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jtfCif = new javax.swing.JTextField();
+        jbBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Consultas");
@@ -69,12 +73,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
-
-        jtaListado.setColumns(20);
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 360, 250));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
 
         jbVolver1.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -86,6 +85,34 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
+
+        jLabel1.setText("Codigo Consulta:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
+        jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 140, 30));
+
+        jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, -1, 30));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, 250));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -101,6 +128,16 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolver1ActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+//        if (!jtfCif.getText().isEmpty()) {
+//            vaciarTabla();
+//            buscarProtectora();
+//        } else {
+//            jtfCif.setBorder(new LineBorder(Color.red, 2));
+//        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,12 +176,16 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver1;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JTextField jtfCif;
     // End of variables declaration//GEN-END:variables
 }
