@@ -4,14 +4,21 @@
  */
 package Controlador;
 
+import Modelo.Consulta;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,6 +56,46 @@ public final class HttpRequest {
         } catch (IOException e) {
             return e.toString();
         }
+    }
+
+    public static void POST_REQUEST_IMAGE(String url, String ruta, File file) {
+        try {
+            StringBuilder result = new StringBuilder();
+            URL url2 = new URL(url);
+            URLConnection conn = url2.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            OutputStream os = conn.getOutputStream();
+            Thread.sleep(1000);
+            BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
+            long totalByte = fis.available();
+            long byteTrasferred = 0;
+            for (int i = 0; i < totalByte; i++) {
+                os.write(fis.read());
+                byteTrasferred = i + 1;
+            }
+            os.close();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String s = null;
+            while ((s = in.readLine()) != null) {
+                System.out.println(s);
+            }
+            in.close();
+            fis.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    public static void insertarImage(String nombreImage, File file) {
+        String values = "filename=" + nombreImage;
+//        System.out.println(values);
+        HttpRequest.POST_REQUEST_IMAGE(Constantes.URL_INSERT_MASCOTA_IMAGE, nombreImage, file);
     }
 
     /**
@@ -104,4 +151,5 @@ public final class HttpRequest {
             return e.toString();
         }
     }
+
 }

@@ -5,6 +5,7 @@
 package Vista.Protectora.Mascota;
 
 import Controlador.Constantes;
+import Controlador.HttpRequest;
 import Controlador.Utilidades;
 import Modelo.Mascota;
 import Vista.Principal.VentanaPrincipalProtectora;
@@ -240,8 +241,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 
     private void jbRegisrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegisrarActionPerformed
         // TODO add your handling code here:
-        System.out.println(archivo.getName());
-        Utilidades.subirFTP(archivo.getName(), archivo.getParent());
+
     }//GEN-LAST:event_jbRegisrarActionPerformed
 
     private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
@@ -262,6 +262,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
             Image foto = getToolkit().getImage(String.valueOf(archivo));
             foto = foto.getScaledInstance(70, 70, Image.SCALE_DEFAULT);
             jLabel8.setIcon(new ImageIcon(foto));
+            HttpRequest.insertarImage(archivo.getPath(), archivo);
         }
     }//GEN-LAST:event_jbSeleccionarFotoActionPerformed
 

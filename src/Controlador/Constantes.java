@@ -24,6 +24,7 @@ public interface Constantes {
 
     public static final String URL_INSERT_CONSULTA = SERVERCONSULTA + "insertarConsulta.php";
     public static final String URL_INSERT_MASCOTA = SERVERMASCOTA + "insertarMascota.php";
+    public static final String URL_INSERT_MASCOTA_IMAGE = SERVERMASCOTA + "insertarImage.php";
     public static final String URL_INSERT_PROTECTORA = SERVERPROTECTORA + "insertarProtectora.php";
     public static final String URL_INSERT_USUARIO = SERVERUSUARIO + "insertarUsuario.php";
 
