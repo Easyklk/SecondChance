@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  * @author UsuarioPracticas
  */
 public class VentanaEditarProtectora extends javax.swing.JFrame {
-
+    
     private static Protectora protectora;
 
     /**
@@ -23,6 +23,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     public VentanaEditarProtectora(Protectora protectora) {
         this.protectora = protectora;
         initComponents();
+        jtfCif.setText(protectora.getCif());
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -41,7 +42,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jltitulo5 = new javax.swing.JLabel();
         jlLogo3 = new javax.swing.JLabel();
         jlTitulo3 = new javax.swing.JLabel();
-        jtfCif3 = new javax.swing.JTextField();
+        jtfCif = new javax.swing.JTextField();
         jtfNombre = new javax.swing.JTextField();
         jtfRazonSocial = new javax.swing.JTextField();
         jtfTlfn = new javax.swing.JTextField();
@@ -78,13 +79,8 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jlTitulo3.setText("Second Chance");
         jPanel4.add(jlTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
-        jtfCif3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCif3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCif3ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jtfCif3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
+        jtfCif.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel4.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
 
         jtfNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPanel4.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
@@ -171,10 +167,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfCif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCif3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCif3ActionPerformed
-
     private void jtfTlfnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTlfnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfTlfnActionPerformed
@@ -250,7 +242,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     private javax.swing.JLabel jltitulo5;
     private javax.swing.JLabel jltitulo6;
     private javax.swing.JPasswordField jpfPass;
-    private javax.swing.JTextField jtfCif3;
+    private javax.swing.JTextField jtfCif;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfRazonSocial;
     private javax.swing.JTextField jtfTlfn;

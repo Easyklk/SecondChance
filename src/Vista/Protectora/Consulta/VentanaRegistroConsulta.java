@@ -4,6 +4,7 @@
  */
 package Vista.Protectora.Consulta;
 
+import Controlador.GestionarConsulta;
 import Modelo.Consulta;
 import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
@@ -199,7 +200,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jtaInformacion.setColumns(20);
         jtaInformacion.setLineWrap(true);
         jtaInformacion.setRows(5);
-        jtaInformacion.setText("(300 Char Max.)");
         jtaInformacion.setToolTipText("");
         jtaInformacion.setBorder(null);
         jtaInformacion.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -253,8 +253,8 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         } else {
             String horario = jftfFecha.getText().trim() + " " + jcbHora.getSelectedIndex() + ":" + jcbMinutos.getSelectedItem();
             consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
-//            System.out.println(GestionarConsulta.insertarConsulta(consulta));
-            System.out.println(consulta.toString());
+            System.out.println(GestionarConsulta.insertarConsulta(consulta));
+//            System.out.println(consulta.toString());
         }
     }//GEN-LAST:event_jbRegisrarActionPerformed
 
@@ -293,7 +293,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     private void jtaInformacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaInformacionKeyReleased
         // TODO add your handling code here:
         for (int i = 0; i < jtaInformacion.getText().length(); i++) {
-            if (jtaInformacion.getText().isBlank() || jtaInformacion.getText().isEmpty()) {
+            if (jtaInformacion.getText().isEmpty()) {
                 jlNumChar.setText("0" + "/300");
 
             } else {

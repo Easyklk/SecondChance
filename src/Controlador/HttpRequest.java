@@ -100,12 +100,6 @@ public final class HttpRequest {
         return extension;
     }
 
-    public static void insertarImage(File file, String nombreMascota, String codMascota) {
-//        String values = "filename=" + filename;
-//        System.out.println(values);
-        HttpRequest.POST_REQUEST_IMAGE(Constantes.URL_INSERT_MASCOTA_IMAGE, file, nombreMascota, codMascota);
-    }
-
     /**
      * Solicitar la ejecucion de consultas select
      *
@@ -158,6 +152,10 @@ public final class HttpRequest {
         } catch (IOException e) {
             return e.toString();
         }
+    }
+
+    public static void insertarImage(File file, String nombreMascota, String codMascota) {
+        HttpRequest.POST_REQUEST_IMAGE(Constantes.URL_INSERT_MASCOTA_IMAGE, file, nombreMascota, codMascota);
     }
 
 }

@@ -50,9 +50,7 @@ public class GestionarMascota {
     }
 
     public static String modificarMascota(Mascota mascota) {
-        String values = "codIdentificador=" + mascota.getCodIdentificador() + "&nombre=" + mascota.getNombre() + "&especie=" + mascota.getEspecie() + "&raza=" + mascota.getRaza()
-                + "&fechaAcogida=" + mascota.getFechaAcogida() + "&foto=" + mascota.getFoto() + "&cifProtectora=" + mascota.getCifProtectora()
-                + "&descripcion=" + mascota.getDescripcion();
+        String values = "codIdentificador=" + mascota.getCodIdentificador() + "&foto=" + mascota.getFoto() + "&descripcion=" + mascota.getDescripcion();
         String resultado = Controlador.HttpRequest.POST_REQUEST(Constantes.URL_UPDATE_MASCOTA, values);
         return resultado.toString();
     }

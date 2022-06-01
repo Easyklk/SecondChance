@@ -207,8 +207,8 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
                 || jtfEmail.getText().isEmpty() || jpfPassword.getPassword().length == 0 || jtfTlfn.getText().isEmpty() || jtfUbicacion.getText().isEmpty()) {
             errorCamposVacios();
             jbRegistrar.setBorder(new LineBorder(Color.RED, 1));
-        jbRegistrar.setSize(jbRegistrar.getWidth(), jbRegistrar.getHeight());
-        } 
+            jbRegistrar.setSize(jbRegistrar.getWidth(), jbRegistrar.getHeight());
+        }
 //else {
 //            String pass = Utilidades.getMD5(String.valueOf(jpfPassword.getPassword()));
 //            usuario = new Usuario(jtfEmail.getText().trim(), pass, 0, 1, 0);
@@ -218,7 +218,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
 //            GestionarProtectora.insertarProtectora(protectora);
 //            vaciarCampos();
 //        }
-        
+
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
     private void vaciarCampos() {

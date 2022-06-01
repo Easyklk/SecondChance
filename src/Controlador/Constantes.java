@@ -51,6 +51,8 @@ public interface Constantes {
     public static final String URL_LISTADOS_PROTECTORA_CIF = SERVERPROTECTORA + "consultaProtectoraCif.php";
     public static final String URL_LISTADOS_PROTECTORA_EMAIL = SERVERPROTECTORA + "consultaProtectoraEmail.php";
 
-    public static final String CR_OK = "CR_OK";
+    public static final String CR_OK_INSERT = "OK_INSERT";
+    public static final String CR_OK_DELETE = "OK_DELETE";
+
     public static final String CR_ERROR = "CR_ERROR";
 }

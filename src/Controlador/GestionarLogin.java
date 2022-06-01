@@ -18,15 +18,11 @@ import java.util.List;
  * @author UsuarioPracticas
  */
 public class GestionarLogin {
-    
+
     public static boolean logueoAdmin(String email, String password) {
         String values = "email=" + email + "&password=" + password;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_ADMIN, values);
-        System.out.println(resultado);
-        if (resultado.equals("false")) {
-            return false;
-        }
-        
+
         Gson gson = new Gson();
         TypeToken<List<Usuario>> listToken = new TypeToken<List<Usuario>>() {
         };
@@ -34,14 +30,11 @@ public class GestionarLogin {
         ArrayList<Usuario> arUsuarios = gson.fromJson(resultado, listType);
         return arUsuarios.size() > 0;
     }
-    
+
     public static boolean logueoProtectora(String email, String password) {
         String values = "email=" + email + "&password=" + password;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_PROTECTORA, values);
-        if (resultado.equals("false")) {
-            return false;
-        }
-        
+
         Gson gson = new Gson();
         TypeToken<List<Usuario>> listToken = new TypeToken<List<Usuario>>() {
         };
@@ -49,5 +42,5 @@ public class GestionarLogin {
         ArrayList<Usuario> alUsuario = gson.fromJson(resultado, listType);
         return alUsuario.size() > 0;
     }
-    
+
 }
