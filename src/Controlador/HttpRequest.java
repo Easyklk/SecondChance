@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-import Modelo.Consulta;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,44 +57,53 @@ public final class HttpRequest {
         }
     }
 
-    public static void POST_REQUEST_IMAGE(String url, String ruta, File file) {
+    public static void POST_REQUEST_IMAGE(String url, File file, String nombreMascota, String codMascota) {
+        String extension = obtenerExtension(file);
         try {
-            StringBuilder result = new StringBuilder();
-            URL url2 = new URL(url);
+            URL url2 = new URL(url + "?filename=" + nombreMascota + "_" + codMascota + "." + extension);
+            System.out.println(url2);
             URLConnection conn = url2.openConnection();
             conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             OutputStream os = conn.getOutputStream();
-            Thread.sleep(1000);
             BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
             long totalByte = fis.available();
             long byteTrasferred = 0;
-            for (int i = 0; i < totalByte; i++) {
+            for (int j = 0; j < totalByte; j++) {
                 os.write(fis.read());
-                byteTrasferred = i + 1;
+                byteTrasferred = j + 1;
             }
+
             os.close();
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            conn.getInputStream()));
+
             String s = null;
             while ((s = in.readLine()) != null) {
                 System.out.println(s);
             }
             in.close();
             fis.close();
-
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
-
         }
-
     }
 
-    public static void insertarImage(String nombreImage, File file) {
-        String values = "filename=" + nombreImage;
+    private static String obtenerExtension(File file) {
+        String extension = "";
+        int i = file.getName().lastIndexOf('.');
+        if (i > 0) {
+            extension = file.getName().substring(i + 1);
+        }
+        return extension;
+    }
+
+    public static void insertarImage(File file, String nombreMascota, String codMascota) {
+//        String values = "filename=" + filename;
 //        System.out.println(values);
-        HttpRequest.POST_REQUEST_IMAGE(Constantes.URL_INSERT_MASCOTA_IMAGE, nombreImage, file);
+        HttpRequest.POST_REQUEST_IMAGE(Constantes.URL_INSERT_MASCOTA_IMAGE, file, nombreMascota, codMascota);
     }
 
     /**

@@ -20,9 +20,23 @@ import javax.swing.border.LineBorder;
  */
 public class GestionarProtectora {
 
-    public static Protectora obtenerProtectora(String cif) {
+    public static Protectora obtenerProtectoraCif(String cif) {
         String values = "cif=" + cif;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_CIF, values);
+        if (resultado.equals("false")) {
+//            return false;
+        }
+        Gson gson = new Gson();
+        TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
+        };
+        java.lang.reflect.Type listType = listToken.getType();
+        ArrayList<Protectora> alProtectoras = gson.fromJson(resultado, listType);
+        return alProtectoras.get(0);
+    }
+
+    public static Protectora obtenerProtectoraEmail(String email) {
+        String values = "email=" + email;
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_EMAIL, values);
         if (resultado.equals("false")) {
 //            return false;
         }

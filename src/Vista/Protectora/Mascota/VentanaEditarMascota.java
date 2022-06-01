@@ -4,18 +4,19 @@
  */
 package Vista.Protectora.Mascota;
 
+import Controlador.GestionarMascota;
+import Modelo.Mascota;
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 
@@ -24,7 +25,7 @@ import javax.swing.text.MaskFormatter;
  * @author UsuarioPracticas
  */
 public class VentanaEditarMascota extends javax.swing.JFrame {
-
+    
     private MaskFormatter mascara;
 
     /**
@@ -37,7 +38,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
     }
-
+    
     private void formatoFecha() {
         try {
             // TODO add your handling code here:
@@ -79,7 +80,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jltitulo5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaDescripcion = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,7 +118,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jPanel1.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Código:");
+        jLabel1.setText("Código: (Obligatorio)");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -159,14 +160,15 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, -1, -1));
 
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigoActionPerformed(evt);
+        jtfCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfCodigoMouseClicked(evt);
             }
         });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
 
-        jcbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbEspecie.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Perro", "Gato", "Ave", "Otro" }));
         jPanel1.add(jcbEspecie, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
 
         jbSeleccionarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
@@ -178,6 +180,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         });
         jPanel1.add(jbSeleccionarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 160, 30));
 
+        jftfFechaAcogida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jftfFechaAcogida.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jftfFechaAcogidaFocusLost(evt);
@@ -186,11 +189,6 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jftfFechaAcogida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jftfFechaAcogidaMouseEntered(evt);
-            }
-        });
-        jftfFechaAcogida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jftfFechaAcogidaActionPerformed(evt);
             }
         });
         jPanel1.add(jftfFechaAcogida, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 160, 30));
@@ -205,12 +203,12 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("(300 Char Max.)");
-        jTextArea1.setToolTipText("");
-        jScrollPane1.setViewportView(jTextArea1);
+        jtaDescripcion.setColumns(20);
+        jtaDescripcion.setLineWrap(true);
+        jtaDescripcion.setRows(5);
+        jtaDescripcion.setText("(300 Char Max.)");
+        jtaDescripcion.setToolTipText("");
+        jScrollPane1.setViewportView(jtaDescripcion);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 240, 100));
 
@@ -229,11 +227,25 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // TODO add your handling code here:
+        if (jtfCodigo.getText().isEmpty()) {
+            System.out.println("VACIO");
+            jtfCodigo.setBorder(new LineBorder(Color.RED, 1));
+        } else {
+            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodigo.getText());
+            if (!jtfNombre.getText().isEmpty()) {
+                mascota.setNombre(jtfNombre.getText());
+            } else if (jcbEspecie.getSelectedItem().toString().equals("Seleccionar") == false) {
+                mascota.setEspecie(jcbEspecie.getSelectedItem().toString());
+            } else if (!jtfRaza.getText().isEmpty()) {
+                mascota.setRaza(jtfRaza.getText());
+            } else if (jftfFechaAcogida.getText().equals("dd/mm/aaaa") == false) {
+                mascota.setFechaAcogida(jftfFechaAcogida.getText());
+            } else if (jtaDescripcion.getText().isEmpty()) {
+                mascota.setDescripcion(jtaDescripcion.getText());
+            }
+            System.out.println(mascota.toString());
+        }
     }//GEN-LAST:event_jbModificarActionPerformed
-
-    private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoActionPerformed
 
     private void jbSeleccionarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSeleccionarFotoActionPerformed
         // TODO add your handling code here:
@@ -248,11 +260,6 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbSeleccionarFotoActionPerformed
 
-    private void jftfFechaAcogidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jftfFechaAcogidaActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jftfFechaAcogidaActionPerformed
-
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         // TODO add your handling code here:
         VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
@@ -266,8 +273,11 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
 
     private void jftfFechaAcogidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jftfFechaAcogidaFocusLost
         mascara.setPlaceholder("dd/mm/aaaa");
-
     }//GEN-LAST:event_jftfFechaAcogidaFocusLost
+
+    private void jtfCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfCodigoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCodigoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -334,7 +344,6 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbSeleccionarFoto;
     private javax.swing.JButton jbVolver;
@@ -344,6 +353,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
     private javax.swing.JLabel jltitulo5;
+    private javax.swing.JTextArea jtaDescripcion;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfRaza;

@@ -4,9 +4,12 @@
  */
 package Vista.Principal;
 
+import Controlador.GestionarProtectora;
+import Modelo.Protectora;
 import Vista.Protectora.Consulta.VentanaEliminarConsulta;
 import Vista.Protectora.Consulta.VentanaListadoConsulta;
 import Vista.Protectora.Consulta.VentanaRegistroConsulta;
+import Vista.Protectora.Mascota.VentanaRegistroMascota;
 import Vista.Protectora.VentanaEditarProtectora;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -17,9 +20,19 @@ import javax.swing.ImageIcon;
  */
 public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
+    private static Protectora protectora;
+
     /**
      * Creates new form VentanaPrincipalProtectora
      */
+    public VentanaPrincipalProtectora(Protectora protectora) {
+        this.protectora = protectora;
+        initComponents();
+        setLocationRelativeTo(null);
+        Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
+        setIconImage(icon);
+    }
+
     public VentanaPrincipalProtectora() {
         initComponents();
         setLocationRelativeTo(null);
@@ -201,13 +214,13 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
     private void jbModificarProtectoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarProtectoraActionPerformed
         // TODO add your handling code here:
-        VentanaEditarProtectora vEditarProtectora = new VentanaEditarProtectora();
+        VentanaEditarProtectora vEditarProtectora = new VentanaEditarProtectora(protectora);
         this.setVisible(false);
         vEditarProtectora.setVisible(true);
     }//GEN-LAST:event_jbModificarProtectoraActionPerformed
 
     private void jbRegistrarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarConsultasActionPerformed
-        VentanaRegistroConsulta vRegistroConsulta = new VentanaRegistroConsulta();
+        VentanaRegistroConsulta vRegistroConsulta = new VentanaRegistroConsulta(protectora);
         this.setVisible(false);
         vRegistroConsulta.setVisible(true);
     }//GEN-LAST:event_jbRegistrarConsultasActionPerformed
@@ -244,6 +257,9 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
     private void jbRegistrarMascota1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarMascota1ActionPerformed
         // TODO add your handling code here:
+        VentanaRegistroMascota vRegistroMascota = new VentanaRegistroMascota(protectora);
+        this.setVisible(false);
+        vRegistroMascota.setVisible(true);
     }//GEN-LAST:event_jbRegistrarMascota1ActionPerformed
 
     /**
@@ -276,7 +292,7 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalProtectora().setVisible(true);
+                new VentanaPrincipalProtectora(protectora).setVisible(true);
             }
         });
     }
@@ -301,4 +317,5 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jltitulo2;
     // End of variables declaration//GEN-END:variables
+
 }

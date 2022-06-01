@@ -4,8 +4,8 @@
  */
 package Vista.Protectora.Consulta;
 
-import Controlador.GestionarConsulta;
 import Modelo.Consulta;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import Vista.Protectora.Mascota.VentanaRegistroMascota;
 import java.awt.Color;
@@ -25,11 +25,13 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
 
     private MaskFormatter mascara;
     private Consulta consulta;
+    private static Protectora protectora;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaRegistroConsulta() {
+    public VentanaRegistroConsulta(Protectora protectora) {
+        this.protectora = protectora;
         formatoFecha();
         initComponents();
         rellenarComboBox();
@@ -52,11 +54,21 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     public void rellenarComboBox() {
         jcbHora.addItem("00");
         for (int i = 1; i <= 23; i++) {
-            jcbHora.addItem(String.valueOf(i));
+            if (String.valueOf(i).length() < 2) {
+                jcbHora.addItem("0" + String.valueOf(i));
+
+            } else {
+                jcbHora.addItem(String.valueOf(i));
+            }
         }
         jcbMinutos.addItem("00");
         for (int i = 1; i <= 59; i++) {
-            jcbMinutos.addItem(String.valueOf(i));
+            if (String.valueOf(i).length() < 2) {
+                jcbMinutos.addItem("0" + String.valueOf(i));
+
+            } else {
+                jcbMinutos.addItem(String.valueOf(i));
+            }
         }
     }
 
@@ -96,7 +108,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Consulta");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(null);
         setPreferredSize(null);
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));
@@ -238,11 +249,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jtfCodMascota.getText().isEmpty() || jtfDniVoluntario.getText().isEmpty()
                 || jftfFecha.getText().isEmpty() || jtaInformacion.getText().isEmpty()) {
-            jlError.setText("¡RELLENE TODOS LOS CAMPOS!");
-            jtfCodMascota.setBorder(new LineBorder(Color.red, 1));
-            jtfDniVoluntario.setBorder(new LineBorder(Color.red, 1));
-            jtaInformacion.setBorder(new LineBorder(Color.red, 1));
-            jftfFecha.setBorder(new LineBorder(Color.red, 1));
+            errorCamposVacios();
         } else {
             String horario = jftfFecha.getText().trim() + " " + jcbHora.getSelectedIndex() + ":" + jcbMinutos.getSelectedItem();
             consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
@@ -251,9 +258,17 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbRegisrarActionPerformed
 
+    private void errorCamposVacios() {
+        jlError.setText("¡RELLENE TODOS LOS CAMPOS!");
+        jtfCodMascota.setBorder(new LineBorder(Color.red, 1));
+        jtfDniVoluntario.setBorder(new LineBorder(Color.red, 1));
+        jtaInformacion.setBorder(new LineBorder(Color.red, 1));
+        jftfFecha.setBorder(new LineBorder(Color.red, 1));
+    }
+
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
+        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
@@ -278,7 +293,13 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     private void jtaInformacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaInformacionKeyReleased
         // TODO add your handling code here:
         for (int i = 0; i < jtaInformacion.getText().length(); i++) {
-            jlNumChar.setText(jtaInformacion.getText().length() + "/300");
+            if (jtaInformacion.getText().isBlank() || jtaInformacion.getText().isEmpty()) {
+                jlNumChar.setText("0" + "/300");
+
+            } else {
+                jlNumChar.setText(jtaInformacion.getText().length() + "/300");
+
+            }
             if (jtaInformacion.getText().length() > 300) {
                 jlNumChar.setForeground(Color.red);
             } else {
@@ -328,7 +349,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroConsulta().setVisible(true);
+                new VentanaRegistroConsulta(protectora).setVisible(true);
             }
         });
     }

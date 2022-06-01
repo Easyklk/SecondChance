@@ -6,7 +6,9 @@ package Vista.Principal;
 
 import Controlador.Constantes;
 import Controlador.GestionarLogin;
+import Controlador.GestionarProtectora;
 import Controlador.Utilidades;
+import Modelo.Protectora;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -139,7 +141,8 @@ public class VentanaLogin extends javax.swing.JFrame {
                 this.setVisible(false);
                 vPrincipalAdmin.setVisible(true);
             } else if (GestionarLogin.logueoProtectora(email, pass) == true) {
-                VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
+                Protectora protectora = GestionarProtectora.obtenerProtectoraEmail(email);
+                VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
                 this.setVisible(false);
                 vPrincipalProtectora.setVisible(true);
             } else {

@@ -30,6 +30,17 @@ public class Mascota {
         this.descripcion = "";
     }
 
+    public Mascota(String codIdentificador, String nombre, String especie, String raza, String fecha_acogida, String foto, String cif_protectora, String descripcion) {
+        this.codIdentificador = codIdentificador;
+        this.nombre = nombre;
+        this.especie = especie;
+        this.raza = raza;
+        this.fecha_acogida = fecha_acogida;
+        this.foto = foto;
+        this.cif_protectora = cif_protectora;
+        this.descripcion = descripcion;
+    }
+
     public String getCodIdentificador() {
         return codIdentificador;
     }

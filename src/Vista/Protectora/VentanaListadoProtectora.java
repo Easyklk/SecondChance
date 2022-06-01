@@ -247,7 +247,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
     }
 
     private void buscarProtectora() {
-        Protectora protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        Protectora protectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
         modelo = (DefaultTableModel) jtProtectoras.getModel();
         Object[] ob = new Object[6];
         ob[0] = protectora.getCif();

@@ -134,7 +134,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
 //        protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText().trim());
-        Protectora protectoraEliminar = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        Protectora protectoraEliminar = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
         Usuario usuario = GestionarUsuario.obtenerUsuario(protectoraEliminar.getEmail());
         String usuarioborrado = GestionarUsuario.eliminarUsuario(usuario);
         String protectoraEliminada = GestionarProtectora.eliminarPortectora(protectoraEliminar);
@@ -219,7 +219,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     // End of variables declaration//GEN-END:variables
 
     private void buscarProtectora() {
-        Protectora protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText());
+        Protectora protectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
         jtaListado.setText(protectora.toString());
     }
 }

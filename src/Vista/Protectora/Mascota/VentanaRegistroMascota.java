@@ -4,18 +4,23 @@
  */
 package Vista.Protectora.Mascota;
 
-import Controlador.Constantes;
+import static Controlador.Constantes.SERVERIMAGENES;
+import Controlador.GestionarMascota;
 import Controlador.HttpRequest;
-import Controlador.Utilidades;
 import Modelo.Mascota;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.MaskFormatter;
 
@@ -26,13 +31,17 @@ import javax.swing.text.MaskFormatter;
 public class VentanaRegistroMascota extends javax.swing.JFrame {
 
     private MaskFormatter mascara;
-    private Image foto;
+    private static Protectora protectora;
     private File archivo;
+    private Date fechaAdopcion;
+    private Date fechaActual;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaRegistroMascota() {
+    public VentanaRegistroMascota(Protectora protectora) {
+        this.protectora = protectora;
+        fechaActual = new Date();
         formatoFecha();
         initComponents();
         setLocationRelativeTo(null);
@@ -51,18 +60,6 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         }
     }
 
-    private static boolean insertarMascota(Mascota mascota) {
-        String values = "codIdentificador=" + mascota.getCodIdentificador() + "&nombre=" + mascota.getNombre() + "&especie=" + mascota.getEspecie() + "&raza=" + mascota.getRaza()
-                + "&fechaAcogida=" + mascota.getFechaAcogida() + "&foto=" + mascota.getFoto() + "&cifProtectora=" + mascota.getCifProtectora()
-                + "&descripcion=" + mascota.getDescripcion();
-        String resultado = Controlador.HttpRequest.GET_REQUEST(Constantes.URL_INSERT_MASCOTA, values);
-        System.out.println(resultado);
-        if (resultado.equals("false")) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +71,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jtfRaza = new javax.swing.JTextField();
@@ -93,13 +90,13 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jftfFechaAcogida = new javax.swing.JFormattedTextField(mascara);
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaDescripcion = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        jltitulo3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Mascota");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(null);
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,9 +105,9 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Registro de Mascota");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -120,11 +117,6 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jPanel1.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
         jtfRaza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfRaza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfRazaActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 150, 30));
 
         jtfNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -177,14 +169,10 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, -1, -1));
 
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigoActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
 
-        jcbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbEspecie.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jcbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Perro", "Gato", "Ave", "Otro" }));
         jPanel1.add(jcbEspecie, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
 
         jbSeleccionarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
@@ -197,6 +185,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jPanel1.add(jbSeleccionarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 160, 30));
 
         jftfFechaAcogida.setToolTipText("dd/mm/aaaa");
+        jftfFechaAcogida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jftfFechaAcogida.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jftfFechaAcogidaFocusLost(evt);
@@ -207,11 +196,6 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
                 jftfFechaAcogidaMouseEntered(evt);
             }
         });
-        jftfFechaAcogida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jftfFechaAcogidaActionPerformed(evt);
-            }
-        });
         jPanel1.add(jftfFechaAcogida, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 160, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -220,33 +204,69 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("(300 Char Max.)");
-        jTextArea1.setToolTipText("");
-        jScrollPane1.setViewportView(jTextArea1);
+        jtaDescripcion.setColumns(20);
+        jtaDescripcion.setLineWrap(true);
+        jtaDescripcion.setRows(5);
+        jtaDescripcion.setText("(300 Char Max.)");
+        jtaDescripcion.setToolTipText("");
+        jtaDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtaDescripcionFocusGained(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtaDescripcion);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 250, 100));
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 270, 70, 70));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 590));
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Registro de Mascota");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 10, 700, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfRazaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRazaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfRazaActionPerformed
-
     private void jbRegisrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegisrarActionPerformed
         // TODO add your handling code here:
 
+        if (jtfCodigo.getText().isEmpty() || jtfNombre.getText().isEmpty() || jcbEspecie.getSelectedItem().toString().equalsIgnoreCase("Seleccionar") == true || jtfRaza.getText().isEmpty() || jftfFechaAcogida.getText().equalsIgnoreCase("dd/mm/aaaa") == true || archivo == null || protectora.getCif() == null || jtaDescripcion.getText().isEmpty()) {
+            errorCamposVacios();
+        } else {
+            obtenerDate();
+            if (fechaAdopcion.before(fechaActual)) {
+                String nombreMascota = jtfNombre.getText().trim();
+                String codMascota = jtfCodigo.getText().trim();
+
+                Mascota mascota = new Mascota(jtfCodigo.getText().trim(), jtfNombre.getText().trim(), jcbEspecie.getSelectedItem().toString(), jtfRaza.getText(), jftfFechaAcogida.getText(), SERVERIMAGENES + nombreMascota + "_" + codMascota + "." + obtenerExtension(archivo), protectora.getCif(), jtaDescripcion.getText());
+                HttpRequest.insertarImage(archivo, jtfNombre.getText(), jtfCodigo.getText());
+                System.out.println(GestionarMascota.insertarMascota(mascota));
+            } else {
+                jlError.setText("¡¡FECHA INCORRECCTA!!");
+                jftfFechaAcogida.setBorder(new LineBorder(Color.red, 1));
+            }
+        }
     }//GEN-LAST:event_jbRegisrarActionPerformed
 
-    private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoActionPerformed
+    private void obtenerDate() {
+        try {
+            fechaAdopcion = new SimpleDateFormat("dd/MM/yyyy").parse(jftfFechaAcogida.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaRegistroMascota.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void errorCamposVacios() {
+        jlError.setText("¡¡RELLENE TODOS LOS CAMPOS!!");
+        jtfCodigo.setBorder(new LineBorder(Color.red, 1));
+        jtfNombre.setBorder(new LineBorder(Color.red, 1));
+        jcbEspecie.setBorder(new LineBorder(Color.red, 1));
+        jtfRaza.setBorder(new LineBorder(Color.red, 1));
+        jftfFechaAcogida.setBorder(new LineBorder(Color.red, 1));
+        jbSeleccionarFoto.setBorder(new LineBorder(Color.red, 1));
+        jtaDescripcion.setBorder(new LineBorder(Color.red, 1));
+    }
 
     private void jbSeleccionarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSeleccionarFotoActionPerformed
         // TODO add your handling code here:
@@ -262,21 +282,16 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
             Image foto = getToolkit().getImage(String.valueOf(archivo));
             foto = foto.getScaledInstance(70, 70, Image.SCALE_DEFAULT);
             jLabel8.setIcon(new ImageIcon(foto));
-            HttpRequest.insertarImage(archivo.getPath(), archivo);
         }
     }//GEN-LAST:event_jbSeleccionarFotoActionPerformed
 
-
-    private void jftfFechaAcogidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jftfFechaAcogidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jftfFechaAcogidaActionPerformed
 
     private void jftfFechaAcogidaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jftfFechaAcogidaMouseEntered
         mascara.setPlaceholder(" ");
     }//GEN-LAST:event_jftfFechaAcogidaMouseEntered
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
+        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
@@ -284,6 +299,20 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
     private void jftfFechaAcogidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jftfFechaAcogidaFocusLost
         mascara.setPlaceholder("dd/mm/aaaa");
     }//GEN-LAST:event_jftfFechaAcogidaFocusLost
+
+    private void jtaDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtaDescripcionFocusGained
+        // TODO add your handling code here:
+        jtaDescripcion.setText("");
+    }//GEN-LAST:event_jtaDescripcionFocusGained
+
+    private static String obtenerExtension(File file) {
+        String extension = "";
+        int i = file.getName().lastIndexOf('.');
+        if (i > 0) {
+            extension = file.getName().substring(i + 1);
+        }
+        return extension;
+    }
 
     /**
      * @param args the command line arguments
@@ -322,7 +351,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroMascota().setVisible(true);
+                new VentanaRegistroMascota(protectora).setVisible(true);
             }
         });
     }
@@ -339,15 +368,16 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbRegisrar;
     private javax.swing.JButton jbSeleccionarFoto;
     private javax.swing.JButton jbVolver;
     private javax.swing.JComboBox<String> jcbEspecie;
     private javax.swing.JFormattedTextField jftfFechaAcogida;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
+    private javax.swing.JLabel jltitulo3;
+    private javax.swing.JTextArea jtaDescripcion;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfRaza;

@@ -4,6 +4,7 @@
  */
 package Vista.Protectora;
 
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -14,10 +15,13 @@ import javax.swing.ImageIcon;
  */
 public class VentanaEditarProtectora extends javax.swing.JFrame {
 
+    private static Protectora protectora;
+
     /**
      * Creates new form VentanaEditarProtectora
      */
-    public VentanaEditarProtectora() {
+    public VentanaEditarProtectora(Protectora protectora) {
+        this.protectora = protectora;
         initComponents();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
@@ -190,7 +194,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbShowPassActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
-        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
+        VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
@@ -225,7 +229,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaEditarProtectora().setVisible(true);
+                new VentanaEditarProtectora(protectora).setVisible(true);
             }
         });
     }
