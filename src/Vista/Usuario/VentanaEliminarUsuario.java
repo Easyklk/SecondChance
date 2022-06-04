@@ -5,13 +5,14 @@
 package Vista.Usuario;
 
 import Controlador.Constantes;
+import static Controlador.Constantes.CR_OK_DELETE;
 import Controlador.GestionarUsuario;
 import Modelo.Usuario;
 import Controlador.HttpRequest;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -138,12 +139,25 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
             String values = "email=" + jtfEmail.getText();
             System.out.println(values);
             String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_USUARIO, values);
-            System.out.println(resultado);
+            Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+            if (GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
+                borradoCorrecto();
+            } else {
+                jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+                jbEliminar.setBorder(new LineBorder(Color.red));
+            }
         } else {
             jtfEmail.setBorder(new LineBorder(Color.red, 2));
         }
 
     }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void borradoCorrecto() {
+        jtfEmail.setText("");
+        jtaListado.setText("");
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.green));
+    }
 
     private void jtfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfEmailActionPerformed
         // TODO add your handling code here:

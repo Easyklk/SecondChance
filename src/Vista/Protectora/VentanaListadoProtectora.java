@@ -5,11 +5,10 @@
 package Vista.Protectora;
 
 import Controlador.GestionarProtectora;
-import Controlador.GestionarUsuario;
 import Modelo.Protectora;
-import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -30,6 +29,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
      */
     public VentanaListadoProtectora() {
         initComponents();
+        jtProtectoras.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         modelo = new DefaultTableModel();
         rellenarTabla();
         setLocationRelativeTo(null);
@@ -101,6 +101,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
+        jtProtectoras.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtProtectoras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -164,6 +165,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         if (!jtfCif.getText().isEmpty()) {
             vaciarTabla();
             buscarProtectora();
+            jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         } else {
             jtfCif.setBorder(new LineBorder(Color.red, 2));
         }
@@ -233,7 +235,6 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         ArrayList<Protectora> alProtectoras = GestionarProtectora.listarProtectora();
         modelo = (DefaultTableModel) jtProtectoras.getModel();
         Object[] ob = new Object[6];
-        System.out.println(alProtectoras.get(0).toString());
         for (int i = 0; i < alProtectoras.size(); i++) {
             ob[0] = alProtectoras.get(i).getCif();
             ob[1] = alProtectoras.get(i).getNombreProtectora();
@@ -257,7 +258,6 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         ob[4] = protectora.getTelefono();
         ob[5] = protectora.getUbicacion();
         modelo.addRow(ob);
-
         jtProtectoras.setModel(modelo);
     }
 }

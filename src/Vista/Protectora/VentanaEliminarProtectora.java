@@ -11,6 +11,7 @@ import Modelo.Protectora;
 import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -98,6 +99,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
+        jtaListado.setEditable(false);
         jtaListado.setColumns(20);
         jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtaListado.setLineWrap(true);
@@ -106,11 +108,6 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 80));
 
         jtfCif.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCif.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCifActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 160, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -132,19 +129,17 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling scode here:
 //        protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText().trim());
         Protectora protectoraEliminar = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
         Usuario usuario = GestionarUsuario.obtenerUsuario(protectoraEliminar.getEmail());
-        String usuarioborrado = GestionarUsuario.eliminarUsuario(usuario);
-        String protectoraEliminada = GestionarProtectora.eliminarPortectora(protectoraEliminar);
-        System.out.println("USUARIO: " + usuarioborrado);
-        System.out.println("PROTECTORA: " + protectoraEliminada);
+        System.out.println(GestionarProtectora.eliminarPortectora(protectoraEliminar));
+        if (GestionarProtectora.eliminarPortectora(protectoraEliminar).equals(CR_OK_DELETE) && GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
+            borradoCorrecto();
+        } else {
+            borradIncorrecto();
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
-
-    private void jtfCifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCifActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCifActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
@@ -219,7 +214,19 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     // End of variables declaration//GEN-END:variables
 
     private void buscarProtectora() {
-        Protectora protectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
-        jtaListado.setText(protectora.toString());
+        jtaListado.setText(GestionarProtectora.obtenerProtectoraCif(jtfCif.getText()).toString());
+    }
+
+    private void borradoCorrecto() {
+        jtfCif.setText("");
+        jtaListado.setText("");
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.green));
+    }
+
+    private void borradIncorrecto() {
+        jtfCif.setBorder(new LineBorder(Color.red));
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.red));
     }
 }

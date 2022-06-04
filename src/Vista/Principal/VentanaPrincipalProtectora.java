@@ -4,11 +4,13 @@
  */
 package Vista.Principal;
 
-import Controlador.GestionarProtectora;
 import Modelo.Protectora;
 import Vista.Protectora.Consulta.VentanaEliminarConsulta;
 import Vista.Protectora.Consulta.VentanaListadoConsulta;
 import Vista.Protectora.Consulta.VentanaRegistroConsulta;
+import Vista.Protectora.Mascota.VentanaEditarMascota;
+import Vista.Protectora.Mascota.VentanaEliminarMascota;
+import Vista.Protectora.Mascota.VentanaListadoMascota;
 import Vista.Protectora.Mascota.VentanaRegistroMascota;
 import Vista.Protectora.VentanaEditarProtectora;
 import java.awt.Image;
@@ -245,14 +247,23 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
     private void jbListarMascotas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarMascotas1ActionPerformed
         // TODO add your handling code here:
+        VentanaListadoMascota vListadoMascota = new VentanaListadoMascota();
+        this.setVisible(false);
+        vListadoMascota.setVisible(true);
     }//GEN-LAST:event_jbListarMascotas1ActionPerformed
 
     private void jbEliminarMascota1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarMascota1ActionPerformed
         // TODO add your handling code here:
+        VentanaEliminarMascota vEliminarMascota = new VentanaEliminarMascota();
+        this.setVisible(false);
+        vEliminarMascota.setVisible(true);
     }//GEN-LAST:event_jbEliminarMascota1ActionPerformed
 
     private void jbModificarMascota1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarMascota1ActionPerformed
         // TODO add your handling code here:
+        VentanaEditarMascota vEditarMascota = new VentanaEditarMascota();
+        this.setVisible(false);
+        vEditarMascota.setVisible(true);
     }//GEN-LAST:event_jbModificarMascota1ActionPerformed
 
     private void jbRegistrarMascota1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarMascota1ActionPerformed

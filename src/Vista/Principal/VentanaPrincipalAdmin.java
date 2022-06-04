@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  *
  * @author UsuarioPracticas
  */
-public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constantes{
+public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constantes {
 
     /**
      * Creates new form VentanaPrincipal

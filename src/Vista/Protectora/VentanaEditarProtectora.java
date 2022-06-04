@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  * @author UsuarioPracticas
  */
 public class VentanaEditarProtectora extends javax.swing.JFrame {
-    
+
     private static Protectora protectora;
 
     /**

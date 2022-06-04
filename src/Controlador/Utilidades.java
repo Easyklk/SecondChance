@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-import Modelo.ClienteFTP;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,13 +13,6 @@ import java.security.NoSuchAlgorithmException;
  * @author Easyklk
  */
 public class Utilidades {
-
-    public static boolean subirFTP(String nombre, String rutaArchivoLocal) {
-        String servidor = "localhost", usuario = "admin", clave = "1234";
-        ClienteFTP cliente = new ClienteFTP(servidor);
-        cliente.subirArchivo(nombre, rutaArchivoLocal);
-        return false;
-    }
 
     public static String getMD5(String input) {
         try {
@@ -38,4 +30,23 @@ public class Utilidades {
         }
     }
 
+    public static boolean validarEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+[a-zA-Z]{2,6}$");
+    }
+
+    public static boolean validarCif(String cif) {
+        return cif.matches("[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}");
+    }
+
+    public static boolean validarPass(String pass) {
+        return pass.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&_+=])(?=\\S+$).{8,}$");
+    }
+
+    public static boolean validarTelefono(String telefono) {
+        return telefono.matches("^\\d{9}$");
+    }
+
+    public static void main(String[] args) {
+        System.out.println(validarEmail("agaag@aaaa.aa"));
+    }
 }

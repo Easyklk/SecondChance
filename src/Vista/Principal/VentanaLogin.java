@@ -26,7 +26,6 @@ import javax.swing.border.LineBorder;
  */
 public class VentanaLogin extends javax.swing.JFrame {
 
-//    private ImageIcon img = new ImageIcon(getClass().getResource("/Resources/busqueda.png"));
     /**
      * Creates new form VentanaLogin
      */

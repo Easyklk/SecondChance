@@ -25,13 +25,12 @@ public class GestionarConsulta {
         TypeToken<List<Consulta>> listToken = new TypeToken<List<Consulta>>() {
         };
         java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Consulta> alConsultas = gson.fromJson(resultado, listType);
-        return alConsultas.get(0);
+        ArrayList<Consulta> alConsulta = gson.fromJson(resultado, listType);
+        return alConsulta.get(0);
     }
 
     public static ArrayList<Consulta> listarConsultas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_CONSULTAS);
-        System.out.println(resultado.toString());
 
         Gson gson = new Gson();
         TypeToken<List<Consulta>> listToken = new TypeToken<List<Consulta>>() {
@@ -44,7 +43,6 @@ public class GestionarConsulta {
     public static String insertarConsulta(Consulta consulta) {
         String values = "cod_mascota=" + consulta.getCodMascota() + "&dni_voluntario=" + consulta.getDniVoluntario() + "&horario=" + consulta.getHorario()
                 + "&informacion=" + consulta.getInformacion();
-//        System.out.println(values);
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_INSERT_CONSULTA, values);
         return resultado.toString();
     }
