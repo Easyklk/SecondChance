@@ -266,7 +266,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jftfFecha.setBorder(new LineBorder(Color.red, 1));
     }
 
-
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
         this.setVisible(false);

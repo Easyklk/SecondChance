@@ -8,6 +8,7 @@ import Controlador.GestionarUsuario;
 import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -29,6 +30,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     public VentanaListadoUsuario() {
         initComponents();
         modelo = new DefaultTableModel();
+        jtUsuarios.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         rellenarTabla();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
@@ -92,7 +94,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 450, -1, -1));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, -1, -1));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -131,10 +133,10 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtUsuarios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, 220));
-        jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 140, 30));
+        jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, 140, 30));
 
         jLabel1.setText("Email:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, -1, -1));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
         jbBuscar.setText("Buscar");
@@ -143,7 +145,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
                 jbBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, -1, 30));
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, -1, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -155,7 +157,6 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         vaciarTabla();
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
-
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();

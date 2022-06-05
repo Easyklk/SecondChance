@@ -20,19 +20,15 @@ public class GestionarMascota {
 
     public static Mascota obtenerMascotaCod(String codMascota) {
         String values = "codIdentificador=" + codMascota;
-        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_MASCOTA_COD, values);
-
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_MASCOTA_COD, values);
+        String resultado = array.substring(1, array.length() - 1);
         Gson gson = new Gson();
-        TypeToken<List<Mascota>> listToken = new TypeToken<List<Mascota>>() {
-        };
-        java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Mascota> alConsultas = gson.fromJson(resultado, listType);
-        return alConsultas.get(0);
+        Mascota mascota = gson.fromJson(resultado, Mascota.class);
+        return mascota;
     }
 
     public static ArrayList<Mascota> listarMascotas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_MASCOTA);
-        System.out.println(resultado.toString());
         Gson gson = new Gson();
         TypeToken<List<Mascota>> listToken = new TypeToken<List<Mascota>>() {
         };
@@ -46,13 +42,13 @@ public class GestionarMascota {
                 + "&fechaAcogida=" + mascota.getFechaAcogida() + "&foto=" + mascota.getFoto() + "&cifProtectora=" + mascota.getCifProtectora()
                 + "&descripcion=" + mascota.getDescripcion();
         String resultado = Controlador.HttpRequest.POST_REQUEST(Constantes.URL_INSERT_MASCOTA, values);
-        return resultado.toString();
+        return resultado;
     }
 
     public static String modificarMascota(Mascota mascota) {
         String values = "codIdentificador=" + mascota.getCodIdentificador() + "&foto=" + mascota.getFoto() + "&descripcion=" + mascota.getDescripcion();
         String resultado = Controlador.HttpRequest.POST_REQUEST(Constantes.URL_UPDATE_MASCOTA, values);
-        return resultado.toString();
+        return resultado;
     }
 
     public static String eliminarConsulta(Consulta consulta) {

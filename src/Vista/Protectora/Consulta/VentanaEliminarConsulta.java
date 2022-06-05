@@ -5,10 +5,17 @@
 package Vista.Protectora.Consulta;
 
 import Controlador.GestionarConsulta;
+import Controlador.GestionarProtectora;
 import Modelo.Consulta;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,11 +23,14 @@ import javax.swing.ImageIcon;
  */
 public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaEliminarConsulta() {
         initComponents();
+        modelo = (DefaultTableModel) jtConsultas.getModel();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -36,15 +46,19 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbEliminar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jtfCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jbBuscar = new javax.swing.JButton();
+        jltitulo3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtConsultas = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtaInformacion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Mascota");
@@ -56,9 +70,9 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Eliminar Consulta");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -76,7 +90,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
                 jbEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 100, 50));
+        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, 100, 50));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -89,18 +103,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
-        jtaListado.setColumns(20);
-        jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 80));
-
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigoActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 160, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -116,6 +119,47 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         });
         jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, -1, 40));
 
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Eliminar Consulta");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+
+        jtConsultas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtConsultas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nº Consulta", "Codigo Mascota", "DNI Voluntario"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtConsultas);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 45));
+
+        jtaInformacion.setEditable(false);
+        jtaInformacion.setColumns(20);
+        jtaInformacion.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        jtaInformacion.setLineWrap(true);
+        jtaInformacion.setRows(5);
+        jScrollPane2.setViewportView(jtaInformacion);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 450, 80));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
 
         pack();
@@ -125,14 +169,15 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbEliminarActionPerformed
 
-    private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoActionPerformed
-
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
-        Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodigo.getText().trim());
-        
+        if (!jtfCodigo.getText().isEmpty()) {
+            defaultBorders();
+            vaciarTabla();
+            buscarConsulta();
+        } else {
+            jtfCodigo.setBorder(new LineBorder(Color.red, 1));
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
@@ -188,13 +233,50 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbVolver;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JLabel jltitulo3;
+    private javax.swing.JTable jtConsultas;
+    private javax.swing.JTextArea jtaInformacion;
     private javax.swing.JTextField jtfCodigo;
     // End of variables declaration//GEN-END:variables
+
+    private void defaultBorders() {
+        jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
+        jlError.setText("");
+    }
+
+    private void vaciarTabla() {
+        if (modelo.getRowCount() > 0) {
+            while (modelo.getRowCount() > 0) {
+                modelo.removeRow(0);
+            }
+        }
+    }
+
+    private void buscarConsulta() {
+        try {
+            jlError.setText("");
+            Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodigo.getText().trim());
+            modelo = (DefaultTableModel) jtConsultas.getModel();
+            Object[] ob = new Object[4];
+            ob[0] = consulta.getCodConsulta();
+            ob[1] = consulta.getCodMascota();
+            ob[2] = consulta.getDniVoluntario();
+            ob[4] = consulta.getInformacion();
+            jtaInformacion.setText(ob[4].toString());
+            modelo.addRow(ob);
+            jtConsultas.setModel(modelo);
+            jbEliminar.setEnabled(true);
+        } catch (NullPointerException e) {
+            jlError.setText("¡La consulta no existe!");
+        }
+    }
 }

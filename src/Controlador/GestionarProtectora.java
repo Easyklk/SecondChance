@@ -22,24 +22,17 @@ public class GestionarProtectora {
 
     public static Protectora obtenerProtectoraCif(String cif) {
         String values = "cif=" + cif;
-        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_CIF, values);
-        if (resultado.equals("false")) {
-//            return false;
-        }
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_CIF, values);
+        String resultado = array.substring(1, array.length() - 1);
         Gson gson = new Gson();
-        TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
-        };
-        java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Protectora> alProtectoras = gson.fromJson(resultado, listType);
-        return alProtectoras.get(0);
+        Protectora protectora = gson.fromJson(resultado, Protectora.class);
+        return protectora;
     }
 
     public static Protectora obtenerProtectoraEmail(String email) {
         String values = "email=" + email;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_EMAIL, values);
-        if (resultado.equals("false")) {
-//            return false;
-        }
+
         Gson gson = new Gson();
         TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
         };
@@ -50,11 +43,7 @@ public class GestionarProtectora {
 
     public static ArrayList<Protectora> listarProtectora() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_PROTECTORAS);
-        System.out.println(resultado.toString());
-        if (resultado.equals("false")) {
-//            return false;
-            System.out.println("False");
-        }
+
         Gson gson = new Gson();
         TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
         };
@@ -66,7 +55,6 @@ public class GestionarProtectora {
     public static String insertarProtectora(Protectora protectora) {
         String values = "cif=" + protectora.getCif() + "&nombre_protectora=" + protectora.getNombreProtectora() + "&razon_social=" + protectora.getRazonSocial()
                 + "&email=" + protectora.getEmail() + "&telefono=" + protectora.getTelefono() + "&ubicacion=" + protectora.getUbicacion();
-        System.out.println(values);
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_INSERT_PROTECTORA, values);
         return resultado;
     }

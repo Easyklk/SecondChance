@@ -93,6 +93,8 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(null);
+        jPanel1.setPreferredSize(null);
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -108,23 +110,43 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jPanel1.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
         jtfCif.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCif.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCifActionPerformed(evt);
+        jtfCif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
             }
         });
         jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
 
         jtfNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
+            }
+        });
         jPanel1.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
 
         jtfRazonSocial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
+            }
+        });
         jPanel1.add(jtfRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
 
         jtfUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfUbicacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
+            }
+        });
         jPanel1.add(jtfUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 420, 340, 30));
 
         jpfPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jpfPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
+            }
+        });
         jPanel1.add(jpfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 150, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -184,6 +206,11 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
 
         jtfEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
+            }
+        });
         jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 150, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -191,24 +218,25 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
 
         jtfTlfn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfTlfn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGanied(evt);
+            }
+        });
         jPanel1.add(jtfTlfn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 150, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
-        jLabel8.setText("Minimo 8 char, A-z,0-9,@-]");
+        jLabel8.setText("Minimo 8 char, A-z,0-9,@-+");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 150, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Contraseña:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 600));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jtfCifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCifActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCifActionPerformed
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
         // TODO add your handling code here:
@@ -236,8 +264,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
                 defaultBorders();
                 String pass = Utilidades.getMD5(String.valueOf(jpfPassword.getPassword()));
                 usuario = new Usuario(jtfEmail.getText().trim(), pass, 0, 1, 0);
-                protectora = new Protectora(jtfCif.getText().trim(), jtfNombre.getText().trim(), jtfRazonSocial.getText().trim(),
-                        jtfEmail.getText().trim(), jtfTlfn.getText().trim(), jtfUbicacion.getText());
+                protectora = new Protectora(jtfCif.getText().trim(), jtfNombre.getText().trim(), jtfRazonSocial.getText().trim(), jtfEmail.getText().trim(), jtfTlfn.getText().trim(), jtfUbicacion.getText());
                 if (GestionarUsuario.insertarUsuario(usuario).equals(CR_OK_INSERT) && GestionarProtectora.insertarProtectora(protectora).equals(CR_OK_INSERT)) {
                     registroCorrecto();
                 }
@@ -256,6 +283,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
     }
 
     private void registroCorrecto() {
+        defaultBorders();
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
         jtfCif.setText("");
@@ -297,6 +325,11 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             jpfPassword.setEchoChar('*');
         }
     }//GEN-LAST:event_jcbShowPassActionPerformed
+
+    private void jtfsFocusGanied(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfsFocusGanied
+        // TODO add your handling code here:
+        jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
+    }//GEN-LAST:event_jtfsFocusGanied
 
     /**
      * @param args the command line arguments

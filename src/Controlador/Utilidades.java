@@ -39,14 +39,11 @@ public class Utilidades {
     }
 
     public static boolean validarPass(String pass) {
-        return pass.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&_+=])(?=\\S+$).{8,}$");
+        return pass.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[~@#_/+:=])(?=\\S+$).{8,}$");
     }
 
     public static boolean validarTelefono(String telefono) {
         return telefono.matches("^\\d{9}$");
     }
 
-    public static void main(String[] args) {
-        System.out.println(validarEmail("agaag@aaaa.aa"));
-    }
 }

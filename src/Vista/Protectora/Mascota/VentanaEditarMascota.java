@@ -204,7 +204,6 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
             }
         }
 
-
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void errorCamposVacios() {

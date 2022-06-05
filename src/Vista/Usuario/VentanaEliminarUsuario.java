@@ -12,23 +12,29 @@ import Controlador.HttpRequest;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author UsuarioPracticas
+ * @author Isaac-PC
  */
 public class VentanaEliminarUsuario extends javax.swing.JFrame {
+
+    private DefaultTableModel modelo;
 
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaEliminarUsuario() {
         initComponents();
+        modelo = (DefaultTableModel) jtUsuarios.getModel();
         setLocationRelativeTo(null);
+        jtUsuarios.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
     }
@@ -48,10 +54,11 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         jlTitulo = new javax.swing.JLabel();
         jbEliminar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jtfEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jbBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtUsuarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Usuario");
@@ -84,7 +91,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
                 jbEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 100, 50));
+        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, 100, 50));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -97,25 +104,12 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
-        jtaListado.setEditable(false);
-        jtaListado.setColumns(20);
-        jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtaListado.setLineWrap(true);
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 40));
-
         jtfEmail.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jtfEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfEmailActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 160, 40));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("EMAIL:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel1.setText("Email:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, -1, -1));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
         jbBuscar.setToolTipText("Pulse este boton para buscar una protectora...");
@@ -126,6 +120,34 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, 40));
 
+        jtUsuarios.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Email", "Voluntario", "Protectora", "Administrador"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtUsuarios);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 48));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 450));
 
         pack();
@@ -135,7 +157,6 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!jtfEmail.getText().isEmpty()) {
             jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-            jtaListado.setText("");
             String values = "email=" + jtfEmail.getText();
             System.out.println(values);
             String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_USUARIO, values);
@@ -154,19 +175,14 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
 
     private void borradoCorrecto() {
         jtfEmail.setText("");
-        jtaListado.setText("");
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
 
-    private void jtfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfEmailActionPerformed
-
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         if (!jtfEmail.getText().isEmpty()) {
             jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-            jtaListado.setText("");
+            vaciarTabla();
             buscarUsario();
         } else {
             jtfEmail.setBorder(new LineBorder(Color.red, 2));
@@ -222,18 +238,44 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbVolver;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JTable jtUsuarios;
     private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
 
     private void buscarUsario() {
         Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
-        jtaListado.setText(usuario.toString());
+        modelo = (DefaultTableModel) jtUsuarios.getModel();
+        Object[] ob = new Object[4];
+        ob[0] = usuario.getEmail();
+        if (usuario.getVoluntario() == 0) {
+            ob[1] = "No";
+        } else {
+            ob[1] = "Sí";
+        }
+        if (usuario.getProtectora() == 0) {
+            ob[2] = "No";
+        } else {
+            ob[2] = "Sí";
+        }
+        if (usuario.getAdministrador() == 0) {
+            ob[3] = "No";
+        } else {
+            ob[3] = "Sí";
+        }
+        modelo.addRow(ob);
+        jtUsuarios.setModel(modelo);
+    }
+
+    private void vaciarTabla() {
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
     }
 }

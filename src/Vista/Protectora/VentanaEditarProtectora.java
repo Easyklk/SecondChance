@@ -19,11 +19,18 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaEditarProtectora
+     *
+     * @param protectora protectora logeada
      */
     public VentanaEditarProtectora(Protectora protectora) {
-        this.protectora = protectora;
         initComponents();
-        jtfCif.setText(protectora.getCif());
+        othersComponents(protectora);
+    }
+
+    private void othersComponents(Protectora protectora1) {
+        this.protectora = protectora1;
+        jpfPass.setEchoChar('*');
+        jtfCif.setText(protectora1.getCif());
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -89,11 +96,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jPanel4.add(jtfRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
 
         jtfTlfn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfTlfn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTlfnActionPerformed(evt);
-            }
-        });
         jPanel4.add(jtfTlfn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 150, 30));
 
         jtfUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -167,17 +169,13 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfTlfnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTlfnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfTlfnActionPerformed
-
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcbShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbShowPassActionPerformed
         // TODO add your handling code here:
-
         if (jcbShowPass.isSelected()) {
             jpfPass.setEchoChar((char) 0);
         } else {

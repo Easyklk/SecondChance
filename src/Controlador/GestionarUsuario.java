@@ -17,15 +17,6 @@ import java.util.List;
  */
 public class GestionarUsuario {
 
-//    public static void main(String[] args) {
-//        leerUsuarios();
-//    }
-    public static void leerUsuarios(ArrayList<Usuario> arrayListUsuarios) {
-        for (Usuario listaUsuario : arrayListUsuarios) {
-            System.out.println(listaUsuario.toString());
-        }
-    }
-
     public static ArrayList listarUsuarios() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_USUARIO);
         Gson gson = new Gson();
@@ -34,19 +25,16 @@ public class GestionarUsuario {
         java.lang.reflect.Type listType = listToken.getType();
         ArrayList<Usuario> alUsuarios = gson.fromJson(resultado, listType);
         return alUsuarios;
+
     }
 
     public static Usuario obtenerUsuario(String email) {
         String values = "email=" + email;
-        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_USUARIO_EMAIL, values);
-
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_USUARIO_EMAIL, values);
+        String resultado = array.substring(1, array.length() - 1);
         Gson gson = new Gson();
-        TypeToken<List<Usuario>> listToken = new TypeToken<List<Usuario>>() {
-        };
-        java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Usuario> listaUsuario = gson.fromJson(resultado, listType);
-
-        return listaUsuario.get(0);
+        Usuario usuario = gson.fromJson(resultado, Usuario.class);
+        return usuario;
     }
 
     public static String insertarUsuario(Usuario usuario) {

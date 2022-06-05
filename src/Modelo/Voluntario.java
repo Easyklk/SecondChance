@@ -9,16 +9,17 @@ package Modelo;
  * @author Isaac-PC
  */
 public class Voluntario {
+
     private String dni;
     private String nombre;
     private String apellidos;
     private String email;
 
     public Voluntario() {
-     this.dni="";
-     this.nombre="";
-     this.apellidos="";
-     this.email="";
+        this.dni = "";
+        this.nombre = "";
+        this.apellidos = "";
+        this.email = "";
     }
 
     public Voluntario(String dni, String nombre, String apellidos, String email) {
@@ -63,5 +64,5 @@ public class Voluntario {
     @Override
     public String toString() {
         return "Voluntario{" + "DNI:" + dni + ", Nombre:" + nombre + ", Apellidos:" + apellidos + ", email:" + email + '}';
-    }    
+    }
 }

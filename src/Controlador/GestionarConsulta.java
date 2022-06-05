@@ -19,14 +19,11 @@ public class GestionarConsulta {
 
     public static Consulta obtenerConsultaCod(String codConsulta) {
         String values = "cod_consulta=" + codConsulta;
-        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_CONSULTA_COD, values);
-
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_CONSULTA_COD, values);
+        String resultado = array.substring(1, array.length() - 1);
         Gson gson = new Gson();
-        TypeToken<List<Consulta>> listToken = new TypeToken<List<Consulta>>() {
-        };
-        java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Consulta> alConsulta = gson.fromJson(resultado, listType);
-        return alConsulta.get(0);
+        Consulta consulta = gson.fromJson(resultado, Consulta.class);
+        return consulta;
     }
 
     public static ArrayList<Consulta> listarConsultas() {
