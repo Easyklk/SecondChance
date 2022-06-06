@@ -38,6 +38,10 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
     public VentanaRegistroProtectora() {
         formatoTlfn();
         initComponents();
+        otherComponents();
+    }
+
+    private void otherComponents() {
         jpfPassword.setEchoChar('*');
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();

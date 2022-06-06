@@ -44,6 +44,13 @@ public class GestionarUsuario {
         return resultado;
     }
 
+    public static String modificarUsuarioPass(Usuario usuario) {
+        String values = "password=" + usuario.getPassword() + "&email=" + usuario.getEmail();
+        String resultado = HttpRequest.POST_REQUEST(Constantes.URL_UPDATE_USUARIO_PASS, values);
+        System.out.println(resultado);
+        return resultado;
+    }
+
     public static String eliminarUsuario(Usuario usuario) {
         String values = "email=" + usuario.getEmail();
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_USUARIO, values);

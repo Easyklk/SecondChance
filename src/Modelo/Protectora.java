@@ -35,6 +35,15 @@ public class Protectora {
         this.ubicacion = ubicacion;
     }
 
+    public Protectora(String cif, String nombreProtectora, String razonSocial, String telefono, String ubicacion) {
+        this.cif = cif;
+        this.nombre_protectora = nombreProtectora;
+        this.razon_social = razonSocial;
+        this.email = email;
+        this.telefono = telefono;
+        this.ubicacion = ubicacion;
+    }
+
     public String getCif() {
         return cif;
     }

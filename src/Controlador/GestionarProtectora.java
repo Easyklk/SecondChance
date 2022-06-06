@@ -31,8 +31,7 @@ public class GestionarProtectora {
 
     public static Protectora obtenerProtectoraEmail(String email) {
         String values = "email=" + email;
-        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_EMAIL, values);
-
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORAS, values);
         Gson gson = new Gson();
         TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
         };
@@ -56,6 +55,13 @@ public class GestionarProtectora {
         String values = "cif=" + protectora.getCif() + "&nombre_protectora=" + protectora.getNombreProtectora() + "&razon_social=" + protectora.getRazonSocial()
                 + "&email=" + protectora.getEmail() + "&telefono=" + protectora.getTelefono() + "&ubicacion=" + protectora.getUbicacion();
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_INSERT_PROTECTORA, values);
+        return resultado;
+    }
+
+    public static String modificarProtectora(Protectora protectora, String cifViejo) {
+        String values = "cifNuevo=" + protectora.getCif() + "&nombre_protectora=" + protectora.getNombreProtectora() + "&razon_social=" + protectora.getRazonSocial()
+                + "&telefono=" + protectora.getTelefono() + "&ubicacion=" + protectora.getUbicacion() + "&cif=" + cifViejo;
+        String resultado = HttpRequest.POST_REQUEST(Constantes.URL_UPDATE_PROTECTORA, values);
         return resultado;
     }
 

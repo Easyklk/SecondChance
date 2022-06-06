@@ -75,7 +75,6 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Editar Mascota");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(null);
         setPreferredSize(null);
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));

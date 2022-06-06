@@ -6,7 +6,6 @@ package Controlador;
 
 import Modelo.Consulta;
 import Modelo.Mascota;
-import Modelo.Protectora;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;

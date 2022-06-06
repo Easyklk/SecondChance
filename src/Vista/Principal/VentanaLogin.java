@@ -4,20 +4,13 @@
  */
 package Vista.Principal;
 
-import Controlador.Constantes;
 import Controlador.GestionarLogin;
 import Controlador.GestionarProtectora;
 import Controlador.Utilidades;
 import Modelo.Protectora;
-import Modelo.Usuario;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.awt.Color;
 import java.awt.Image;
-import java.util.List;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
 /**
@@ -137,13 +130,13 @@ public class VentanaLogin extends javax.swing.JFrame {
             String email = jtfEmail.getText().trim();
             if (GestionarLogin.logueoAdmin(email, pass) == true) {
                 VentanaPrincipalAdmin vPrincipalAdmin = new VentanaPrincipalAdmin();
-                this.setVisible(false);
                 vPrincipalAdmin.setVisible(true);
+                this.setVisible(false);
             } else if (GestionarLogin.logueoProtectora(email, pass) == true) {
                 Protectora protectora = GestionarProtectora.obtenerProtectoraEmail(email);
                 VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
-                this.setVisible(false);
                 vPrincipalProtectora.setVisible(true);
+                this.setVisible(false);
             } else {
                 jlError.setText("¡Email y/o contraseña incorrectos!");
                 jtfEmail.setBorder(new LineBorder(Color.red, 1));
