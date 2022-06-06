@@ -28,7 +28,7 @@ public class GestionarConsulta {
 
     public static ArrayList<Consulta> listarConsultas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_CONSULTAS);
-
+        System.out.println(resultado);
         Gson gson = new Gson();
         TypeToken<List<Consulta>> listToken = new TypeToken<List<Consulta>>() {
         };

@@ -27,7 +27,7 @@ import javax.swing.text.MaskFormatter;
  * @author UsuarioPracticas
  */
 public class VentanaEditarProtectora extends javax.swing.JFrame {
-    
+
     private static Protectora protectora;
     private MaskFormatter mascara;
 
@@ -41,7 +41,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         initComponents();
         othersComponents(protectora);
     }
-    
+
     private void othersComponents(Protectora protectora) {
         this.protectora = protectora;
         jpfPassword.setEchoChar('*');
@@ -49,7 +49,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
     }
-    
+
     private void formatoTlfn() {
         try {
             mascara = new MaskFormatter("#########");
@@ -395,7 +395,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jtfRazonSocial.setBorder(new LineBorder(Color.red, 1));
         jtfUbicacion.setBorder(new LineBorder(Color.red, 1));
     }
-    
+
     private void modificarCorrecto() {
         defaultBorders();
         jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));

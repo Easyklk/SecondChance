@@ -4,10 +4,19 @@
  */
 package Vista.Protectora.Consulta;
 
-import Vista.Protectora.Mascota.*;
+import Controlador.GestionarConsulta;
+import Controlador.GestionarUsuario;
+import Modelo.Consulta;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,11 +24,16 @@ import javax.swing.ImageIcon;
  */
 public class VentanaListadoConsulta extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form VentanaListadoMascota
      */
     public VentanaListadoConsulta() {
         initComponents();
+        modelo = new DefaultTableModel();
+        jtConsulta.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
+        rellenarTabla();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -41,10 +55,12 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jbListar = new javax.swing.JButton();
         jbVolver1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jtfCif = new javax.swing.JTextField();
+        jtfCodConsulta = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtConsulta = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtaInformacion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Consultas");
@@ -73,7 +89,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 470, -1, -1));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 550, -1, -1));
 
         jbVolver1.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -84,11 +100,11 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
                 jbVolver1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
+        jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
 
         jLabel1.setText("Codigo Consulta:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 450, -1, -1));
-        jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, 140, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 530, -1, -1));
+        jPanel1.add(jtfCodConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 550, 140, 30));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
         jbBuscar.setText("Buscar");
@@ -97,30 +113,52 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
                 jbBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, -1, 30));
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 550, -1, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtConsulta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nº Consulta", "Código Mascota", "DNI Voluntario"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, 250));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtConsulta);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, 210));
+
+        jtaInformacion.setColumns(20);
+        jtaInformacion.setRows(5);
+        jScrollPane2.setViewportView(jtaInformacion);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 450, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
+        jtfCodConsulta.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        vaciarTabla();
+        rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
 
     private void jbVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolver1ActionPerformed
@@ -131,12 +169,12 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
-//        if (!jtfCif.getText().isEmpty()) {
-//            vaciarTabla();
-//            buscarProtectora();
-//        } else {
-//            jtfCif.setBorder(new LineBorder(Color.red, 2));
-//        }
+        if (!jtfCodConsulta.getText().isEmpty()) {
+            vaciarTabla();
+            buscarConsulta();
+        } else {
+            jtfCodConsulta.setBorder(new LineBorder(Color.red, 2));
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
@@ -179,13 +217,47 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver1;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextField jtfCif;
+    private javax.swing.JTable jtConsulta;
+    private javax.swing.JTextArea jtaInformacion;
+    private javax.swing.JTextField jtfCodConsulta;
     // End of variables declaration//GEN-END:variables
+
+    private void vaciarTabla() {
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
+    private void rellenarTabla() {
+        ArrayList<Consulta> alConsultas = GestionarConsulta.listarConsultas();
+        modelo = (DefaultTableModel) jtConsulta.getModel();
+        Object[] ob = new Object[3];
+        for (int i = 0; i < alConsultas.size(); i++) {
+            ob[0] = alConsultas.get(i).getCodConsulta();
+            ob[1] = alConsultas.get(i).getCodMascota();
+            ob[2] = alConsultas.get(i).getDniVoluntario();
+            modelo.addRow(ob);
+        }
+        jtConsulta.setModel(modelo);
+    }
+
+    private void buscarConsulta() {
+        Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodConsulta.getText());
+        modelo = (DefaultTableModel) jtConsulta.getModel();
+        Object[] ob = new Object[4];
+        ob[1] = consulta.getCodConsulta();
+        ob[2] = consulta.getCodMascota();
+        ob[3] = consulta.getDniVoluntario();
+        ob[4] = consulta.getInformacion();
+
+        modelo.addRow(ob);
+        jtConsulta.setModel(modelo);
+    }
 }
