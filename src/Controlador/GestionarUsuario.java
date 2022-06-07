@@ -4,8 +4,8 @@
  */
 package Controlador;
 
-import Modelo.Protectora;
 import Modelo.Usuario;
+import Modelo.Voluntario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ public class GestionarUsuario {
         java.lang.reflect.Type listType = listToken.getType();
         ArrayList<Usuario> alUsuarios = gson.fromJson(resultado, listType);
         return alUsuarios;
-
     }
 
     public static Usuario obtenerUsuario(String email) {
@@ -35,6 +34,15 @@ public class GestionarUsuario {
         Gson gson = new Gson();
         Usuario usuario = gson.fromJson(resultado, Usuario.class);
         return usuario;
+    }
+
+    public static Voluntario obtenerVoluntario(String dni) {
+        String values = "dni=" + dni;
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_VOLUNTARIO_DNI, values);
+        String resultado = array.substring(1, array.length() - 1);
+        Gson gson = new Gson();
+        Voluntario voluntario = gson.fromJson(resultado, Voluntario.class);
+        return voluntario;
     }
 
     public static String insertarUsuario(Usuario usuario) {

@@ -27,33 +27,23 @@ import javax.swing.text.MaskFormatter;
  * @author Isaac-PC
  */
 public class VentanaRegistroProtectora extends javax.swing.JFrame {
-
+    
     private Protectora protectora;
     private Usuario usuario;
-    private MaskFormatter mascara;
 
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaRegistroProtectora() {
-        formatoTlfn();
         initComponents();
         otherComponents();
     }
-
+    
     private void otherComponents() {
         jpfPassword.setEchoChar('*');
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
-    }
-
-    private void formatoTlfn() {
-        try {
-            mascara = new MaskFormatter("#########");
-        } catch (ParseException ex) {
-            Logger.getLogger(VentanaRegistroProtectora.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -85,9 +75,9 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jltitulo3 = new javax.swing.JLabel();
         jtfEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jtfTlfn = new javax.swing.JFormattedTextField(mascara);
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jtfTlfn = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrar Protectora");
@@ -97,8 +87,6 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMinimumSize(null);
-        jPanel1.setPreferredSize(null);
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -221,14 +209,6 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jLabel7.setText("Email:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
 
-        jtfTlfn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfTlfn.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtfsFocusGanied(evt);
-            }
-        });
-        jPanel1.add(jtfTlfn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 150, 30));
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel8.setText("Minimo 8 char, A-z,0-9,@-+");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 150, -1));
@@ -236,6 +216,9 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Contraseña:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, -1, -1));
+
+        jtfTlfn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel1.add(jtfTlfn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 150, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -247,7 +230,9 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         if (jtfCif.getText().isEmpty() || jtfNombre.getText().isEmpty() || jtfRazonSocial.getText().isEmpty()
                 || jtfEmail.getText().isEmpty() || jpfPassword.getPassword().length == 0 || jtfTlfn.getText().isEmpty() || jtfUbicacion.getText().isEmpty()) {
             errorCamposVacios();
+            System.out.println(jtfTlfn.getText().isEmpty());
         } else {
+//            defaultBorders();
             if (!Utilidades.validarCif(jtfCif.getText().trim())) {
                 defaultBorders();
                 jtfCif.setBorder(new LineBorder(Color.red));
@@ -275,8 +260,9 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
-
+    
     private void defaultBorders() {
+        jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfNombre.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
@@ -285,11 +271,12 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jpfPassword.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfUbicacion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
     }
-
+    
     private void registroCorrecto() {
         defaultBorders();
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
+        jlError.setText("");
         jtfCif.setText("");
         jtfNombre.setText("");
         jtfRazonSocial.setText("");
@@ -298,7 +285,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jtfTlfn.setText("");
         jtfUbicacion.setText("");
     }
-
+    
     private void errorCamposVacios() {
         jlError.setText("¡RELLENE TODOS LOS CAMPOS!");
         jtfCif.setBorder(new LineBorder(Color.red, 1));
@@ -332,7 +319,8 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
 
     private void jtfsFocusGanied(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfsFocusGanied
         // TODO add your handling code here:
-        jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
+        defaultBorders();
+        jlError.setText("");
     }//GEN-LAST:event_jtfsFocusGanied
 
     /**
@@ -397,7 +385,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
     private javax.swing.JTextField jtfEmail;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfRazonSocial;
-    private javax.swing.JFormattedTextField jtfTlfn;
+    private javax.swing.JTextField jtfTlfn;
     private javax.swing.JTextField jtfUbicacion;
     // End of variables declaration//GEN-END:variables
 

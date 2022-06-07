@@ -73,6 +73,7 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Protectora");
         setPreferredSize(null);
+        setResizable(false);
         setSize(new java.awt.Dimension(600, 250));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -222,7 +223,7 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
     }//GEN-LAST:event_jbModificarProtectoraActionPerformed
 
     private void jbRegistrarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarConsultasActionPerformed
-        VentanaRegistroConsulta vRegistroConsulta = new VentanaRegistroConsulta(protectora);
+        VentanaRegistroConsulta vRegistroConsulta = new VentanaRegistroConsulta();
         this.setVisible(false);
         vRegistroConsulta.setVisible(true);
     }//GEN-LAST:event_jbRegistrarConsultasActionPerformed

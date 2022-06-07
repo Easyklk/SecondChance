@@ -41,6 +41,8 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
         jPanel1 = new javax.swing.JPanel();
         jlLogo = new javax.swing.JLabel();
         jltitulo2 = new javax.swing.JLabel();
+        jbCerrarSesion = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jbListarProtectoras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -50,7 +52,6 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
         jbListarUsuarios = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jbEliminarUsuario = new javax.swing.JButton();
-        jbCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Administrador");
@@ -71,8 +72,24 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
         jltitulo2.setText("Menu Principal");
         jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
+        jbCerrarSesion.setBackground(new java.awt.Color(255, 255, 255));
+        jbCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cerrarSesion.png"))); // NOI18N
+        jbCerrarSesion.setToolTipText("Cerrar la sesión actual...");
+        jbCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCerrarSesionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 50, -1));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(96, 195, 166)));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(96, 195, 166)));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbListarProtectoras.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbListarProtectoras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/listados.png"))); // NOI18N
@@ -83,9 +100,11 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
                 jbListarProtectorasActionPerformed(evt);
             }
         });
+        jPanel2.add(jbListarProtectoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 40, -1, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Protectoras");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 12, -1, -1));
 
         jbEliminarProtectora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbEliminarProtectora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
@@ -96,6 +115,7 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
                 jbEliminarProtectoraActionPerformed(evt);
             }
         });
+        jPanel2.add(jbEliminarProtectora, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, 40));
 
         jbRegistrarProtectora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbRegistrarProtectora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/añadir.png"))); // NOI18N
@@ -106,38 +126,9 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
                 jbRegistrarProtectoraActionPerformed(evt);
             }
         });
+        jPanel2.add(jbRegistrarProtectora, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 40, -1, 40));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbListarProtectoras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbRegistrarProtectora)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jbEliminarProtectora)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(137, 137, 137))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbListarProtectoras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbEliminarProtectora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbRegistrarProtectora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 350, 90));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 90));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(96, 195, 166)));
@@ -169,20 +160,11 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
         });
         jPanel4.add(jbEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 250, 80));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 250, 80));
 
-        jbCerrarSesion.setBackground(new java.awt.Color(255, 255, 255));
-        jbCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cerrarSesion.png"))); // NOI18N
-        jbCerrarSesion.setToolTipText("Cerrar la sesión actual...");
-        jbCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCerrarSesionActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 50, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 370, 210));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -270,6 +252,7 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame implements Constan
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JButton jbCerrarSesion;
     private javax.swing.JButton jbEliminarProtectora;

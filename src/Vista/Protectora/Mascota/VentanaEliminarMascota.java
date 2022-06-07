@@ -5,6 +5,7 @@
 package Vista.Protectora.Mascota;
 
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -20,6 +21,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     public VentanaEliminarMascota() {
         initComponents();
         setLocationRelativeTo(null);
+//        jtaListado.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
     }
@@ -90,7 +92,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jtaListado.setColumns(20);
         jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtaListado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 80));
 
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

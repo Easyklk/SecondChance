@@ -4,17 +4,21 @@
  */
 package Vista.Protectora.Consulta;
 
+import static Controlador.Constantes.CR_OK_DELETE;
 import Controlador.GestionarConsulta;
 import Controlador.GestionarProtectora;
+import Controlador.GestionarUsuario;
 import Modelo.Consulta;
 import Modelo.Protectora;
+import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +35,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     public VentanaEliminarConsulta() {
         initComponents();
         modelo = (DefaultTableModel) jtConsultas.getModel();
+        jtConsultas.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -85,6 +90,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setToolTipText("Pulse este boton para eliminar la protectora...");
+        jbEliminar.setEnabled(false);
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarActionPerformed(evt);
@@ -129,14 +135,14 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nº Consulta", "Codigo Mascota", "DNI Voluntario"
+                "Nº Consulta", "Codigo Mascota", "DNI Voluntario", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -167,6 +173,17 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
+        String codConsulta = (String) jtConsultas.getValueAt(0, 0);
+        Consulta consultaEliminar = GestionarConsulta.obtenerConsultaCod(codConsulta);
+        if (jtConsultas.getValueAt(0, 0) != null) {
+            if (GestionarConsulta.eliminarConsulta(consultaEliminar).equals(CR_OK_DELETE)) {
+                borradoCorrecto();
+            } else {
+                borradoIncorrecto();
+            }
+        } else {
+            System.out.println("aaaaa");
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
@@ -266,10 +283,11 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             jlError.setText("");
             Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodigo.getText().trim());
             modelo = (DefaultTableModel) jtConsultas.getModel();
-            Object[] ob = new Object[4];
+            Object[] ob = new Object[5];
             ob[0] = consulta.getCodConsulta();
             ob[1] = consulta.getCodMascota();
             ob[2] = consulta.getDniVoluntario();
+            ob[3] = consulta.getHorario();
             ob[4] = consulta.getInformacion();
             jtaInformacion.setText(ob[4].toString());
             modelo.addRow(ob);
@@ -278,5 +296,19 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             jlError.setText("¡La consulta no existe!");
         }
+    }
+
+    private void borradoCorrecto() {
+        jlError.setText("");
+        jtfCodigo.setText("");
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.green));
+    }
+
+    private void borradoIncorrecto() {
+        jlError.setText("¡¡ERROR!!");
+        jtfCodigo.setBorder(new LineBorder(Color.red));
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.red));
     }
 }

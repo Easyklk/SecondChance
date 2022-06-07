@@ -4,14 +4,23 @@
  */
 package Vista.Protectora.Consulta;
 
+import static Controlador.Constantes.CR_OK_INSERT;
+import static Controlador.Constantes.SERVERIMAGENES;
 import Controlador.GestionarConsulta;
+import Controlador.GestionarMascota;
+import Controlador.GestionarUsuario;
+import Controlador.HttpRequest;
 import Modelo.Consulta;
+import Modelo.Mascota;
 import Modelo.Protectora;
+import Modelo.Voluntario;
 import Vista.Principal.VentanaPrincipalProtectora;
 import Vista.Protectora.Mascota.VentanaRegistroMascota;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -26,19 +35,30 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
 
     private MaskFormatter mascara;
     private Consulta consulta;
-    private static Protectora protectora;
+    private Protectora protectora;
+    private Date fechaConsulta;
+    private Date fechaActual;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaRegistroConsulta(Protectora protectora) {
-        this.protectora = protectora;
+    public VentanaRegistroConsulta() {
         formatoFecha();
         initComponents();
+        fechaActual = new Date();
         rellenarComboBox();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
+    }
+
+    private void obtenerDate() {
+        try {
+            fechaConsulta = new SimpleDateFormat("dd/MM/yyyy").parse(jftfFecha.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaRegistroMascota.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void formatoFecha() {
@@ -92,7 +112,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jbRegisrar = new javax.swing.JButton();
+        jbRegistrar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
         jftfFecha = new javax.swing.JFormattedTextField(mascara);
         jLabel7 = new javax.swing.JLabel();
@@ -119,6 +139,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
@@ -129,11 +150,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jPanel1.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
         jtfDniVoluntario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfDniVoluntario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfDniVoluntarioActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfDniVoluntario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 150, 30));
 
         jtfCodMascota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -151,16 +167,16 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jLabel5.setText(":");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, -1, -1));
 
-        jbRegisrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbRegisrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/añadir.png"))); // NOI18N
-        jbRegisrar.setText("Registrar");
-        jbRegisrar.setToolTipText("Pulse este boton para registrase una nueva consulta...");
-        jbRegisrar.addActionListener(new java.awt.event.ActionListener() {
+        jbRegistrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/añadir.png"))); // NOI18N
+        jbRegistrar.setText("Registrar");
+        jbRegistrar.setToolTipText("Pulse este boton para registrase una nueva consulta...");
+        jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRegisrarActionPerformed(evt);
+                jbRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbRegisrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, 30));
+        jPanel1.add(jbRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, 30));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -182,11 +198,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jftfFecha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jftfFechaMouseEntered(evt);
-            }
-        });
-        jftfFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jftfFechaActionPerformed(evt);
             }
         });
         jPanel1.add(jftfFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 150, 30));
@@ -241,22 +252,35 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfDniVoluntarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDniVoluntarioActionPerformed
+    private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfDniVoluntarioActionPerformed
-
-    private void jbRegisrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegisrarActionPerformed
-        // TODO add your handling code here:
-        if (jtfCodMascota.getText().isEmpty() || jtfDniVoluntario.getText().isEmpty()
-                || jftfFecha.getText().isEmpty() || jtaInformacion.getText().isEmpty()) {
+        if ( //                jtfCodMascota.getText().isEmpty() || jtfDniVoluntario.getText().isEmpty()
+                //                || jftfFecha.getText().isEmpty() || jtaInformacion.getText().isEmpty()
+                false) {
             errorCamposVacios();
         } else {
-            String horario = jftfFecha.getText().trim() + " " + jcbHora.getSelectedIndex() + ":" + jcbMinutos.getSelectedItem();
-            consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
-            System.out.println(GestionarConsulta.insertarConsulta(consulta));
-//            System.out.println(consulta.toString());
+            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodMascota.getText().trim());
+            if (mascota != null) {
+                Voluntario voluntario = GestionarUsuario.obtenerVoluntario(jtfDniVoluntario.getText().trim());
+                if (voluntario != null) {
+                    String horario = jftfFecha.getText().trim() + " " + jcbHora.getSelectedIndex() + ":" + jcbMinutos.getSelectedItem();
+                    obtenerDate();
+                    if (fechaConsulta.before(fechaActual)) {
+                        consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
+                        System.out.println(GestionarConsulta.insertarConsulta(consulta));
+                    }else{
+                        jlError.setText("");
+                    }
+                } else {
+                    jlError.setText("¡¡EL VOLUNTRAIO NO EXITE!!");
+                    jtfDniVoluntario.setBorder(new LineBorder(Color.red));
+                }
+            } else {
+                jlError.setText("¡¡LA MASCOTA NO EXITE!!");
+                jtfCodMascota.setBorder(new LineBorder(Color.red));
+            }
         }
-    }//GEN-LAST:event_jbRegisrarActionPerformed
+    }//GEN-LAST:event_jbRegistrarActionPerformed
 
     private void errorCamposVacios() {
         jlError.setText("¡RELLENE TODOS LOS CAMPOS!");
@@ -271,10 +295,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
-
-    private void jftfFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jftfFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jftfFechaActionPerformed
 
     private void jftfFechaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jftfFechaMouseEntered
         mascara.setPlaceholder(" ");
@@ -337,18 +357,12 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroConsulta(protectora).setVisible(true);
+                new VentanaRegistroConsulta().setVisible(true);
             }
         });
     }
@@ -364,7 +378,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton jbRegisrar;
+    private javax.swing.JButton jbRegistrar;
     private javax.swing.JButton jbVolver;
     private javax.swing.JComboBox<String> jcbHora;
     private javax.swing.JComboBox<String> jcbMinutos;

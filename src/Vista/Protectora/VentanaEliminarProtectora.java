@@ -12,6 +12,7 @@ import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -32,6 +33,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     public VentanaEliminarProtectora() {
         initComponents();
         modelo = (DefaultTableModel) jtProtectoras.getModel();
+        jtProtectoras.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -104,7 +106,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
-        jtfCif.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfCif.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jtfCif.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfCifFocusGained(evt);
@@ -151,7 +153,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         });
         jScrollPane1.setViewportView(jtProtectoras);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 45));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 46));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("CIF:");
@@ -168,14 +170,15 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling scode here:
-//        protectora = GestionarProtectora.obtenerProtectora(jtfCif.getText().trim());
-        Protectora protectoraEliminar = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
+        String cif = (String) jtProtectoras.getValueAt(0, 0);
+        Protectora protectoraEliminar = GestionarProtectora.obtenerProtectoraCif(cif);
         Usuario usuario = GestionarUsuario.obtenerUsuario(protectoraEliminar.getEmail());
-        System.out.println(GestionarProtectora.eliminarPortectora(protectoraEliminar));
-        if (GestionarProtectora.eliminarPortectora(protectoraEliminar).equals(CR_OK_DELETE) && GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
-            borradoCorrecto();
-        } else {
-            borradIncorrecto();
+        if (jtProtectoras.getValueAt(0, 0) != null) {
+            if (GestionarProtectora.eliminarPortectora(protectoraEliminar).equals(CR_OK_DELETE) && GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
+                borradoCorrecto();
+            } else {
+                borradoIncorrecto();
+            }
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -206,6 +209,8 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
     private void jtfCifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCifFocusGained
         // TODO add your handling code here:
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
+        jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jlError.setText("");
     }//GEN-LAST:event_jtfCifFocusGained
 
     /**
@@ -299,7 +304,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
 
-    private void borradIncorrecto() {
+    private void borradoIncorrecto() {
         jlError.setText("¡¡Elimine las mascotas antes!!");
         jtfCif.setBorder(new LineBorder(Color.red));
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));

@@ -10,6 +10,7 @@ import Controlador.Utilidades;
 import Modelo.Protectora;
 import java.awt.Color;
 import java.awt.Image;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
@@ -24,6 +25,7 @@ public class VentanaLogin extends javax.swing.JFrame {
      */
     public VentanaLogin() {
         initComponents();
+        getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -80,17 +82,17 @@ public class VentanaLogin extends javax.swing.JFrame {
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
 
-        jlCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cerrar.png"))); // NOI18N
+        jlCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cerrar32px.png"))); // NOI18N
         jlCerrar.setToolTipText("Cerrar la aplicación...");
         jlCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlCerrarMouseClicked(evt);
             }
         });
-        jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 50, 40));
+        jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, -1));
 
         jbLogin.setText("Iniciar Sesión");
-        jbLogin.setToolTipText("Pulse este boton para ir iniciar sesión...");
+        jbLogin.setToolTipText("Pulse este boton para iniciar sesión...");
         jbLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbLoginActionPerformed(evt);
@@ -99,10 +101,10 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1.add(jbLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 120, -1));
 
         jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jlError.setForeground(new java.awt.Color(255, 0, 51));
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 105, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 569, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

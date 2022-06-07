@@ -17,6 +17,12 @@ import java.util.List;
  */
 public class GestionarConsulta {
 
+    /**
+     * Metodo que devuelve una consulta especifica
+     *
+     * @param codConsulta Codigo de la consulta a obtener
+     * @return Consulta a mostrar
+     */
     public static Consulta obtenerConsultaCod(String codConsulta) {
         String values = "cod_consulta=" + codConsulta;
         String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_CONSULTA_COD, values);
@@ -26,6 +32,11 @@ public class GestionarConsulta {
         return consulta;
     }
 
+    /**
+     * Metodo que devuelve un conjunto de consultas
+     *
+     * @return ArrayList con el listado completo de consultas
+     */
     public static ArrayList<Consulta> listarConsultas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_CONSULTAS);
         System.out.println(resultado);
@@ -37,13 +48,25 @@ public class GestionarConsulta {
         return alConsultas;
     }
 
+    /**
+     * Metodo que inserta una consulta
+     *
+     * @param consulta a insertar
+     * @return String codigo de inserccion correcta/incorrecta
+     */
     public static String insertarConsulta(Consulta consulta) {
         String values = "cod_mascota=" + consulta.getCodMascota() + "&dni_voluntario=" + consulta.getDniVoluntario() + "&horario=" + consulta.getHorario()
                 + "&informacion=" + consulta.getInformacion();
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_INSERT_CONSULTA, values);
-        return resultado.toString();
+        return resultado;
     }
 
+    /**
+     * Metodo que eliminar una consulta
+     *
+     * @param consulta a eliminar
+     * @return String codigo de elimiacion correcta/incorrecta
+     */
     public static String eliminarConsulta(Consulta consulta) {
         String values = "cod_consulta=" + consulta.getCodConsulta();
         String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_CONSULTA, values);
