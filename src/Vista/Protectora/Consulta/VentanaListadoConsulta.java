@@ -49,7 +49,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
@@ -61,6 +61,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jtConsulta = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtaInformacion = new javax.swing.JTextArea();
+        jltitulo3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Consultas");
@@ -69,9 +70,9 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Listado de Consultas");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -115,20 +116,22 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         });
         jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 550, -1, 30));
 
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         jtConsulta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nº Consulta", "Código Mascota", "DNI Voluntario"
+                "Nº Consulta", "Código Mascota", "DNI Voluntario", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -148,6 +151,10 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jtaInformacion);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 450, -1));
+
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Listado de Consultas");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 650));
 
@@ -221,9 +228,10 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver1;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
+    private javax.swing.JLabel jltitulo3;
     private javax.swing.JTable jtConsulta;
     private javax.swing.JTextArea jtaInformacion;
     private javax.swing.JTextField jtfCodConsulta;
@@ -238,26 +246,34 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     private void rellenarTabla() {
         ArrayList<Consulta> alConsultas = GestionarConsulta.listarConsultas();
         modelo = (DefaultTableModel) jtConsulta.getModel();
-        Object[] ob = new Object[3];
+        Object[] ob = new Object[5];
         for (int i = 0; i < alConsultas.size(); i++) {
             ob[0] = alConsultas.get(i).getCodConsulta();
             ob[1] = alConsultas.get(i).getCodMascota();
             ob[2] = alConsultas.get(i).getDniVoluntario();
+            ob[3] = alConsultas.get(i).getHorario();
+            ob[4] = alConsultas.get(i).getInformacion();
             modelo.addRow(ob);
         }
         jtConsulta.setModel(modelo);
     }
 
     private void buscarConsulta() {
-        Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodConsulta.getText());
-        modelo = (DefaultTableModel) jtConsulta.getModel();
-        Object[] ob = new Object[4];
-        ob[1] = consulta.getCodConsulta();
-        ob[2] = consulta.getCodMascota();
-        ob[3] = consulta.getDniVoluntario();
-        ob[4] = consulta.getInformacion();
+        try {
+            Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodConsulta.getText());
+            modelo = (DefaultTableModel) jtConsulta.getModel();
+            Object[] ob = new Object[5];
+            ob[0] = consulta.getCodConsulta();
+            ob[1] = consulta.getCodMascota();
+            ob[2] = consulta.getDniVoluntario();
+            ob[3] = consulta.getHorario();
+            ob[4] = consulta.getInformacion();
+            modelo.addRow(ob);
+            jtConsulta.setModel(modelo);
+            jlError.setText("");
+        } catch (NullPointerException e) {
+            jlError.setText("¡La consulta no existe!");
+        }
 
-        modelo.addRow(ob);
-        jtConsulta.setModel(modelo);
     }
 }

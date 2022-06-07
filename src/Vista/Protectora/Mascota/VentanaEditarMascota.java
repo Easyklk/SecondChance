@@ -15,6 +15,7 @@ import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -118,10 +119,20 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, -1, -1));
 
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGained(evt);
+            }
+        });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
 
         jbSeleccionarFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
         jbSeleccionarFoto.setText("Seleccionar");
+        jbSeleccionarFoto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGained(evt);
+            }
+        });
         jbSeleccionarFoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSeleccionarFotoActionPerformed(evt);
@@ -136,9 +147,15 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jtaDescripcion.setColumns(20);
+        jtaDescripcion.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jtaDescripcion.setLineWrap(true);
         jtaDescripcion.setRows(5);
         jtaDescripcion.setToolTipText("");
+        jtaDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfsFocusGained(evt);
+            }
+        });
         jtaDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtaDescripcionKeyReleased(evt);
@@ -181,14 +198,11 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
                 mascota.setFoto(SERVERIMAGENES + mascota.getNombre() + "_" + jtfCodigo.getText() + "." + obtenerExtension(archivo));
                 HttpRequest.insertarImage(archivo, mascota.getNombre(), jtfCodigo.getText());
             }
-            if ((!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 3) || archivo != null) {
+            if ((!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 300) || archivo != null) {
+                mascota.setDescripcion(jtaDescripcion.getText().trim());
                 if (GestionarMascota.modificarMascota(mascota).equals(CR_OK_INSERT)) {
-                    jlError.setText("");
-                    jtaDescripcion.setBorder(null);
-                    jtaDescripcion.setText("");
-                    jLabelFoto.setIcon(null);
-                    jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
-                    jbModificar.setBorder(new LineBorder(Color.green));
+                    modificarCorrecto();
+
                 }
             } else if (jtaDescripcion.getText().isEmpty() && archivo == null) {
                 errorCamposVacios();
@@ -250,6 +264,10 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jtaDescripcionKeyReleased
+
+    private void jtfsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfsFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfsFocusGained
 
     /**
      * @param args the command line arguments
@@ -325,4 +343,20 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
     private javax.swing.JTextArea jtaDescripcion;
     private javax.swing.JTextField jtfCodigo;
     // End of variables declaration//GEN-END:variables
+
+    private void modificarCorrecto() {
+        jlNumChar.setText("0/300");
+        jlError.setText("");
+        jtaDescripcion.setBorder(null);
+        jtaDescripcion.setText("");
+        jLabelFoto.setIcon(null);
+        jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
+        jbModificar.setBorder(new LineBorder(Color.green));
+        defaultBorders();
+    }
+
+    private void defaultBorders() {
+        jtaDescripcion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    }
 }

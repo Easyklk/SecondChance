@@ -63,7 +63,7 @@ public class VentanaLogin extends javax.swing.JFrame {
 
         jlTitulo.setFont(new java.awt.Font("Segoe Print", 0, 52)); // NOI18N
         jlTitulo.setText("Second Chance");
-        jPanel1.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 11, -1, -1));
+        jPanel1.add(jlTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
 
         jlUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jlUsuario.setText("Email:");
@@ -89,7 +89,7 @@ public class VentanaLogin extends javax.swing.JFrame {
                 jlCerrarMouseClicked(evt);
             }
         });
-        jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, -1, -1));
+        jPanel1.add(jlCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, -1));
 
         jbLogin.setText("Iniciar Sesión");
         jbLogin.setToolTipText("Pulse este boton para iniciar sesión...");

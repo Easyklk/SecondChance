@@ -26,6 +26,7 @@ public class GestionarConsulta {
     public static Consulta obtenerConsultaCod(String codConsulta) {
         String values = "cod_consulta=" + codConsulta;
         String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_CONSULTA_COD, values);
+        System.out.println(array);
         String resultado = array.substring(1, array.length() - 1);
         Gson gson = new Gson();
         Consulta consulta = gson.fromJson(resultado, Consulta.class);

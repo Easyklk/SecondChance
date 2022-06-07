@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Isaac-PC
  */
 public class VentanaEliminarConsulta extends javax.swing.JFrame {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -35,6 +35,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     public VentanaEliminarConsulta() {
         initComponents();
         modelo = (DefaultTableModel) jtConsultas.getModel();
+        jtConsultas.setAutoResizeMode(jtConsultas.AUTO_RESIZE_ALL_COLUMNS);
         jtConsultas.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
@@ -129,6 +130,8 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jltitulo3.setText("Eliminar Consulta");
         jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
 
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         jtConsultas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,7 +158,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtConsultas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 45));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 245, -1, 48));
 
         jtaInformacion.setEditable(false);
         jtaInformacion.setColumns(20);
@@ -164,7 +167,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jtaInformacion.setRows(5);
         jScrollPane2.setViewportView(jtaInformacion);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 450, 80));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 450, 90));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
 
@@ -269,7 +272,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
         jlError.setText("");
     }
-
+    
     private void vaciarTabla() {
         if (modelo.getRowCount() > 0) {
             while (modelo.getRowCount() > 0) {
@@ -277,7 +280,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void buscarConsulta() {
         try {
             jlError.setText("");
@@ -297,14 +300,14 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             jlError.setText("¡La consulta no existe!");
         }
     }
-
+    
     private void borradoCorrecto() {
         jlError.setText("");
         jtfCodigo.setText("");
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-
+    
     private void borradoIncorrecto() {
         jlError.setText("¡¡ERROR!!");
         jtfCodigo.setBorder(new LineBorder(Color.red));

@@ -27,7 +27,7 @@ import javax.swing.text.MaskFormatter;
  * @author Isaac-PC
  */
 public class VentanaRegistroProtectora extends javax.swing.JFrame {
-    
+
     private Protectora protectora;
     private Usuario usuario;
 
@@ -38,7 +38,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         initComponents();
         otherComponents();
     }
-    
+
     private void otherComponents() {
         jpfPassword.setEchoChar('*');
         setLocationRelativeTo(null);
@@ -260,7 +260,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
-    
+
     private void defaultBorders() {
         jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
@@ -271,7 +271,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jpfPassword.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfUbicacion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
     }
-    
+
     private void registroCorrecto() {
         defaultBorders();
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
@@ -285,7 +285,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jtfTlfn.setText("");
         jtfUbicacion.setText("");
     }
-    
+
     private void errorCamposVacios() {
         jlError.setText("¡RELLENE TODOS LOS CAMPOS!");
         jtfCif.setBorder(new LineBorder(Color.red, 1));
