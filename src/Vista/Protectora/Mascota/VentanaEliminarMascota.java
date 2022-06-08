@@ -4,10 +4,20 @@
  */
 package Vista.Protectora.Mascota;
 
+import static Controlador.Constantes.CR_OK_DELETE;
+import Controlador.GestionarConsulta;
+import Controlador.GestionarMascota;
+import Modelo.Consulta;
+import Modelo.Mascota;
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,13 +25,17 @@ import javax.swing.ImageIcon;
  */
 public class VentanaEliminarMascota extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaEliminarMascota() {
         initComponents();
         setLocationRelativeTo(null);
-//        jtaListado.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
+        modelo = (DefaultTableModel) jtMascota.getModel();
+        jtMascota.setAutoResizeMode(jtMascota.AUTO_RESIZE_ALL_COLUMNS);
+        jtMascota.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
     }
@@ -36,15 +50,17 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbEliminar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jtfCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jbBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtMascota = new javax.swing.JTable();
+        jltitulo3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Mascota");
@@ -56,9 +72,9 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Eliminar Mascota");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, 20));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -76,7 +92,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
                 jbEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 100, 50));
+        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, -1, 40));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -89,18 +105,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
-        jtaListado.setColumns(20);
-        jtaListado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 380, 80));
-
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtfCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfCodigoActionPerformed(evt);
-            }
-        });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 160, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -116,21 +121,69 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         });
         jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, -1, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtMascota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtMascota.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Identificador", "Nombre", "Especie", "Raza", "Fecha Acogida", "CIF Protectora"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtMascota);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 520, 70));
+
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Eliminar Mascota");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 700, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
+        String codMascota = (String) jtMascota.getValueAt(0, 0);
+        Mascota mascotaEliminar = GestionarMascota.obtenerMascotaCod(codMascota);
+        if (jtMascota.getValueAt(0, 0) != null) {
+            if (GestionarMascota.eliminarConsulta(mascotaEliminar).equals(CR_OK_DELETE)) {
+                borradoCorrecto();
+            } else {
+                borradoIncorrecto();
+            }
+        } else {
+            System.out.println("aaaaa");
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
-
-    private void jtfCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
+        if (!jtfCodigo.getText().isEmpty()) {
+            defaultBorders();
+            vaciarTabla();
+            buscarConsulta();
+        } else {
+            jtfCodigo.setBorder(new LineBorder(Color.red, 1));
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
@@ -185,13 +238,62 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbVolver;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JLabel jltitulo3;
+    private javax.swing.JTable jtMascota;
     private javax.swing.JTextField jtfCodigo;
     // End of variables declaration//GEN-END:variables
+
+    private void borradoCorrecto() {
+        jlError.setText("");
+        jtfCodigo.setText("");
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.green));
+    }
+
+    private void borradoIncorrecto() {
+        jlError.setText("¡¡ERROR!!");
+        jtfCodigo.setBorder(new LineBorder(Color.red));
+        jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
+        jbEliminar.setBorder(new LineBorder(Color.red));
+    }
+
+    private void defaultBorders() {
+        jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
+        jlError.setText("");
+    }
+
+    private void vaciarTabla() {
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+
+    }
+
+    private void buscarConsulta() {
+        try {
+            jlError.setText("");
+            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodigo.getText().trim());
+            modelo = (DefaultTableModel) jtMascota.getModel();
+            Object[] ob = new Object[6];
+            ob[0] = mascota.getCodIdentificador();
+            ob[1] = mascota.getNombre();
+            ob[2] = mascota.getEspecie();
+            ob[3] = mascota.getRaza();
+            ob[4] = mascota.getFechaAcogida();
+            ob[5] = mascota.getCifProtectora();
+            modelo.addRow(ob);
+            jtMascota.setModel(modelo);
+            jbEliminar.setEnabled(true);
+        } catch (NullPointerException e) {
+            jlError.setText("¡La consulta no existe!");
+        }
+    }
 }

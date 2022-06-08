@@ -30,7 +30,6 @@ public interface Constantes {
 
     public static final String URL_DELETE_CONSULTA = SERVERCONSULTA + "borrarConsulta.php";
     public static final String URL_DELETE_MASCOTA = SERVERMASCOTA + "borrarMascota.php";
-    public static final String URL_DELETE_MASCOTA_IMAGE = SERVERIMAGENES + "borrarImage.php";
     public static final String URL_DELETE_PROTECTORA = SERVERPROTECTORA + "borrarProtectora.php";
     public static final String URL_DELETE_USUARIO = SERVERUSUARIO + "borrarUsuario.php";
 

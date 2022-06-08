@@ -4,9 +4,17 @@
  */
 package Vista.Protectora.Mascota;
 
+import Controlador.GestionarMascota;
+import Modelo.Mascota;
 import Vista.Principal.VentanaPrincipalProtectora;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +22,16 @@ import javax.swing.ImageIcon;
  */
 public class VentanaListadoMascota extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form VentanaListadoMascota
      */
     public VentanaListadoMascota() {
         initComponents();
+        modelo = new DefaultTableModel();
+        jtMascota.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
+        rellenarTabla();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -34,23 +47,30 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
-        jtaListado = new javax.swing.JTextArea();
         jbVolver1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtMascota = new javax.swing.JTable();
+        jtfCodMascota = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jbBuscar = new javax.swing.JButton();
+        jltitulo3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Mascotas");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(655, 631));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Listado de Mascotas");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 170, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -68,12 +88,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
-
-        jtaListado.setColumns(20);
-        jtaListado.setRows(5);
-        jtaListado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jtaListado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 360, 250));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, -1, -1));
 
         jbVolver1.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -86,13 +101,69 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jtMascota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtMascota.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Identificador", "Nombre", "Especie", "Raza", "Fecha Acogida", "CIF Protectora"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtMascota);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, 210));
+
+        jtfCodMascota.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfCodMascotaFocusGained(evt);
+            }
+        });
+        jPanel1.add(jtfCodMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 140, 30));
+
+        jLabel1.setText("Codigo Mascota:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, -1, -1));
+
+        jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, -1, 30));
+
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Listado de Mascotas");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
+        jtfCodMascota.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        vaciarTabla();
+        rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
 
     private void jbVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolver1ActionPerformed
@@ -100,6 +171,21 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolver1ActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        if (!jtfCodMascota.getText().isEmpty()) {
+            vaciarTabla();
+            buscarMascota();
+        } else {
+            jtfCodMascota.setBorder(new LineBorder(Color.red, 1));
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jtfCodMascotaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodMascotaFocusGained
+        // TODO add your handling code here:
+        jtfCodMascota.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    }//GEN-LAST:event_jtfCodMascotaFocusGained
 
     /**
      * @param args the command line arguments
@@ -137,12 +223,58 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver1;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
-    private javax.swing.JTextArea jtaListado;
+    private javax.swing.JLabel jltitulo3;
+    private javax.swing.JTable jtMascota;
+    private javax.swing.JTextField jtfCodMascota;
     // End of variables declaration//GEN-END:variables
+ private void vaciarTabla() {
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+    }
+
+    private void rellenarTabla() {
+        ArrayList<Mascota> alMascotas = GestionarMascota.listarMascotas();
+        modelo = (DefaultTableModel) jtMascota.getModel();
+        Object[] ob = new Object[6];
+        for (int i = 0; i < alMascotas.size(); i++) {
+            ob[0] = alMascotas.get(i).getCodIdentificador();
+            ob[1] = alMascotas.get(i).getNombre();
+            ob[2] = alMascotas.get(i).getEspecie();
+            ob[3] = alMascotas.get(i).getRaza();
+            ob[4] = alMascotas.get(i).getFechaAcogida();
+            ob[5] = alMascotas.get(i).getCifProtectora();
+            modelo.addRow(ob);
+        }
+        jtMascota.setModel(modelo);
+    }
+
+    private void buscarMascota() {
+        try {
+            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodMascota.getText().trim());
+            modelo = (DefaultTableModel) jtMascota.getModel();
+            Object[] ob = new Object[6];
+            ob[0] = mascota.getCodIdentificador();
+            ob[1] = mascota.getNombre();
+            ob[2] = mascota.getEspecie();
+            ob[3] = mascota.getRaza();
+            ob[4] = mascota.getFechaAcogida();
+            ob[5] = mascota.getCifProtectora();
+            modelo.addRow(ob);
+            jtMascota.setModel(modelo);
+            jlError.setText("");
+        } catch (NullPointerException e) {
+            jlError.setText("¡La consulta no existe!");
+        }
+
+    }
 }

@@ -6,11 +6,7 @@ package Vista.Protectora.Consulta;
 
 import static Controlador.Constantes.CR_OK_DELETE;
 import Controlador.GestionarConsulta;
-import Controlador.GestionarProtectora;
-import Controlador.GestionarUsuario;
 import Modelo.Consulta;
-import Modelo.Protectora;
-import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Dimension;

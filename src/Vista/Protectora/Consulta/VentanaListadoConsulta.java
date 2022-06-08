@@ -5,9 +5,7 @@
 package Vista.Protectora.Consulta;
 
 import Controlador.GestionarConsulta;
-import Controlador.GestionarUsuario;
 import Modelo.Consulta;
-import Modelo.Usuario;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Font;
@@ -65,6 +63,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Consultas");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,6 +104,12 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
 
         jLabel1.setText("Codigo Consulta:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 530, -1, -1));
+
+        jtfCodConsulta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfCodConsultaFocusGained(evt);
+            }
+        });
         jPanel1.add(jtfCodConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 550, 140, 30));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
@@ -146,7 +151,9 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, 210));
 
+        jtaInformacion.setEditable(false);
         jtaInformacion.setColumns(20);
+        jtaInformacion.setLineWrap(true);
         jtaInformacion.setRows(5);
         jScrollPane2.setViewportView(jtaInformacion);
 
@@ -180,9 +187,14 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
             vaciarTabla();
             buscarConsulta();
         } else {
-            jtfCodConsulta.setBorder(new LineBorder(Color.red, 2));
+            jtfCodConsulta.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jtfCodConsultaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodConsultaFocusGained
+        // TODO add your handling code here:
+        jtfCodConsulta.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    }//GEN-LAST:event_jtfCodConsultaFocusGained
 
     /**
      * @param args the command line arguments
@@ -241,6 +253,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
+        jtaInformacion.setText("");
     }
 
     private void rellenarTabla() {
@@ -270,6 +283,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
             ob[4] = consulta.getInformacion();
             modelo.addRow(ob);
             jtConsulta.setModel(modelo);
+            jtaInformacion.setText(ob[4].toString());
             jlError.setText("");
         } catch (NullPointerException e) {
             jlError.setText("¡La consulta no existe!");
