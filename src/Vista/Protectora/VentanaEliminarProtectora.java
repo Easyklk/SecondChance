@@ -93,7 +93,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
                 jbEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 100, 50));
+        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 110, 35));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -195,7 +195,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
 
     private void defaultBorders() {
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
+        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jlError.setText("");
     }
 

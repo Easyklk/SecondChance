@@ -10,6 +10,7 @@ import Controlador.Utilidades;
 import Modelo.Protectora;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
@@ -70,6 +71,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1.add(jlUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 128, -1, -1));
 
         jtfEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtfEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfsKeyReleased(evt);
+            }
+        });
         jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 156, 211, -1));
 
         jlPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -77,6 +83,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel1.add(jlPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 183, -1, -1));
 
         jpfPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfsKeyReleased(evt);
+            }
+        });
         jPanel1.add(jpfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 211, 211, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
@@ -140,6 +151,13 @@ public class VentanaLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbLoginActionPerformed
 
+    private void jtfsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfsKeyReleased
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jbLoginActionPerformed(null);
+        }
+    }//GEN-LAST:event_jtfsKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -171,7 +189,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaLogin().setVisible(true);
-
+                
             }
         });
     }

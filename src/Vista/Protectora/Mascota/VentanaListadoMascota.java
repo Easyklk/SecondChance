@@ -162,6 +162,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
         jtfCodMascota.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtfCodMascota.setText("");
         vaciarTabla();
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
@@ -273,7 +274,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
             jtMascota.setModel(modelo);
             jlError.setText("");
         } catch (NullPointerException e) {
-            jlError.setText("¡La consulta no existe!");
+            jlError.setText("¡La mascota no existe!");
         }
 
     }

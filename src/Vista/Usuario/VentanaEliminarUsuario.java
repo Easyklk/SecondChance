@@ -49,7 +49,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbEliminar = new javax.swing.JButton();
@@ -59,6 +59,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         jbBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtUsuarios = new javax.swing.JTable();
+        jltitulo3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eliminar Usuario");
@@ -71,9 +72,9 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Eliminar Usuario");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, 20));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -85,13 +86,14 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         jbEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
-        jbEliminar.setToolTipText("Pulse este boton para eliminar la protectora...");
+        jbEliminar.setToolTipText("Pulse este boton para eliminar el usuario...");
+        jbEliminar.setEnabled(false);
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, 100, 50));
+        jPanel1.add(jbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 110, 30));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -112,7 +114,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, -1, -1));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
-        jbBuscar.setToolTipText("Pulse este boton para buscar una protectora...");
+        jbBuscar.setToolTipText("Pulse este boton para buscar el usuario...");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
@@ -147,6 +149,10 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtUsuarios);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 48));
+
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Eliminar Usuario");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 450));
 
@@ -242,35 +248,42 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbVolver;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
+    private javax.swing.JLabel jltitulo3;
     private javax.swing.JTable jtUsuarios;
     private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
 
     private void buscarUsario() {
-        Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
-        modelo = (DefaultTableModel) jtUsuarios.getModel();
-        Object[] ob = new Object[4];
-        ob[0] = usuario.getEmail();
-        if (usuario.getVoluntario() == 0) {
-            ob[1] = "No";
-        } else {
-            ob[1] = "Sí";
+        try {
+            Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+            modelo = (DefaultTableModel) jtUsuarios.getModel();
+            Object[] ob = new Object[4];
+            ob[0] = usuario.getEmail();
+            if (usuario.getVoluntario() == 0) {
+                ob[1] = "No";
+            } else {
+                ob[1] = "Sí";
+            }
+            if (usuario.getProtectora() == 0) {
+                ob[2] = "No";
+            } else {
+                ob[2] = "Sí";
+            }
+            if (usuario.getAdministrador() == 0) {
+                ob[3] = "No";
+            } else {
+                ob[3] = "Sí";
+            }
+            jbEliminar.setEnabled(true);
+            modelo.addRow(ob);
+            jtUsuarios.setModel(modelo);
+        } catch (NullPointerException e) {
+            jlError.setText("¡¡El usuario no existe!!");
         }
-        if (usuario.getProtectora() == 0) {
-            ob[2] = "No";
-        } else {
-            ob[2] = "Sí";
-        }
-        if (usuario.getAdministrador() == 0) {
-            ob[3] = "No";
-        } else {
-            ob[3] = "Sí";
-        }
-        modelo.addRow(ob);
-        jtUsuarios.setModel(modelo);
+
     }
 
     private void vaciarTabla() {

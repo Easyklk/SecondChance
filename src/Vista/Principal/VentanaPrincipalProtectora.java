@@ -106,7 +106,7 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
                 jbModificarProtectoraActionPerformed(evt);
             }
         });
-        jPanel2.add(jbModificarProtectora, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, 40));
+        jPanel2.add(jbModificarProtectora, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 90, 40));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(96, 195, 166)));
@@ -124,7 +124,7 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Consultas");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jbEliminarConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
         jbEliminarConsultas.setText("Eliminar");
@@ -144,9 +144,9 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
                 jbRegistrarConsultasActionPerformed(evt);
             }
         });
-        jPanel3.add(jbRegistrarConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 40));
+        jPanel3.add(jbRegistrarConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, 40));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 400, 100));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 390, 100));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(96, 195, 166)));

@@ -154,6 +154,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtfEmail.setText("");
         vaciarTabla();
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed

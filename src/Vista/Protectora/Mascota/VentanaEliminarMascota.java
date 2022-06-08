@@ -266,7 +266,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
 
     private void defaultBorders() {
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
+        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jlError.setText("");
     }
 

@@ -88,7 +88,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
                 jbListarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 450, -1, -1));
+        jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 450, -1, -1));
 
         jbVolver1.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -128,7 +128,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtProtectoras);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 550, 220));
-        jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 140, 30));
+        jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 140, 30));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
         jbBuscar.setText("Buscar");
@@ -137,10 +137,11 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
                 jbBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, -1, 30));
+        jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 450, -1, 30));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("CIF:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -150,6 +151,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtfCif.setText("");
         vaciarTabla();
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed

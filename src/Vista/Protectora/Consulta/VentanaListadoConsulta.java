@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaListadoConsulta extends javax.swing.JFrame {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -151,6 +151,8 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, 210));
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información"));
+
         jtaInformacion.setEditable(false);
         jtaInformacion.setColumns(20);
         jtaInformacion.setLineWrap(true);
@@ -171,6 +173,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     private void jbListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarActionPerformed
         // TODO add your handling code here:
         jtfCodConsulta.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtfCodConsulta.setText("");
         vaciarTabla();
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
@@ -255,7 +258,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         }
         jtaInformacion.setText("");
     }
-
+    
     private void rellenarTabla() {
         ArrayList<Consulta> alConsultas = GestionarConsulta.listarConsultas();
         modelo = (DefaultTableModel) jtConsulta.getModel();
@@ -270,7 +273,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         }
         jtConsulta.setModel(modelo);
     }
-
+    
     private void buscarConsulta() {
         try {
             Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodConsulta.getText());
@@ -288,6 +291,6 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             jlError.setText("¡La consulta no existe!");
         }
-
+        
     }
 }

@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Isaac-PC
  */
 public class VentanaEliminarConsulta extends javax.swing.JFrame {
-    
+
     private DefaultTableModel modelo;
 
     /**
@@ -86,7 +86,8 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
-        jbEliminar.setToolTipText("Pulse este boton para eliminar la protectora...");
+        jbEliminar.setToolTipText("Pulse este boton para eliminar la consulta...");
+        jbEliminar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jbEliminar.setEnabled(false);
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +108,11 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfCodigoFocusGained(evt);
+            }
+        });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 160, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -114,7 +120,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
-        jbBuscar.setToolTipText("Pulse este boton para buscar una protectora...");
+        jbBuscar.setToolTipText("Pulse este boton para buscar una consulta...");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
@@ -156,11 +162,14 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 245, -1, 48));
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información"));
+
         jtaInformacion.setEditable(false);
         jtaInformacion.setColumns(20);
         jtaInformacion.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jtaInformacion.setLineWrap(true);
         jtaInformacion.setRows(5);
+        jtaInformacion.setBorder(null);
         jScrollPane2.setViewportView(jtaInformacion);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 450, 90));
@@ -181,7 +190,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
                 borradoIncorrecto();
             }
         } else {
-            System.out.println("aaaaa");
+            System.out.println("GETVALUE==NULL");
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -202,6 +211,11 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
+
+    private void jtfCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusGained
+        // TODO add your handling code here:
+        defaultBorders();
+    }//GEN-LAST:event_jtfCodigoFocusGained
 
     /**
      * @param args the command line arguments
@@ -268,7 +282,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
         jlError.setText("");
     }
-    
+
     private void vaciarTabla() {
         if (modelo.getRowCount() > 0) {
             while (modelo.getRowCount() > 0) {
@@ -276,7 +290,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void buscarConsulta() {
         try {
             jlError.setText("");
@@ -294,16 +308,18 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             jbEliminar.setEnabled(true);
         } catch (NullPointerException e) {
             jlError.setText("¡La consulta no existe!");
+            jtfCodigo.setBorder(new LineBorder(Color.RED));
+            jtaInformacion.setText("");
         }
     }
-    
+
     private void borradoCorrecto() {
         jlError.setText("");
         jtfCodigo.setText("");
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-    
+
     private void borradoIncorrecto() {
         jlError.setText("¡¡ERROR!!");
         jtfCodigo.setBorder(new LineBorder(Color.red));

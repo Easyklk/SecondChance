@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
@@ -180,14 +181,14 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jbRegistrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/añadir.png"))); // NOI18N
         jbRegistrar.setText("Registrar");
-        jbRegistrar.setToolTipText("Pulse este boton para registrase una nueva consulta...");
-        jbRegistrar.setBorder(null);
+        jbRegistrar.setToolTipText("Pulse este boton para registrar una nueva consulta...");
+        jbRegistrar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, 100, 30));
+        jPanel1.add(jbRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, 120, 30));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -237,9 +238,9 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jlNumChar.setText("0/300");
         jPanel1.add(jlNumChar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, -1, -1));
 
-        jPanel1.add(jcbMinutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 400, -1, -1));
+        jPanel1.add(jcbMinutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 400, 40, -1));
 
-        jPanel1.add(jcbHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 400, -1, -1));
+        jPanel1.add(jcbHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 400, 40, -1));
 
         jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jltitulo3.setText("Registro de Consulta");
@@ -260,9 +261,8 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
         // TODO add your handling code here:
-        if ( //                jtfCodMascota.getText().isEmpty() || jtfDniVoluntario.getText().isEmpty()
-                //                || jftfFecha.getText().isEmpty() || jtaInformacion.getText().isEmpty()
-                false) {
+        if (jtfCodMascota.getText().isEmpty() || jtfDniVoluntario.getText().isEmpty()
+                || jftfFecha.getText().isEmpty() || jtaInformacion.getText().isEmpty()) {
             errorCamposVacios();
         } else {
             Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodMascota.getText().trim());
@@ -275,11 +275,14 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                         if (jtaInformacion.getText().length() > 300) {
                             jlError.setText("¡¡Maximo 300 Char!!");
                         } else {
-                            consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
-                            if (GestionarConsulta.insertarConsulta(consulta).equals(CR_OK_INSERT)) {
-                                registroCorrecto();
-                                defaultBorders();
-                                jlNumChar.setText("0/300");
+                            int a = JOptionPane.showConfirmDialog(this, "¿Seguro quiere registrar con esta fecha \"" + horario + "\"?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                            if (a == JOptionPane.YES_OPTION) {
+                                consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
+                                if (GestionarConsulta.insertarConsulta(consulta).equals(CR_OK_INSERT)) {
+                                    registroCorrecto();
+                                    defaultBorders();
+                                    jlNumChar.setText("0/300");
+                                }
                             }
                         }
                     } else {
@@ -294,6 +297,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                 jlError.setText("¡¡LA MASCOTA NO EXITE!!");
                 jtfCodMascota.setBorder(new LineBorder(Color.red));
             }
+
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
@@ -334,7 +338,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jftfFecha.setText("");
         defaultBorders();
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
-        jbRegistrar.setBorder(new LineBorder(Color.green));
+        jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
     }//GEN-LAST:event_jftfFechaFocusGained
 
     private void jtfsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfsFocusGained
@@ -413,6 +417,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     private void registroCorrecto() {
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
+        jlError.setText("");
         vaciarCampos();
     }
 
@@ -424,7 +429,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     }
 
     private void defaultBorders() {
-        jtaInformacion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtaInformacion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextArea.border"));
         jtfCodMascota.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfDniVoluntario.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jftfFecha.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
