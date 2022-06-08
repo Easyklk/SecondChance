@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author UsuarioPracticas
  */
 public class VentanaEditarMascota extends javax.swing.JFrame {
-
+    
     private File archivo;
 
     /**
@@ -32,6 +32,10 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
      */
     public VentanaEditarMascota() {
         initComponents();
+        otherComponents();
+    }
+    
+    private void otherComponents() {
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
@@ -188,35 +192,38 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
             jtfCodigo.setBorder(new LineBorder(Color.RED, 1));
         } else {
             Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodigo.getText());
-            if (!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 3) {
-                mascota.setDescripcion(jtaDescripcion.getText());
-            } else if (jtaDescripcion.getText().length() > 3) {
-                jlError.setText("¡¡300 Caracteres max.!!");
-                jtaDescripcion.setBorder(new LineBorder(Color.red, 1));
-            }
-            if (archivo != null) {
-                mascota.setFoto(SERVERIMAGENES + mascota.getNombre() + "_" + jtfCodigo.getText() + "." + obtenerExtension(archivo));
-                HttpRequest.insertarImage(archivo, mascota.getNombre(), jtfCodigo.getText());
-            }
-            if ((!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 300) || archivo != null) {
-                mascota.setDescripcion(jtaDescripcion.getText().trim());
-                if (GestionarMascota.modificarMascota(mascota).equals(CR_OK_INSERT)) {
-                    modificarCorrecto();
-
+            if (mascota != null) {
+                if (!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 3) {
+                    mascota.setDescripcion(jtaDescripcion.getText());
+                } else if (jtaDescripcion.getText().length() > 3) {
+                    jlError.setText("¡¡300 Caracteres max.!!");
+                    jtaDescripcion.setBorder(new LineBorder(Color.red, 1));
                 }
-            } else if (jtaDescripcion.getText().isEmpty() && archivo == null) {
-                errorCamposVacios();
+                if (archivo != null) {
+                    mascota.setFoto(SERVERIMAGENES + mascota.getNombre() + "_" + jtfCodigo.getText() + "." + obtenerExtension(archivo));
+                    HttpRequest.insertarImage(archivo, mascota.getNombre(), jtfCodigo.getText());
+                    jLabelFoto.setIcon(null);
+                }
+                if ((!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 300)) {
+                    mascota.setDescripcion(jtaDescripcion.getText().trim());
+                    if (GestionarMascota.modificarMascota(mascota).equals(CR_OK_INSERT)) {
+                        modificarCorrecto();
+                    }
+                } else if (jtaDescripcion.getText().isEmpty() && archivo == null) {
+                    errorCamposVacios();
+                }
+            } else {
+                jlError.setText("!La mascota no existe¡");
             }
         }
-
     }//GEN-LAST:event_jbModificarActionPerformed
-
+    
     private void errorCamposVacios() {
         jlError.setText("¡¡RELLENE ALGUN CAMPO!!");
         jtaDescripcion.setBorder(new LineBorder(Color.red));
         jbSeleccionarFoto.setBorder(new LineBorder(Color.red));
     }
-
+    
     private static String obtenerExtension(File file) {
         String extension = "";
         int i = file.getName().lastIndexOf('.');
@@ -267,6 +274,8 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
 
     private void jtfsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfsFocusGained
         // TODO add your handling code here:
+        defaultBorders();
+        jlError.setText("");
     }//GEN-LAST:event_jtfsFocusGained
 
     /**
@@ -298,20 +307,6 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaEditarMascota.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -354,9 +349,10 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jbModificar.setBorder(new LineBorder(Color.green));
         defaultBorders();
     }
-
+    
     private void defaultBorders() {
         jtaDescripcion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jbSeleccionarFoto.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
     }
 }

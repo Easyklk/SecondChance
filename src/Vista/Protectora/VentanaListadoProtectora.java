@@ -47,7 +47,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
@@ -57,6 +57,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         jtfCif = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jltitulo2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listar Protectoras");
@@ -68,9 +69,9 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Listado de Protectoras");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
@@ -142,6 +143,10 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("CIF:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
+
+        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo2.setText("Listado de Protectoras");
+        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -220,6 +225,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver1;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jltitulo2;
@@ -261,9 +267,10 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
             ob[4] = protectora.getTelefono();
             ob[5] = protectora.getUbicacion();
             modelo.addRow(ob);
-            jtProtectoras.setModel(modelo);
-        } catch (NullPointerException e) {
+            jtProtectoras.setModel(modelo);            jlError.setText("");
 
+        } catch (NullPointerException e) {
+            jlError.setText("¡¡La protectora no existe!!");
         }
 
     }

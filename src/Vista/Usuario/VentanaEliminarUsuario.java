@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Isaac-PC
  */
 public class VentanaEliminarUsuario extends javax.swing.JFrame {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -178,7 +178,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jbEliminarActionPerformed
-
+    
     private void borradoCorrecto() {
         jtfEmail.setText("");
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
@@ -282,10 +282,11 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
             jtUsuarios.setModel(modelo);
         } catch (NullPointerException e) {
             jlError.setText("¡¡El usuario no existe!!");
+            jbEliminar.setEnabled(false);
         }
-
+        
     }
-
+    
     private void vaciarTabla() {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);

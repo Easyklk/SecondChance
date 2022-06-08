@@ -29,7 +29,6 @@ public class GestionarMascota {
     public static ArrayList<Mascota> listarMascotas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_MASCOTA);
         Gson gson = new Gson();
-        System.out.println(resultado);
         TypeToken<List<Mascota>> listToken = new TypeToken<List<Mascota>>() {
         };
         java.lang.reflect.Type listType = listToken.getType();
@@ -48,7 +47,6 @@ public class GestionarMascota {
     public static String modificarMascota(Mascota mascota) {
         String values = "codIdentificador=" + mascota.getCodIdentificador() + "&foto=" + mascota.getFoto() + "&descripcion=" + mascota.getDescripcion();
         String resultado = Controlador.HttpRequest.POST_REQUEST(Constantes.URL_UPDATE_MASCOTA, values);
-        System.out.println(resultado);
         return resultado;
     }
 

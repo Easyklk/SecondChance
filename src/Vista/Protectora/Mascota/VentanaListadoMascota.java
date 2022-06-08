@@ -274,7 +274,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
             jtMascota.setModel(modelo);
             jlError.setText("");
         } catch (NullPointerException e) {
-            jlError.setText("¡La mascota no existe!");
+            jlError.setText("¡¡La mascota no existe!!");
         }
 
     }

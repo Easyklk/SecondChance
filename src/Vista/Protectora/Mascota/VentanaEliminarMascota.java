@@ -87,6 +87,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrar.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setToolTipText("Pulse este boton para eliminar la protectora...");
+        jbEliminar.setEnabled(false);
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarActionPerformed(evt);
@@ -180,7 +181,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         if (!jtfCodigo.getText().isEmpty()) {
             defaultBorders();
             vaciarTabla();
-            buscarConsulta();
+            buscarMascota();
         } else {
             jtfCodigo.setBorder(new LineBorder(Color.red, 1));
         }
@@ -277,7 +278,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
 
     }
 
-    private void buscarConsulta() {
+    private void buscarMascota() {
         try {
             jlError.setText("");
             Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodigo.getText().trim());
@@ -293,7 +294,8 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
             jtMascota.setModel(modelo);
             jbEliminar.setEnabled(true);
         } catch (NullPointerException e) {
-            jlError.setText("¡La consulta no existe!");
+            jbEliminar.setEnabled(false);
+            jlError.setText("¡La Mascota no existe!");
         }
     }
 }

@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaEliminarProtectora extends javax.swing.JFrame implements Constantes {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -153,7 +153,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         });
         jScrollPane1.setViewportView(jtProtectoras);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 46));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, 48));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("CIF:");
@@ -192,7 +192,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jtfCif.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
-
+    
     private void defaultBorders() {
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
@@ -277,7 +277,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             }
         }
     }
-
+    
     private void buscarProtectora() {
         try {
             jlError.setText("");
@@ -292,18 +292,19 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jtProtectoras.setModel(modelo);
             jbEliminar.setEnabled(true);
         } catch (NullPointerException e) {
+            jbEliminar.setEnabled(false);
             jlError.setText("¡La protectora no existe!");
         }
-
+        
     }
-
+    
     private void borradoCorrecto() {
         jlError.setText("");
         jtfCif.setText("");
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-
+    
     private void borradoIncorrecto() {
         jlError.setText("¡¡Elimine las mascotas antes!!");
         jtfCif.setBorder(new LineBorder(Color.red));

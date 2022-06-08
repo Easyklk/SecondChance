@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -30,6 +31,10 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
      */
     public VentanaEliminarConsulta() {
         initComponents();
+        otherComponents();
+    }
+
+    private void otherComponents() {
         modelo = (DefaultTableModel) jtConsultas.getModel();
         jtConsultas.setAutoResizeMode(jtConsultas.AUTO_RESIZE_ALL_COLUMNS);
         jtConsultas.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
@@ -111,6 +116,11 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jtfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfCodigoFocusGained(evt);
+            }
+        });
+        jtfCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfCodigoKeyTyped(evt);
             }
         });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 160, 40));
@@ -218,6 +228,17 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCodigoFocusGained
 
     /**
+     * Metodo para solo poder introducir numeros en el JTextField
+     */
+    private void jtfCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCodigoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfCodigoKeyTyped
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -308,7 +329,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             jbEliminar.setEnabled(true);
         } catch (NullPointerException e) {
             jlError.setText("¡La consulta no existe!");
-            jtfCodigo.setBorder(new LineBorder(Color.RED));
+            jbEliminar.setEnabled(false);
             jtaInformacion.setText("");
         }
     }

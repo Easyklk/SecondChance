@@ -20,11 +20,13 @@ import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -34,43 +36,28 @@ import javax.swing.text.MaskFormatter;
  */
 public class VentanaRegistroConsulta extends javax.swing.JFrame {
 
-    private MaskFormatter mascara;
     private Consulta consulta;
     private Protectora protectora;
-    private Date fechaConsulta;
+    private SimpleDateFormat sdf;
     private Date fechaActual;
 
     /**
      * Creates new form VentanaRegistro
      */
     public VentanaRegistroConsulta() {
-        formatoFecha();
         initComponents();
+        otherComponents();
+    }
+
+    private void otherComponents() {
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
+        jdcFechaConsulta.setLocale(new Locale("es"));
         fechaActual = new Date();
+        jdcFechaConsulta.setMaxSelectableDate(fechaActual);
         rellenarComboBox();
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
-    }
-
-    private void obtenerDate() {
-        try {
-            fechaConsulta = new SimpleDateFormat("dd/MM/yyyy").parse(jftfFecha.getText());
-        } catch (ParseException ex) {
-            Logger.getLogger(VentanaRegistroMascota.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void formatoFecha() {
-        try {
-            // TODO add your handling code here:
-            mascara = new MaskFormatter("##/##/####");
-            mascara.setPlaceholder("dd/mm/aaaa");
-            mascara.setPlaceholderCharacter('_');
-        } catch (ParseException ex) {
-            Logger.getLogger(VentanaRegistroMascota.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void rellenarComboBox() {
@@ -115,7 +102,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jbRegistrar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
-        jftfFecha = new javax.swing.JFormattedTextField(mascara);
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaInformacion = new javax.swing.JTextArea();
@@ -126,11 +112,11 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jltitulo3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jdcFechaConsulta = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Consulta");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(null);
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,14 +187,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         });
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
-        jftfFecha.setToolTipText("Desde HH:MM - Hasta HH:MM");
-        jftfFecha.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jftfFechaFocusGained(evt);
-            }
-        });
-        jPanel1.add(jftfFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 150, 30));
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Información:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
@@ -254,6 +232,13 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jLabel9.setText("Hora:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, -1, -1));
 
+        jdcFechaConsulta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jdcFechaConsultacomponentsFocusGained(evt);
+            }
+        });
+        jPanel1.add(jdcFechaConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 150, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 560));
 
         pack();
@@ -262,32 +247,26 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
         // TODO add your handling code here:
         if (jtfCodMascota.getText().isEmpty() || jtfDniVoluntario.getText().isEmpty()
-                || jftfFecha.getText().isEmpty() || jtaInformacion.getText().isEmpty()) {
+                || jdcFechaConsulta.getDate() == null || jtaInformacion.getText().isEmpty()) {
             errorCamposVacios();
         } else {
             Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodMascota.getText().trim());
             if (mascota != null) {
                 Voluntario voluntario = GestionarUsuario.obtenerVoluntario(jtfDniVoluntario.getText().trim());
                 if (voluntario != null) {
-                    String horario = jftfFecha.getText().trim() + " " + jcbHora.getSelectedIndex() + ":" + jcbMinutos.getSelectedItem();
-                    obtenerDate();
-                    if (fechaConsulta.before(fechaActual)) {
-                        if (jtaInformacion.getText().length() > 300) {
-                            jlError.setText("¡¡Maximo 300 Char!!");
-                        } else {
-                            int a = JOptionPane.showConfirmDialog(this, "¿Seguro quiere registrar con esta fecha \"" + horario + "\"?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                            if (a == JOptionPane.YES_OPTION) {
-                                consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
-                                if (GestionarConsulta.insertarConsulta(consulta).equals(CR_OK_INSERT)) {
-                                    registroCorrecto();
-                                    defaultBorders();
-                                    jlNumChar.setText("0/300");
-                                }
+                    String horario = sdf.format(jdcFechaConsulta.getDate()) + " " + jcbHora.getSelectedIndex() + ":" + jcbMinutos.getSelectedItem();
+                    if (jtaInformacion.getText().length() > 300) {
+                        jlError.setText("¡¡Maximo 300 Char!!");
+                    } else {
+                        int a = JOptionPane.showConfirmDialog(this, "¿Seguro quiere registrar con esta fecha \"" + horario + "\"?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                        if (a == JOptionPane.YES_OPTION) {
+                            consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
+                            if (GestionarConsulta.insertarConsulta(consulta).equals(CR_OK_INSERT)) {
+                                registroCorrecto();
+                                defaultBorders();
+                                jlNumChar.setText("0/300");
                             }
                         }
-                    } else {
-                        jlError.setText("¡¡FECHA INCORRECTA!!");
-                        jftfFecha.setBorder(new LineBorder(Color.red));
                     }
                 } else {
                     jlError.setText("¡¡EL VOLUNTRAIO NO EXITE!!");
@@ -297,7 +276,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                 jlError.setText("¡¡LA MASCOTA NO EXITE!!");
                 jtfCodMascota.setBorder(new LineBorder(Color.red));
             }
-
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
@@ -306,7 +284,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jtfCodMascota.setBorder(new LineBorder(Color.red, 1));
         jtfDniVoluntario.setBorder(new LineBorder(Color.red, 1));
         jtaInformacion.setBorder(new LineBorder(Color.red, 1));
-        jftfFecha.setBorder(new LineBorder(Color.red, 1));
+        jdcFechaConsulta.setBorder(new LineBorder(Color.red, 1));
     }
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
@@ -333,20 +311,19 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtaInformacionKeyReleased
 
-    private void jftfFechaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jftfFechaFocusGained
-        // TODO add your handling code here:
-        jftfFecha.setText("");
-        defaultBorders();
-        jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
-        jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
-    }//GEN-LAST:event_jftfFechaFocusGained
-
     private void jtfsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfsFocusGained
         // TODO add your handling code here:
         defaultBorders();
+        jlError.setText("");
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
     }//GEN-LAST:event_jtfsFocusGained
+
+    private void jdcFechaConsultacomponentsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdcFechaConsultacomponentsFocusGained
+        // TODO add your handling code here:
+        jlError.setText("");
+        defaultBorders();
+    }//GEN-LAST:event_jdcFechaConsultacomponentsFocusGained
 
     /**
      * @param args the command line arguments
@@ -403,7 +380,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     private javax.swing.JButton jbVolver;
     private javax.swing.JComboBox<String> jcbHora;
     private javax.swing.JComboBox<String> jcbMinutos;
-    private javax.swing.JFormattedTextField jftfFecha;
+    private com.toedter.calendar.JDateChooser jdcFechaConsulta;
     private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlNumChar;
@@ -425,13 +402,15 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         jtaInformacion.setText("");
         jtfCodMascota.setText("");
         jtfDniVoluntario.setText("");
-        jftfFecha.setText("");
+        jcbHora.setSelectedIndex(0);
+        jcbMinutos.setSelectedIndex(0);
+        jdcFechaConsulta.setDate(null);
     }
 
     private void defaultBorders() {
         jtaInformacion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextArea.border"));
         jtfCodMascota.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfDniVoluntario.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-        jftfFecha.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jdcFechaConsulta.setBorder(new EmptyBorder(1, 1, 1, 1));
     }
 }

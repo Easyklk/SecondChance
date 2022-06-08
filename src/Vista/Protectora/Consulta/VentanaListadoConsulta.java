@@ -10,6 +10,7 @@ import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaListadoConsulta extends javax.swing.JFrame {
-    
+
     private DefaultTableModel modelo;
 
     /**
@@ -108,6 +109,11 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jtfCodConsulta.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfCodConsultaFocusGained(evt);
+            }
+        });
+        jtfCodConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfCodConsultaKeyTyped(evt);
             }
         });
         jPanel1.add(jtfCodConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 550, 140, 30));
@@ -198,6 +204,16 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         // TODO add your handling code here:
         jtfCodConsulta.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
     }//GEN-LAST:event_jtfCodConsultaFocusGained
+    /**
+     * Metodo para solo poder introducir numeros en el JTextField
+     */
+    private void jtfCodConsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCodConsultaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfCodConsultaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -258,7 +274,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         }
         jtaInformacion.setText("");
     }
-    
+
     private void rellenarTabla() {
         ArrayList<Consulta> alConsultas = GestionarConsulta.listarConsultas();
         modelo = (DefaultTableModel) jtConsulta.getModel();
@@ -273,7 +289,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         }
         jtConsulta.setModel(modelo);
     }
-    
+
     private void buscarConsulta() {
         try {
             Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodConsulta.getText());
@@ -291,6 +307,6 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             jlError.setText("¡La consulta no existe!");
         }
-        
+
     }
 }

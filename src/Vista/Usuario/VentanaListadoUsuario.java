@@ -29,6 +29,10 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
      */
     public VentanaListadoUsuario() {
         initComponents();
+        otherComponents();
+    }
+
+    private void otherComponents() {
         modelo = new DefaultTableModel();
         jtUsuarios.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         rellenarTabla();
@@ -49,7 +53,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        jltitulo2 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
@@ -59,6 +63,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         jtfEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jbBuscar = new javax.swing.JButton();
+        jltitulo3 = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -74,9 +79,9 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jltitulo2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jltitulo2.setText("Listado de Usuarios");
-        jPanel1.add(jltitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
+        jlError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logoSC.png"))); // NOI18N
         jPanel1.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
@@ -88,7 +93,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         jbListar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/listados.png"))); // NOI18N
         jbListar.setText("Listar");
-        jbListar.setToolTipText("Pulse este boton para listar las protectoras...");
+        jbListar.setToolTipText("Pulse este boton para listar los usuarios...");
         jbListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbListarActionPerformed(evt);
@@ -132,7 +137,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtUsuarios);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, -1, 220));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, -1, 220));
         jPanel1.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, 140, 30));
 
         jLabel1.setText("Email:");
@@ -140,12 +145,17 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
         jbBuscar.setText("Buscar");
+        jbBuscar.setToolTipText("");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
             }
         });
         jPanel1.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, -1, 30));
+
+        jltitulo3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jltitulo3.setText("Listado de Usuarios");
+        jPanel1.add(jltitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
 
@@ -171,7 +181,7 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
             vaciarTabla();
             buscarUsario();
         } else {
-            jtfEmail.setBorder(new LineBorder(Color.red, 2));
+            jtfEmail.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -222,9 +232,10 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
     private javax.swing.JButton jbVolver;
+    private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JLabel jltitulo2;
+    private javax.swing.JLabel jltitulo3;
     private javax.swing.JTable jtUsuarios;
     private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
@@ -263,26 +274,32 @@ public class VentanaListadoUsuario extends javax.swing.JFrame {
     }
 
     private void buscarUsario() {
-        Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
-        modelo = (DefaultTableModel) jtUsuarios.getModel();
-        Object[] ob = new Object[4];
-        ob[0] = usuario.getEmail();
-        if (usuario.getVoluntario() == 0) {
-            ob[1] = "No";
-        } else {
-            ob[1] = "Sí";
+        try {
+            Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+            modelo = (DefaultTableModel) jtUsuarios.getModel();
+            Object[] ob = new Object[4];
+            ob[0] = usuario.getEmail();
+            if (usuario.getVoluntario() == 0) {
+                ob[1] = "No";
+            } else {
+                ob[1] = "Sí";
+            }
+            if (usuario.getProtectora() == 0) {
+                ob[2] = "No";
+            } else {
+                ob[2] = "Sí";
+            }
+            if (usuario.getAdministrador() == 0) {
+                ob[3] = "No";
+            } else {
+                ob[3] = "Sí";
+            }
+            modelo.addRow(ob);
+            jlError.setText("");
+            jtUsuarios.setModel(modelo);
+        } catch (NullPointerException e) {
+            jlError.setText("¡¡El usuario no existe!!");
         }
-        if (usuario.getProtectora() == 0) {
-            ob[2] = "No";
-        } else {
-            ob[2] = "Sí";
-        }
-        if (usuario.getAdministrador() == 0) {
-            ob[3] = "No";
-        } else {
-            ob[3] = "Sí";
-        }
-        modelo.addRow(ob);
-        jtUsuarios.setModel(modelo);
+
     }
 }
