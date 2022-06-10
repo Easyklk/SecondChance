@@ -29,7 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author UsuarioPracticas
  */
 public class VentanaRegistroMascota extends javax.swing.JFrame {
-
+    
     private static Protectora protectora;
     private File archivo;
     private SimpleDateFormat sdf;
@@ -46,7 +46,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         initComponents();
         otherComponents();
     }
-
+    
     private void otherComponents() {
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         jdcFechaAcogida.setLocale(new Locale("es"));
@@ -184,7 +184,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 150, 30));
 
         jcbEspecie.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jcbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Perro", "Gato", "Ave", "Otro" }));
+        jcbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Perro", "Gato", "Otro" }));
         jcbEspecie.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 componentsFocusGained(evt);
@@ -254,8 +254,8 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
                 String nombreMascota = jtfNombre.getText().trim();
                 String codMascota = jtfCodigo.getText().trim();
                 Mascota mascota = new Mascota(jtfCodigo.getText().trim(), jtfNombre.getText().trim(), jcbEspecie.getSelectedItem().toString(), jtfRaza.getText(), fechaString, SERVERIMAGENES + nombreMascota + "_" + codMascota + "." + obtenerExtension(archivo), protectora.getCif(), jtaDescripcion.getText());
-                HttpRequest.insertarImage(archivo, jtfNombre.getText(), jtfCodigo.getText());
                 if (GestionarMascota.insertarMascota(mascota).equals(CR_OK_INSERT)) {
+                    HttpRequest.insertarImage(archivo, jtfNombre.getText(), jtfCodigo.getText());
                     registroCorrecto();
                 }
             } else {
@@ -264,24 +264,25 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
-
+    
     private void registroCorrecto() {
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
         defaultBorders();
         vaciarCampos();
     }
-
+    
     private void vaciarCampos() {
         jtfCodigo.setText("");
         jtfNombre.setText("");
         jcbEspecie.setSelectedIndex(0);
         jLabelFoto.setIcon(null);
+        jdcFechaAcogida.setDate(null);
         jtaDescripcion.setText("");
         jtfRaza.setText("");
         jlError.setText("");
     }
-
+    
     private void errorCamposVacios() {
         jlError.setText("¡¡RELLENE TODOS LOS CAMPOS!!");
         jtfCodigo.setBorder(new LineBorder(Color.red, 1));

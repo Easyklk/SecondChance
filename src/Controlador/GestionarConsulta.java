@@ -33,12 +33,46 @@ public class GestionarConsulta {
     }
 
     /**
+     * Metodo que devuelve una consulta especifica
+     *
+     * @param codConsulta Codigo de la consulta a obtener
+     * @param cifProtectora Cif de la protectora en la que la mascota esta
+     * registrada
+     * @return Consulta a mostrar
+     */
+    public static Consulta obtenerConsultaCodCifProtectora(String codConsulta, String cifProtectora) {
+        String values = "cod_consulta=" + codConsulta + "&cif_protectora=" + cifProtectora;
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_CONSULTA_COD_CIF_PROTECTORA, values);
+        String resultado = array.substring(1, array.length() - 1);
+        Gson gson = new Gson();
+        Consulta consulta = gson.fromJson(resultado, Consulta.class);
+        return consulta;
+    }
+
+    /**
      * Metodo que devuelve un conjunto de consultas
      *
      * @return ArrayList con el listado completo de consultas
      */
     public static ArrayList<Consulta> listarConsultas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_CONSULTAS);
+        Gson gson = new Gson();
+        TypeToken<List<Consulta>> listToken = new TypeToken<List<Consulta>>() {
+        };
+        java.lang.reflect.Type listType = listToken.getType();
+        ArrayList<Consulta> alConsultas = gson.fromJson(resultado, listType);
+        return alConsultas;
+    }
+
+    /**
+     * Metodo que devuelve un conjunto de consultas
+     *
+     * @param cifProtectora
+     * @return ArrayList con el listado completo de consultas
+     */
+    public static ArrayList<Consulta> listarConsultasCifProtectora(String cifProtectora) {
+        String values = "cif_protectora=" + cifProtectora;
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_CONSULTA_CIF_PROTECTORA, values);
         Gson gson = new Gson();
         TypeToken<List<Consulta>> listToken = new TypeToken<List<Consulta>>() {
         };

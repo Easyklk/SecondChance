@@ -31,18 +31,15 @@ public class GestionarProtectora {
 
     public static Protectora obtenerProtectoraEmail(String email) {
         String values = "email=" + email;
-        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORAS, values);
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_PROTECTORA_EMAIL, values);
+        String resultado = array.substring(1, array.length() - 1);
         Gson gson = new Gson();
-        TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
-        };
-        java.lang.reflect.Type listType = listToken.getType();
-        ArrayList<Protectora> alProtectoras = gson.fromJson(resultado, listType);
-        return alProtectoras.get(0);
+        Protectora protectora = gson.fromJson(resultado, Protectora.class);
+        return protectora;
     }
 
     public static ArrayList<Protectora> listarProtectora() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_PROTECTORAS);
-
         Gson gson = new Gson();
         TypeToken<List<Protectora>> listToken = new TypeToken<List<Protectora>>() {
         };

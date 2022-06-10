@@ -6,6 +6,7 @@ package Vista.Protectora.Consulta;
 
 import Controlador.GestionarConsulta;
 import Modelo.Consulta;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Font;
@@ -24,12 +25,14 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaListadoConsulta extends javax.swing.JFrame {
 
     private DefaultTableModel modelo;
+    private static Protectora protectora;
 
     /**
      * Creates new form VentanaListadoMascota
      */
-    public VentanaListadoConsulta() {
+    public VentanaListadoConsulta(Protectora protectora) {
         initComponents();
+        this.protectora = protectora;
         modelo = new DefaultTableModel();
         jtConsulta.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         rellenarTabla();
@@ -246,7 +249,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaListadoConsulta().setVisible(true);
+                new VentanaListadoConsulta(protectora).setVisible(true);
             }
         });
     }
@@ -276,7 +279,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     }
 
     private void rellenarTabla() {
-        ArrayList<Consulta> alConsultas = GestionarConsulta.listarConsultas();
+        ArrayList<Consulta> alConsultas = GestionarConsulta.listarConsultasCifProtectora(protectora.getCif());
         modelo = (DefaultTableModel) jtConsulta.getModel();
         Object[] ob = new Object[5];
         for (int i = 0; i < alConsultas.size(); i++) {
@@ -292,7 +295,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
 
     private void buscarConsulta() {
         try {
-            Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodConsulta.getText());
+            Consulta consulta = GestionarConsulta.obtenerConsultaCodCifProtectora(jtfCodConsulta.getText(), protectora.getCif());
             modelo = (DefaultTableModel) jtConsulta.getModel();
             Object[] ob = new Object[5];
             ob[0] = consulta.getCodConsulta();

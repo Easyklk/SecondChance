@@ -13,22 +13,17 @@ import Modelo.Mascota;
 import Modelo.Protectora;
 import Modelo.Voluntario;
 import Vista.Principal.VentanaPrincipalProtectora;
-import Vista.Protectora.Mascota.VentanaRegistroMascota;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -37,16 +32,20 @@ import javax.swing.text.MaskFormatter;
 public class VentanaRegistroConsulta extends javax.swing.JFrame {
 
     private Consulta consulta;
-    private Protectora protectora;
+    private static Protectora protectora;
     private SimpleDateFormat sdf;
     private Date fechaActual;
 
     /**
      * Creates new form VentanaRegistro
+     *
+     * @param protectora
      */
-    public VentanaRegistroConsulta() {
+    public VentanaRegistroConsulta(Protectora protectora) {
         initComponents();
         otherComponents();
+        this.protectora = protectora;
+
     }
 
     private void otherComponents() {
@@ -250,7 +249,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                 || jdcFechaConsulta.getDate() == null || jtaInformacion.getText().isEmpty()) {
             errorCamposVacios();
         } else {
-            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodMascota.getText().trim());
+            Mascota mascota = GestionarMascota.obtenerMascotaCodCifProtectora(jtfCodMascota.getText().trim(), protectora.getCif());
             if (mascota != null) {
                 Voluntario voluntario = GestionarUsuario.obtenerVoluntario(jtfDniVoluntario.getText().trim());
                 if (voluntario != null) {
@@ -264,7 +263,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                             if (GestionarConsulta.insertarConsulta(consulta).equals(CR_OK_INSERT)) {
                                 registroCorrecto();
                                 defaultBorders();
-                                jlNumChar.setText("0/300");
                             }
                         }
                     }
@@ -360,7 +358,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroConsulta().setVisible(true);
+                new VentanaRegistroConsulta(protectora).setVisible(true);
             }
         });
     }
@@ -399,6 +397,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     }
 
     private void vaciarCampos() {
+        jlNumChar.setText("0/300");
         jtaInformacion.setText("");
         jtfCodMascota.setText("");
         jtfDniVoluntario.setText("");

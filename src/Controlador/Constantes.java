@@ -44,8 +44,12 @@ public interface Constantes {
     public static final String URL_LISTADOS_MASCOTA = SERVERMASCOTA + "listarMascota.php";
     public static final String URL_LISTADOS_USUARIO = SERVERUSUARIO + "listarUsuario.php";
 
+    public static final String URL_LISTADOS_CONSULTA_COD_CIF_PROTECTORA = SERVERCONSULTA + "listarConsultaCodCifProtectora.php";
+    public static final String URL_LISTADOS_CONSULTA_CIF_PROTECTORA = SERVERCONSULTA + "listarConsultaCifProtectora.php";
     public static final String URL_LISTADOS_CONSULTA_COD = SERVERCONSULTA + "listarConsultaCod.php";
     public static final String URL_LISTADOS_MASCOTA_COD = SERVERMASCOTA + "consultaMascotaCod.php";
+    public static final String URL_LISTADOS_MASCOTA_COD_CIF_PROTECTORA = SERVERMASCOTA + "consultaMascotaCodCifProtectora.php";
+    public static final String URL_LISTADOS_MASCOTA_CIF_PROTECTORA = SERVERMASCOTA + "listarMascotaCifProtectora.php";
     public static final String URL_LISTADOS_USUARIO_EMAIL = SERVERUSUARIO + "consultaUsuarioEmail.php";
     public static final String URL_LISTADOS_VOLUNTARIO_DNI = SERVERUSUARIO + "consultaVoluntarioDni.php";
     public static final String URL_LISTADOS_PROTECTORA_CIF = SERVERPROTECTORA + "consultaProtectoraCif.php";
@@ -53,6 +57,5 @@ public interface Constantes {
 
     public static final String CR_OK_INSERT = "OK_INSERT";
     public static final String CR_OK_DELETE = "OK_DELETE";
-
     public static final String CR_ERROR = "CR_ERROR";
 }

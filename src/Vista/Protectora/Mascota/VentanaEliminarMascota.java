@@ -9,6 +9,7 @@ import Controlador.GestionarConsulta;
 import Controlador.GestionarMascota;
 import Modelo.Consulta;
 import Modelo.Mascota;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -26,12 +27,18 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaEliminarMascota extends javax.swing.JFrame {
     
     private DefaultTableModel modelo;
+    private static Protectora protectora;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaEliminarMascota() {
+    public VentanaEliminarMascota(Protectora protectora) {
         initComponents();
+        otherComponents(protectora);
+    }
+    
+    private void otherComponents(Protectora protectora1) {
+        this.protectora = protectora1;
         setLocationRelativeTo(null);
         modelo = (DefaultTableModel) jtMascota.getModel();
         jtMascota.setAutoResizeMode(jtMascota.AUTO_RESIZE_ALL_COLUMNS);
@@ -164,10 +171,11 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         String codMascota = (String) jtMascota.getValueAt(0, 0);
-        Mascota mascotaEliminar = GestionarMascota.obtenerMascotaCod(codMascota);
+        Mascota mascotaEliminar = GestionarMascota.obtenerMascotaCodCifProtectora(codMascota, protectora.getCif());
         if (jtMascota.getValueAt(0, 0) != null) {
             if (GestionarMascota.eliminarConsulta(mascotaEliminar).equals(CR_OK_DELETE)) {
                 borradoCorrecto();
+                jbEliminar.setEnabled(false);
             } else {
                 borradoIncorrecto();
             }
@@ -231,7 +239,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaEliminarMascota().setVisible(true);
+                new VentanaEliminarMascota(protectora).setVisible(true);
             }
         });
     }
@@ -255,6 +263,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jbEliminar.setEnabled(false);
         jlError.setText("");
         jtfCodigo.setText("");
+        jtMascota.setModel(null);
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
@@ -283,7 +292,8 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     private void buscarMascota() {
         try {
             jlError.setText("");
-            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodigo.getText().trim());
+            Mascota mascota = GestionarMascota.obtenerMascotaCodCifProtectora(jtfCodigo.getText().trim(), protectora.getCif());
+            System.out.println(mascota);
             modelo = (DefaultTableModel) jtMascota.getModel();
             Object[] ob = new Object[6];
             ob[0] = mascota.getCodIdentificador();

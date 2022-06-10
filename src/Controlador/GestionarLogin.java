@@ -19,6 +19,13 @@ import java.util.List;
  */
 public class GestionarLogin {
 
+    /**
+     * Metodo que indica si el administrador facilitado existe
+     *
+     * @param email email del administrador
+     * @param password password del administrador
+     * @return boolean si el administrador existe
+     */
     public static boolean logueoAdmin(String email, String password) {
         String values = "email=" + email + "&password=" + password;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_ADMIN, values);
@@ -31,10 +38,16 @@ public class GestionarLogin {
         return arUsuarios.size() > 0;
     }
 
+    /**
+     * Metodo que indica si la protectora facilitado existe
+     *
+     * @param email email de la protectora
+     * @param password password de la protectora
+     * @return boolean si la protectora existe
+     */
     public static boolean logueoProtectora(String email, String password) {
         String values = "email=" + email + "&password=" + password;
         String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LOGUEO_PROTECTORA, values);
-
         Gson gson = new Gson();
         TypeToken<List<Usuario>> listToken = new TypeToken<List<Usuario>>() {
         };

@@ -150,7 +150,9 @@ public class VentanaLogin extends javax.swing.JFrame {
             jpfPassword.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbLoginActionPerformed
-
+    /**
+     * Metodo para iniciar sesión presionando tecla "enter"
+     */
     private void jtfsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfsKeyReleased
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -189,7 +191,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaLogin().setVisible(true);
-                
+
             }
         });
     }

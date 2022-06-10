@@ -6,6 +6,7 @@ package Vista.Protectora.Mascota;
 
 import Controlador.GestionarMascota;
 import Modelo.Mascota;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Font;
@@ -23,12 +24,14 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaListadoMascota extends javax.swing.JFrame {
 
     private DefaultTableModel modelo;
+    private static Protectora protectora;
 
     /**
      * Creates new form VentanaListadoMascota
      */
-    public VentanaListadoMascota() {
+    public VentanaListadoMascota(Protectora protectora) {
         initComponents();
+        this.protectora = protectora;
         modelo = new DefaultTableModel();
         jtMascota.getTableHeader().setFont(new Font("TAHOMA", Font.PLAIN, 14));
         rellenarTabla();
@@ -218,7 +221,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaListadoMascota().setVisible(true);
+                new VentanaListadoMascota(protectora).setVisible(true);
             }
         });
     }
@@ -237,14 +240,15 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
     private javax.swing.JTable jtMascota;
     private javax.swing.JTextField jtfCodMascota;
     // End of variables declaration//GEN-END:variables
- private void vaciarTabla() {
+
+    private void vaciarTabla() {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
     }
 
     private void rellenarTabla() {
-        ArrayList<Mascota> alMascotas = GestionarMascota.listarMascotas();
+        ArrayList<Mascota> alMascotas = GestionarMascota.listarMascotasCifProtectora(protectora.getCif());
         modelo = (DefaultTableModel) jtMascota.getModel();
         Object[] ob = new Object[6];
         for (int i = 0; i < alMascotas.size(); i++) {
@@ -261,7 +265,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
 
     private void buscarMascota() {
         try {
-            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodMascota.getText().trim());
+            Mascota mascota = GestionarMascota.obtenerMascotaCodCifProtectora(jtfCodMascota.getText().trim(), protectora.getCif());
             modelo = (DefaultTableModel) jtMascota.getModel();
             Object[] ob = new Object[6];
             ob[0] = mascota.getCodIdentificador();

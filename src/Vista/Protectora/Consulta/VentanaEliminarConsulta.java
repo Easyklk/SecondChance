@@ -7,6 +7,7 @@ package Vista.Protectora.Consulta;
 import static Controlador.Constantes.CR_OK_DELETE;
 import Controlador.GestionarConsulta;
 import Modelo.Consulta;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,12 +26,14 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
     private DefaultTableModel modelo;
+    private static Protectora protectora;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaEliminarConsulta() {
+    public VentanaEliminarConsulta(Protectora protectora) {
         initComponents();
+        this.protectora = protectora;
         otherComponents();
     }
 
@@ -192,15 +195,13 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         String codConsulta = (String) jtConsultas.getValueAt(0, 0);
-        Consulta consultaEliminar = GestionarConsulta.obtenerConsultaCod(codConsulta);
+        Consulta consultaEliminar = GestionarConsulta.obtenerConsultaCodCifProtectora(codConsulta, protectora.getCif());
         if (jtConsultas.getValueAt(0, 0) != null) {
             if (GestionarConsulta.eliminarConsulta(consultaEliminar).equals(CR_OK_DELETE)) {
                 borradoCorrecto();
             } else {
                 borradoIncorrecto();
             }
-        } else {
-            System.out.println("GETVALUE==NULL");
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -276,7 +277,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaEliminarConsulta().setVisible(true);
+                new VentanaEliminarConsulta(protectora).setVisible(true);
             }
         });
     }
@@ -315,7 +316,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
     private void buscarConsulta() {
         try {
             jlError.setText("");
-            Consulta consulta = GestionarConsulta.obtenerConsultaCod(jtfCodigo.getText().trim());
+            Consulta consulta = GestionarConsulta.obtenerConsultaCodCifProtectora(jtfCodigo.getText().trim(), protectora.getCif());
             modelo = (DefaultTableModel) jtConsultas.getModel();
             Object[] ob = new Object[5];
             ob[0] = consulta.getCodConsulta();

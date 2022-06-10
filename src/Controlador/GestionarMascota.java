@@ -8,6 +8,7 @@ import Modelo.Consulta;
 import Modelo.Mascota;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,15 @@ import java.util.List;
  * @author Isaac-PC
  */
 public class GestionarMascota {
+
+    public static Mascota obtenerMascotaCodCifProtectora(String codMascota, String cifProtectora) {
+        String values = "codIdentificador=" + codMascota + "&cif_Protectora=" + cifProtectora;
+        String array = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_MASCOTA_COD_CIF_PROTECTORA, values);
+        String resultado = array.substring(1, array.length() - 1);
+        Gson gson = new Gson();
+        Mascota mascota = gson.fromJson(resultado, Mascota.class);
+        return mascota;
+    }
 
     public static Mascota obtenerMascotaCod(String codMascota) {
         String values = "codIdentificador=" + codMascota;
@@ -28,6 +38,17 @@ public class GestionarMascota {
 
     public static ArrayList<Mascota> listarMascotas() {
         String resultado = HttpRequest.GET_REQUEST_SIN_PARAMETROS(Constantes.URL_LISTADOS_MASCOTA);
+        Gson gson = new Gson();
+        TypeToken<List<Mascota>> listToken = new TypeToken<List<Mascota>>() {
+        };
+        java.lang.reflect.Type listType = listToken.getType();
+        ArrayList<Mascota> alMascota = gson.fromJson(resultado, listType);
+        return alMascota;
+    }
+
+    public static ArrayList<Mascota> listarMascotasCifProtectora(String cifProtectora) {
+        String values = "cif_Protectora=" + cifProtectora;
+        String resultado = HttpRequest.GET_REQUEST(Constantes.URL_LISTADOS_MASCOTA_CIF_PROTECTORA, values);
         Gson gson = new Gson();
         TypeToken<List<Mascota>> listToken = new TypeToken<List<Mascota>>() {
         };

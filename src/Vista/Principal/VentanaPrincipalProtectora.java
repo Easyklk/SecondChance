@@ -223,7 +223,7 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
     }//GEN-LAST:event_jbModificarProtectoraActionPerformed
 
     private void jbRegistrarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarConsultasActionPerformed
-        VentanaRegistroConsulta vRegistroConsulta = new VentanaRegistroConsulta();
+        VentanaRegistroConsulta vRegistroConsulta = new VentanaRegistroConsulta(protectora);
         this.setVisible(false);
         vRegistroConsulta.setVisible(true);
     }//GEN-LAST:event_jbRegistrarConsultasActionPerformed
@@ -235,34 +235,34 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCerrarSesionActionPerformed
 
     private void jbListarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarConsultasActionPerformed
-        VentanaListadoConsulta vListadoConsulta = new VentanaListadoConsulta();
+        VentanaListadoConsulta vListadoConsulta = new VentanaListadoConsulta(protectora);
         this.setVisible(false);
         vListadoConsulta.setVisible(true);
     }//GEN-LAST:event_jbListarConsultasActionPerformed
 
     private void jbEliminarConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarConsultasActionPerformed
-        VentanaEliminarConsulta vEliminarConsulta = new VentanaEliminarConsulta();
+        VentanaEliminarConsulta vEliminarConsulta = new VentanaEliminarConsulta(protectora);
         this.setVisible(false);
         vEliminarConsulta.setVisible(true);
     }//GEN-LAST:event_jbEliminarConsultasActionPerformed
 
     private void jbListarMascotas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbListarMascotas1ActionPerformed
         // TODO add your handling code here:
-        VentanaListadoMascota vListadoMascota = new VentanaListadoMascota();
+        VentanaListadoMascota vListadoMascota = new VentanaListadoMascota(protectora);
         this.setVisible(false);
         vListadoMascota.setVisible(true);
     }//GEN-LAST:event_jbListarMascotas1ActionPerformed
 
     private void jbEliminarMascota1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarMascota1ActionPerformed
         // TODO add your handling code here:
-        VentanaEliminarMascota vEliminarMascota = new VentanaEliminarMascota();
+        VentanaEliminarMascota vEliminarMascota = new VentanaEliminarMascota(protectora);
         this.setVisible(false);
         vEliminarMascota.setVisible(true);
     }//GEN-LAST:event_jbEliminarMascota1ActionPerformed
 
     private void jbModificarMascota1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarMascota1ActionPerformed
         // TODO add your handling code here:
-        VentanaEditarMascota vEditarMascota = new VentanaEditarMascota();
+        VentanaEditarMascota vEditarMascota = new VentanaEditarMascota(protectora);
         this.setVisible(false);
         vEditarMascota.setVisible(true);
     }//GEN-LAST:event_jbModificarMascota1ActionPerformed

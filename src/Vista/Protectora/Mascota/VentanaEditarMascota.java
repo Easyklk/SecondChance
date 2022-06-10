@@ -8,6 +8,7 @@ import static Controlador.Constantes.*;
 import Controlador.GestionarMascota;
 import Controlador.HttpRequest;
 import Modelo.Mascota;
+import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,17 +25,19 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author UsuarioPracticas
  */
 public class VentanaEditarMascota extends javax.swing.JFrame {
-    
+
     private File archivo;
+    private static Protectora protectora;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaEditarMascota() {
+    public VentanaEditarMascota(Protectora protectora) {
         initComponents();
         otherComponents();
+        this.protectora = protectora;
     }
-    
+
     private void otherComponents() {
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
@@ -191,7 +194,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         if (jtfCodigo.getText().isEmpty()) {
             jtfCodigo.setBorder(new LineBorder(Color.RED, 1));
         } else {
-            Mascota mascota = GestionarMascota.obtenerMascotaCod(jtfCodigo.getText());
+            Mascota mascota = GestionarMascota.obtenerMascotaCodCifProtectora(jtfCodigo.getText(), protectora.getCif());
             if (mascota != null) {
                 if (!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 3) {
                     mascota.setDescripcion(jtaDescripcion.getText());
@@ -217,13 +220,13 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbModificarActionPerformed
-    
+
     private void errorCamposVacios() {
         jlError.setText("¡¡RELLENE ALGUN CAMPO!!");
         jtaDescripcion.setBorder(new LineBorder(Color.red));
         jbSeleccionarFoto.setBorder(new LineBorder(Color.red));
     }
-    
+
     private static String obtenerExtension(File file) {
         String extension = "";
         int i = file.getName().lastIndexOf('.');
@@ -313,7 +316,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaEditarMascota().setVisible(true);
+                new VentanaEditarMascota(protectora).setVisible(true);
             }
         });
     }
@@ -349,7 +352,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jbModificar.setBorder(new LineBorder(Color.green));
         defaultBorders();
     }
-    
+
     private void defaultBorders() {
         jtaDescripcion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
