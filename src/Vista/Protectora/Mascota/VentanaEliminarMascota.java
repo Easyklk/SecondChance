@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaEliminarMascota extends javax.swing.JFrame {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -252,32 +252,34 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void borradoCorrecto() {
+        jbEliminar.setEnabled(false);
         jlError.setText("");
         jtfCodigo.setText("");
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-
+    
     private void borradoIncorrecto() {
         jlError.setText("¡¡ERROR!!");
+        jtMascota.setModel(null);
         jtfCodigo.setBorder(new LineBorder(Color.red));
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.red));
     }
-
+    
     private void defaultBorders() {
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jlError.setText("");
     }
-
+    
     private void vaciarTabla() {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-
+        
     }
-
+    
     private void buscarMascota() {
         try {
             jlError.setText("");

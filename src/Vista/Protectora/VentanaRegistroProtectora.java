@@ -232,31 +232,37 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             errorCamposVacios();
             System.out.println(jtfTlfn.getText().isEmpty());
         } else {
+            if (GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim()).equals(CR_OK_INSERT)) {
 //            defaultBorders();
-            if (!Utilidades.validarCif(jtfCif.getText().trim())) {
-                defaultBorders();
-                jtfCif.setBorder(new LineBorder(Color.red));
-                jlError.setText("¡¡Formato incorrecto!!");
-            } else if (!Utilidades.validarEmail(jtfEmail.getText().trim())) {
-                defaultBorders();
-                jtfEmail.setBorder(new LineBorder(Color.red));
-                jlError.setText("¡¡Formato incorrecto!!");
-            } else if (!Utilidades.validarPass(String.valueOf(jpfPassword.getPassword()))) {
-                defaultBorders();
-                jpfPassword.setBorder(new LineBorder(Color.red));
-                jlError.setText("¡¡Requisitos Insuficientes!!");
-            } else if (!Utilidades.validarTelefono(jtfTlfn.getText().trim())) {
-                defaultBorders();
-                jtfTlfn.setBorder(new LineBorder(Color.red));
-                jlError.setText("¡¡Formato incorrecto!!");
-            } else {
-                defaultBorders();
-                String pass = Utilidades.getMD5(String.valueOf(jpfPassword.getPassword()));
-                usuario = new Usuario(jtfEmail.getText().trim(), pass, 0, 1, 0);
-                protectora = new Protectora(jtfCif.getText().trim(), jtfNombre.getText().trim(), jtfRazonSocial.getText().trim(), jtfEmail.getText().trim(), jtfTlfn.getText().trim(), jtfUbicacion.getText());
-                if (GestionarUsuario.insertarUsuario(usuario).equals(CR_OK_INSERT) && GestionarProtectora.insertarProtectora(protectora).equals(CR_OK_INSERT)) {
-                    registroCorrecto();
+                if (!Utilidades.validarCif(jtfCif.getText().trim())) {
+                    defaultBorders();
+                    jtfCif.setBorder(new LineBorder(Color.red));
+                    jlError.setText("¡¡Formato incorrecto!!");
+                } else if (!Utilidades.validarEmail(jtfEmail.getText().trim())) {
+                    defaultBorders();
+                    jtfEmail.setBorder(new LineBorder(Color.red));
+                    jlError.setText("¡¡Formato incorrecto!!");
+                } else if (!Utilidades.validarPass(String.valueOf(jpfPassword.getPassword()))) {
+                    defaultBorders();
+                    jpfPassword.setBorder(new LineBorder(Color.red));
+                    jlError.setText("¡¡Requisitos Insuficientes!!");
+                } else if (!Utilidades.validarTelefono(jtfTlfn.getText().trim())) {
+                    defaultBorders();
+                    jtfTlfn.setBorder(new LineBorder(Color.red));
+                    jlError.setText("¡¡Formato incorrecto!!");
+                } else {
+                    defaultBorders();
+                    String pass = Utilidades.getMD5(String.valueOf(jpfPassword.getPassword()));
+                    usuario = new Usuario(jtfEmail.getText().trim(), pass, 0, 1, 0);
+                    protectora = new Protectora(jtfCif.getText().trim(), jtfNombre.getText().trim(), jtfRazonSocial.getText().trim(), jtfEmail.getText().trim(), jtfTlfn.getText().trim(), jtfUbicacion.getText());
+                    if (GestionarUsuario.insertarUsuario(usuario).equals(CR_OK_INSERT) && GestionarProtectora.insertarProtectora(protectora).equals(CR_OK_INSERT)) {
+//                    System.out.println(GestionarProtectora.insertarProtectora(protectora));
+//                    System.out.println(GestionarUsuario.insertarUsuario(usuario));
+                        registroCorrecto();
+                    }
                 }
+            } else {
+                jlError.setText("¡La protectora ya existe!");
             }
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed

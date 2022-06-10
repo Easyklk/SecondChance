@@ -63,7 +63,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         jltitulo3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Eliminar Protectora...");
+        setTitle("Eliminar Protectora");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));

@@ -35,7 +35,7 @@ public class Utilidades {
     }
 
     public static boolean validarCif(String cif) {
-        return cif.matches("[ABCDEFGHJKLMNPQRSUVW][0-9]{7}[A-Z[0-9]]{1}");
+        return cif.matches("[A-Z]{1}[0-9]{8}");
     }
 
     public static boolean validarPass(String pass) {

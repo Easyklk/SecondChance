@@ -295,6 +295,8 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
             }
             if (Utilidades.validarCif(protectoraModificar.getCif()) && Utilidades.validarTelefono(protectoraModificar.getTelefono())) {
                 if (GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()).equals(CR_OK_INSERT)) {
+                    System.out.println(protectoraModificar.toString());
+                    System.out.println(GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()));
                     jlError.setText("");
                     vaciarCampos();
                     jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
