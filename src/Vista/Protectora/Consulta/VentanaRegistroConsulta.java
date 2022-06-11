@@ -262,7 +262,6 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
                             consulta = new Consulta(jtfCodMascota.getText().trim(), jtfDniVoluntario.getText().trim(), horario, jtaInformacion.getText().trim());
                             if (GestionarConsulta.insertarConsulta(consulta).equals(CR_OK_INSERT)) {
                                 registroCorrecto();
-                                defaultBorders();
                             }
                         }
                     }
@@ -390,6 +389,8 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void registroCorrecto() {
+        JOptionPane.showMessageDialog(this, "¡Consulta registrada correctamente!");
+        defaultBorders();
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
         jlError.setText("");

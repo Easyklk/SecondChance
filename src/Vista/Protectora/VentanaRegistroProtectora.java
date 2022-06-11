@@ -14,13 +14,11 @@ import Vista.Principal.VentanaPrincipalAdmin;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
-import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -115,12 +113,22 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
                 jtfsFocusGanied(evt);
             }
         });
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfsKeyTyped(evt);
+            }
+        });
         jPanel1.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
 
         jtfRazonSocial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtfRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfsFocusGanied(evt);
+            }
+        });
+        jtfRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfsKeyTyped(evt);
             }
         });
         jPanel1.add(jtfRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
@@ -256,8 +264,6 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
                     usuario = new Usuario(jtfEmail.getText().trim(), pass, 0, 1, 0);
                     protectora = new Protectora(jtfCif.getText().trim(), jtfNombre.getText().trim(), jtfRazonSocial.getText().trim(), jtfEmail.getText().trim(), jtfTlfn.getText().trim(), jtfUbicacion.getText());
                     if (GestionarUsuario.insertarUsuario(usuario).equals(CR_OK_INSERT) && GestionarProtectora.insertarProtectora(protectora).equals(CR_OK_INSERT)) {
-//                    System.out.println(GestionarProtectora.insertarProtectora(protectora));
-//                    System.out.println(GestionarUsuario.insertarUsuario(usuario));
                         registroCorrecto();
                     }
                 }
@@ -280,6 +286,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
 
     private void registroCorrecto() {
         defaultBorders();
+        JOptionPane.showMessageDialog(this, "¡Protectora registrada correctamente!");
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
         jlError.setText("");
@@ -328,6 +335,17 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         defaultBorders();
         jlError.setText("");
     }//GEN-LAST:event_jtfsFocusGanied
+
+    private void jtfsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfsKeyTyped
+        // TODO add your handling code here:   
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) || Character.isWhitespace(c) || Character.isISOControl(c)) {
+            jtfNombre.setEditable(true);
+            jtfRazonSocial.setEditable(true);
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfsKeyTyped
 
     /**
      * @param args the command line arguments

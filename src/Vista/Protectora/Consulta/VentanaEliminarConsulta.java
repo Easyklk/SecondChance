@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Isaac-PC
  */
 public class VentanaEliminarConsulta extends javax.swing.JFrame {
-
+    
     private DefaultTableModel modelo;
     private static Protectora protectora;
 
@@ -36,7 +37,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         this.protectora = protectora;
         otherComponents();
     }
-
+    
     private void otherComponents() {
         modelo = (DefaultTableModel) jtConsultas.getModel();
         jtConsultas.setAutoResizeMode(jtConsultas.AUTO_RESIZE_ALL_COLUMNS);
@@ -71,7 +72,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jtaInformacion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Eliminar Mascota");
+        setTitle("Eliminar Consulta");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
         setSize(new java.awt.Dimension(750, 550));
@@ -194,7 +195,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
-        String codConsulta = (String) jtConsultas.getValueAt(0, 0);
+        String codConsulta = String.valueOf(jtConsultas.getValueAt(0, 0));
         Consulta consultaEliminar = GestionarConsulta.obtenerConsultaCodCifProtectora(codConsulta, protectora.getCif());
         if (jtConsultas.getValueAt(0, 0) != null) {
             if (GestionarConsulta.eliminarConsulta(consultaEliminar).equals(CR_OK_DELETE)) {
@@ -304,7 +305,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
         jlError.setText("");
     }
-
+    
     private void vaciarTabla() {
         if (modelo.getRowCount() > 0) {
             while (modelo.getRowCount() > 0) {
@@ -312,7 +313,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void buscarConsulta() {
         try {
             jlError.setText("");
@@ -334,14 +335,18 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             jtaInformacion.setText("");
         }
     }
-
+    
     private void borradoCorrecto() {
+        JOptionPane.showMessageDialog(this, "¡Consulta eliminada correctamente!");
         jlError.setText("");
         jtfCodigo.setText("");
+        vaciarTabla();
+        jtaInformacion.setText("");
+        jbEliminar.setEnabled(false);
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-
+    
     private void borradoIncorrecto() {
         jlError.setText("¡¡ERROR!!");
         jtfCodigo.setBorder(new LineBorder(Color.red));

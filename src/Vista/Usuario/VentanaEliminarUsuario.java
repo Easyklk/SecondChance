@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Isaac-PC
  */
 public class VentanaEliminarUsuario extends javax.swing.JFrame {
-    
+
     private DefaultTableModel modelo;
 
     /**
@@ -178,9 +179,11 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jbEliminarActionPerformed
-    
+
     private void borradoCorrecto() {
+        JOptionPane.showMessageDialog(this, "¡Usuario eliminado correctamente!");
         jtfEmail.setText("");
+        jbEliminar.setEnabled(false);
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
@@ -284,9 +287,9 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
             jlError.setText("¡¡El usuario no existe!!");
             jbEliminar.setEnabled(false);
         }
-        
+
     }
-    
+
     private void vaciarTabla() {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);

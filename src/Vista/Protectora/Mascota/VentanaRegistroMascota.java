@@ -13,12 +13,14 @@ import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -29,7 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author UsuarioPracticas
  */
 public class VentanaRegistroMascota extends javax.swing.JFrame {
-    
+
     private static Protectora protectora;
     private File archivo;
     private SimpleDateFormat sdf;
@@ -46,7 +48,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         initComponents();
         otherComponents();
     }
-    
+
     private void otherComponents() {
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         jdcFechaAcogida.setLocale(new Locale("es"));
@@ -119,12 +121,22 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
                 componentsFocusGained(evt);
             }
         });
+        jtfRaza.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfsKeyTyped(evt);
+            }
+        });
         jPanel1.add(jtfRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 150, 30));
 
         jtfNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtfNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 componentsFocusGained(evt);
+            }
+        });
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfsKeyTyped(evt);
             }
         });
         jPanel1.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
@@ -264,14 +276,15 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
-    
+
     private void registroCorrecto() {
+        JOptionPane.showMessageDialog(this, "¡Mascota registrada correctamente!");
         jbRegistrar.setPreferredSize(new Dimension(jbRegistrar.getWidth(), jbRegistrar.getHeight()));
         jbRegistrar.setBorder(new LineBorder(Color.green));
         defaultBorders();
         vaciarCampos();
     }
-    
+
     private void vaciarCampos() {
         jtfCodigo.setText("");
         jtfNombre.setText("");
@@ -282,7 +295,7 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jtfRaza.setText("");
         jlError.setText("");
     }
-    
+
     private void errorCamposVacios() {
         jlError.setText("¡¡RELLENE TODOS LOS CAMPOS!!");
         jtfCodigo.setBorder(new LineBorder(Color.red, 1));
@@ -294,6 +307,9 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jtaDescripcion.setBorder(new LineBorder(Color.red, 1));
     }
 
+    /**
+     * Metodo para seleccionar una foto desde la carpeta de imagenes del usuario
+     */
     private void jbSeleccionarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSeleccionarFotoActionPerformed
         // TODO add your handling code here:
         JFileChooser jfcFoto = new JFileChooser();
@@ -323,6 +339,17 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
         jlError.setText("");
         defaultBorders();
     }//GEN-LAST:event_componentsFocusGained
+
+    private void jtfsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfsKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) || Character.isWhitespace(c) || Character.isISOControl(c)) {
+            jtfNombre.setEditable(true);
+            jtfRaza.setEditable(true);
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfsKeyTyped
 
     /**
      * Obtiene la extension de la imagen a subir

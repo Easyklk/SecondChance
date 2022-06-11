@@ -5,9 +5,7 @@
 package Vista.Protectora.Mascota;
 
 import static Controlador.Constantes.CR_OK_DELETE;
-import Controlador.GestionarConsulta;
 import Controlador.GestionarMascota;
-import Modelo.Consulta;
 import Modelo.Mascota;
 import Modelo.Protectora;
 import Vista.Principal.VentanaPrincipalProtectora;
@@ -16,6 +14,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaEliminarMascota extends javax.swing.JFrame {
-    
+
     private DefaultTableModel modelo;
     private static Protectora protectora;
 
@@ -36,7 +35,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         initComponents();
         otherComponents(protectora);
     }
-    
+
     private void otherComponents(Protectora protectora1) {
         this.protectora = protectora1;
         setLocationRelativeTo(null);
@@ -175,7 +174,6 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         if (jtMascota.getValueAt(0, 0) != null) {
             if (GestionarMascota.eliminarConsulta(mascotaEliminar).equals(CR_OK_DELETE)) {
                 borradoCorrecto();
-                jbEliminar.setEnabled(false);
             } else {
                 borradoIncorrecto();
             }
@@ -260,6 +258,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void borradoCorrecto() {
+        JOptionPane.showMessageDialog(this, "¡Mascota eliminada correctamente!");
         jbEliminar.setEnabled(false);
         jlError.setText("");
         jtfCodigo.setText("");
@@ -267,7 +266,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-    
+
     private void borradoIncorrecto() {
         jlError.setText("¡¡ERROR!!");
         jtMascota.setModel(null);
@@ -275,20 +274,20 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.red));
     }
-    
+
     private void defaultBorders() {
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jlError.setText("");
     }
-    
+
     private void vaciarTabla() {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        
+
     }
-    
+
     private void buscarMascota() {
         try {
             jlError.setText("");

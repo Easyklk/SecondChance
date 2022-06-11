@@ -174,7 +174,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
             buscarProtectora();
             jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         } else {
-            jtfCif.setBorder(new LineBorder(Color.red, 2));
+            jtfCif.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -267,7 +267,8 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
             ob[4] = protectora.getTelefono();
             ob[5] = protectora.getUbicacion();
             modelo.addRow(ob);
-            jtProtectoras.setModel(modelo);            jlError.setText("");
+            jtProtectoras.setModel(modelo);
+            jlError.setText("");
 
         } catch (NullPointerException e) {
             jlError.setText("¡¡La protectora no existe!!");

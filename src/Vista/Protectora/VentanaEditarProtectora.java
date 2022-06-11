@@ -14,10 +14,12 @@ import Vista.Principal.VentanaPrincipalProtectora;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
@@ -37,7 +39,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
      * @param protectora protectora logeada
      */
     public VentanaEditarProtectora(Protectora protectora) {
-        formatoTlfn();
+//        formatoTlfn();
         initComponents();
         othersComponents(protectora);
     }
@@ -50,13 +52,13 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         setIconImage(icon);
     }
 
-    private void formatoTlfn() {
-        try {
-            mascara = new MaskFormatter("#########");
-        } catch (ParseException ex) {
-            Logger.getLogger(VentanaRegistroProtectora.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void formatoTlfn() {
+//        try {
+//            mascara = new MaskFormatter("#########");
+//        } catch (ParseException ex) {
+//            Logger.getLogger(VentanaRegistroProtectora.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,12 +127,22 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 jtfsFocusGained(evt);
             }
         });
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfKeyTyped(evt);
+            }
+        });
         jPanel4.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
 
         jtfRazonSocial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtfRazonSocial.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtfsFocusGained(evt);
+            }
+        });
+        jtfRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfKeyTyped(evt);
             }
         });
         jPanel4.add(jtfRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
@@ -235,77 +247,96 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // TODO add your handling code here:
         protectora = GestionarProtectora.obtenerProtectoraCif(protectora.getCif());
-        if (jtfCif.getText().trim().isEmpty() && jtfNombre.getText().trim().isEmpty() && jtfRazonSocial.getText().trim().isEmpty()
-                && jpfPassword.getPassword().length == 0 && jtfTlfn.getText().trim().isEmpty() && jtfUbicacion.getText().trim().isEmpty()) {
-            errorCamposVacios();
-        } else {
-            Protectora protectoraModificar = new Protectora();
-            Usuario usuarioModificar = new Usuario();
-            String pass = String.valueOf(jpfPassword.getPassword());
-            if (!jtfCif.getText().trim().isEmpty()) {
-                if (Utilidades.validarCif(jtfCif.getText().trim())) {
-                    protectoraModificar.setCif(jtfCif.getText().trim());
-                } else {
-                    jtfCif.setBorder(new LineBorder(Color.red));
-                    jlError.setText("¡¡Formato incorrecto!!");
-                }
-            } else {
-                protectoraModificar.setCif(protectora.getCif());
-            }
-            if (!jtfNombre.getText().trim().isEmpty()) {
-                protectoraModificar.setNombreProtectora(jtfNombre.getText().trim());
-            } else {
-                protectoraModificar.setNombreProtectora(protectora.getNombreProtectora());
-            }
-            if (!jtfRazonSocial.getText().trim().isEmpty()) {
-                protectoraModificar.setRazonSocial(jtfRazonSocial.getText().trim());
-            } else {
-                protectoraModificar.setRazonSocial(protectora.getRazonSocial());
-            }
-            if (!pass.isEmpty()) {
-                if (Utilidades.validarPass(pass)) {
-                    pass = Utilidades.getMD5(pass);
-                    usuarioModificar.setPassword(pass);
-                } else {
-                    jpfPassword.setBorder(new LineBorder(Color.red));
-                    jlError.setText("¡¡REQUISITOS INSUFICIENTES!!");
-                }
-                usuarioModificar.setEmail(GestionarUsuario.obtenerUsuario(protectora.getEmail()).getEmail());
-                System.out.println(usuarioModificar.toString());
-            }
-            if (!jtfUbicacion.getText().trim().isEmpty()) {
-                protectoraModificar.setUbicacion(jtfUbicacion.getText().trim());
-            } else {
-                protectoraModificar.setUbicacion(protectora.getUbicacion());
-            }
-            if (!jtfTlfn.getText().trim().isEmpty()) {
-                if (Utilidades.validarTelefono(jtfTlfn.getText().trim())) {
-                    protectoraModificar.setTelefono(jtfTlfn.getText().trim());
-                } else {
-                    jlError.setText("¡¡Formato incorrecto!!");
-                    jtfTlfn.setBorder(new LineBorder(Color.red));
-                }
-            } else {
-                protectoraModificar.setTelefono(protectora.getTelefono());
-            }
-            if (!pass.isEmpty()) {
-                if (Utilidades.validarPass(pass)) {
-                    System.out.println(GestionarUsuario.modificarUsuarioPass(usuarioModificar));
-                }
-            }
-            if (Utilidades.validarCif(protectoraModificar.getCif()) && Utilidades.validarTelefono(protectoraModificar.getTelefono())) {
-                if (GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()).equals(CR_OK_INSERT)) {
-                    System.out.println(protectoraModificar.toString());
-                    System.out.println(GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()));
-                    jlError.setText("");
-                    vaciarCampos();
-                    jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
-                    jbModificar.setBorder(new LineBorder(Color.green));
-                    protectora = GestionarProtectora.obtenerProtectoraCif(protectoraModificar.getCif());
-                }
+        Protectora comprobarProtectora = null;
+        if (!jtfCif.getText().isEmpty() && Utilidades.validarCif(jtfCif.getText())) {
+            try {
+                comprobarProtectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim());
+                System.out.println(comprobarProtectora.toString());
+            } catch (NullPointerException e) {
+                System.out.println("aa");
             }
         }
+        if (comprobarProtectora == null) {
+            if (jtfCif.getText().trim().isEmpty() && jtfNombre.getText().trim().isEmpty() && jtfRazonSocial.getText().trim().isEmpty()
+                    && jpfPassword.getPassword().length == 0 && jtfTlfn.getText().trim().isEmpty() && jtfUbicacion.getText().trim().isEmpty()) {
+                errorCamposVacios();
+            } else {
+                Protectora protectoraModificar = new Protectora();
+                Usuario usuarioModificar = new Usuario();
+                String pass = String.valueOf(jpfPassword.getPassword());
+                if (!jtfCif.getText().trim().isEmpty()) {
+                    if (Utilidades.validarCif(jtfCif.getText().trim())) {
+                        protectoraModificar.setCif(jtfCif.getText().trim());
+                    } else {
+                        jtfCif.setBorder(new LineBorder(Color.red));
+                        jlError.setText("¡¡Formato incorrecto!!");
+                    }
+                } else {
+                    protectoraModificar.setCif(protectora.getCif());
+                }
+                if (!jtfNombre.getText().trim().isEmpty()) {
+                    protectoraModificar.setNombreProtectora(jtfNombre.getText().trim());
+                } else {
+                    protectoraModificar.setNombreProtectora(protectora.getNombreProtectora());
+                }
+                if (!jtfRazonSocial.getText().trim().isEmpty()) {
+                    protectoraModificar.setRazonSocial(jtfRazonSocial.getText().trim());
+                } else {
+                    protectoraModificar.setRazonSocial(protectora.getRazonSocial());
+                }
+                if (!pass.isEmpty()) {
+                    if (Utilidades.validarPass(pass)) {
+                        pass = Utilidades.getMD5(pass);
+                        usuarioModificar.setPassword(pass);
+                    } else {
+                        jpfPassword.setBorder(new LineBorder(Color.red));
+                        jlError.setText("¡¡REQUISITOS INSUFICIENTES!!");
+                    }
+                    usuarioModificar.setEmail(GestionarUsuario.obtenerUsuario(protectora.getEmail()).getEmail());
+                    System.out.println(usuarioModificar.toString());
+                }
+                if (!jtfUbicacion.getText().trim().isEmpty()) {
+                    protectoraModificar.setUbicacion(jtfUbicacion.getText().trim());
+                } else {
+                    protectoraModificar.setUbicacion(protectora.getUbicacion());
+                }
+                if (!jtfTlfn.getText().trim().isEmpty()) {
+                    if (Utilidades.validarTelefono(jtfTlfn.getText().trim())) {
+                        protectoraModificar.setTelefono(jtfTlfn.getText().trim());
+                    } else {
+                        jlError.setText("¡¡Formato incorrecto!!");
+                        jtfTlfn.setBorder(new LineBorder(Color.red));
+                    }
+                } else {
+                    protectoraModificar.setTelefono(protectora.getTelefono());
+                }
+                if (!pass.isEmpty()) {
+                    if (Utilidades.validarPass(pass)) {
+                        System.out.println(GestionarUsuario.modificarUsuarioPass(usuarioModificar));
+                    }
+                }
+                System.out.println("FUERA " + protectoraModificar.toString());
+
+                if (Utilidades.validarCif(protectoraModificar.getCif()) && Utilidades.validarTelefono(protectoraModificar.getTelefono())) {
+                    if (GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()).equals(CR_OK_INSERT)) {
+                        modificarCorrecto(protectoraModificar);
+                    }
+                }
+            }
+        } else {
+            jlError.setText("¡CIF ya existe!");
+            jtfCif.setBorder(new LineBorder(Color.red, 1));
+        }
     }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void modificarCorrecto(Protectora protectoraModificar) {
+        vaciarCampos();
+        JOptionPane.showMessageDialog(this, "¡Protectora modificada correctamente!");
+        jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
+        jbModificar.setBorder(new LineBorder(Color.green));
+        protectora = GestionarProtectora.obtenerProtectoraCif(protectoraModificar.getCif());
+    }
+
     /**
      *
      */
@@ -339,6 +370,22 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jlError.setText("");
         defaultBorders();
     }//GEN-LAST:event_jtfsFocusGained
+
+    /**
+     * Metodo para validar que solo introduce texto
+     *
+     * @param evt tecla pulsada por el usuario
+     */
+    private void jtfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfKeyTyped
+        // TODO add your handling code here: 
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) || Character.isWhitespace(c) || Character.isISOControl(c)) {
+            jtfNombre.setEditable(true);
+            jtfRazonSocial.setEditable(true);
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfKeyTyped
 
     /**
      * @param args the command line arguments
@@ -422,6 +469,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     }
 
     private void vaciarCampos() {
+        jlError.setText("");
         jtfCif.setText("");
         jtfNombre.setText("");
         jtfTlfn.setText("");

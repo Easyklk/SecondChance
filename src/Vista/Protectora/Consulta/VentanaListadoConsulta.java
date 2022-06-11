@@ -55,7 +55,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         jlLogo = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jbListar = new javax.swing.JButton();
-        jbVolver1 = new javax.swing.JButton();
+        jbVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jtfCodConsulta = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
@@ -95,16 +95,16 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         });
         jPanel1.add(jbListar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 550, -1, -1));
 
-        jbVolver1.setBackground(new java.awt.Color(255, 255, 255));
-        jbVolver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbVolver1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/volver.png"))); // NOI18N
-        jbVolver1.setToolTipText("Pulse este boton para ir al menu principal...");
-        jbVolver1.addActionListener(new java.awt.event.ActionListener() {
+        jbVolver.setBackground(new java.awt.Color(255, 255, 255));
+        jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/volver.png"))); // NOI18N
+        jbVolver.setToolTipText("Pulse este boton para ir al menu principal...");
+        jbVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbVolver1ActionPerformed(evt);
+                jbVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(jbVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
+        jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, -1, -1));
 
         jLabel1.setText("Codigo Consulta:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 530, -1, -1));
@@ -187,11 +187,11 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
         rellenarTabla();
     }//GEN-LAST:event_jbListarActionPerformed
 
-    private void jbVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolver1ActionPerformed
+    private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora();
         this.setVisible(false);
         vPrincipalProtectora.setVisible(true);
-    }//GEN-LAST:event_jbVolver1ActionPerformed
+    }//GEN-LAST:event_jbVolverActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
@@ -261,7 +261,7 @@ public class VentanaListadoConsulta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbListar;
-    private javax.swing.JButton jbVolver1;
+    private javax.swing.JButton jbVolver;
     private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlTitulo;

@@ -16,6 +16,7 @@ import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -198,7 +199,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
             if (mascota != null) {
                 if (!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 3) {
                     mascota.setDescripcion(jtaDescripcion.getText());
-                } else if (jtaDescripcion.getText().length() > 3) {
+                } else if (jtaDescripcion.getText().length() > 300) {
                     jlError.setText("¡¡300 Caracteres max.!!");
                     jtaDescripcion.setBorder(new LineBorder(Color.red, 1));
                 }
@@ -207,7 +208,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
                     HttpRequest.insertarImage(archivo, mascota.getNombre(), jtfCodigo.getText());
                     jLabelFoto.setIcon(null);
                 }
-                if ((!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 300)) {
+                if ((!jtaDescripcion.getText().isEmpty() && jtaDescripcion.getText().length() <= 300) || archivo != null) {
                     mascota.setDescripcion(jtaDescripcion.getText().trim());
                     if (GestionarMascota.modificarMascota(mascota).equals(CR_OK_INSERT)) {
                         modificarCorrecto();
@@ -343,19 +344,21 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void modificarCorrecto() {
+        JOptionPane.showMessageDialog(this, "¡Mascota modificada correctamente!");
         jlNumChar.setText("0/300");
         jlError.setText("");
         jtaDescripcion.setBorder(null);
         jtaDescripcion.setText("");
         jLabelFoto.setIcon(null);
-        jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
-        jbModificar.setBorder(new LineBorder(Color.green));
+        archivo = null;
         defaultBorders();
     }
 
     private void defaultBorders() {
-        jtaDescripcion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jtaDescripcion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextArea.border"));
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbSeleccionarFoto.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
+        jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
+        jbModificar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
     }
 }
