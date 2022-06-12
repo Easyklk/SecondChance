@@ -172,7 +172,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jbRegistrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/añadir.png"))); // NOI18N
         jbRegistrar.setText("Registrar");
-        jbRegistrar.setToolTipText("Pulse este boton para registrase...");
+        jbRegistrar.setToolTipText("Pulse este boton para registrar una protectora...");
         jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegistrarActionPerformed(evt);
@@ -240,7 +240,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             errorCamposVacios();
             System.out.println(jtfTlfn.getText().isEmpty());
         } else {
-            if (GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim()).equals(CR_OK_INSERT)) {
+            if (GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim()) == null) {
 //            defaultBorders();
                 if (!Utilidades.validarCif(jtfCif.getText().trim())) {
                     defaultBorders();
@@ -269,6 +269,7 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
                 }
             } else {
                 jlError.setText("¡La protectora ya existe!");
+                jtfCif.setBorder(new LineBorder(Color.red));
             }
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed

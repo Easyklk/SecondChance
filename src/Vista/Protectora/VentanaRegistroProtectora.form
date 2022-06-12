@@ -241,7 +241,7 @@
               <Image iconType="3" name="/Resources/a&#xf1;adir.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Registrar"/>
-            <Property name="toolTipText" type="java.lang.String" value="Pulse este boton para registrase..."/>
+            <Property name="toolTipText" type="java.lang.String" value="Pulse este boton para registrar una protectora..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbRegistrarActionPerformed"/>

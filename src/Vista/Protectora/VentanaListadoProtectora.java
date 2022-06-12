@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaListadoProtectora extends javax.swing.JFrame {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -129,6 +129,12 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtProtectoras);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 550, 220));
+
+        jtfCif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfCifFocusGained(evt);
+            }
+        });
         jPanel1.add(jtfCif, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 140, 30));
 
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/busqueda25px.png"))); // NOI18N
@@ -177,6 +183,13 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
             jtfCif.setBorder(new LineBorder(Color.red));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jtfCifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCifFocusGained
+        // TODO add your handling code here:
+        jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        jlError.setText("");
+
+    }//GEN-LAST:event_jtfCifFocusGained
 
     /**
      * @param args the command line arguments
@@ -238,7 +251,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
             modelo.removeRow(0);
         }
     }
-
+    
     private void rellenarTabla() {
         ArrayList<Protectora> alProtectoras = GestionarProtectora.listarProtectora();
         modelo = (DefaultTableModel) jtProtectoras.getModel();
@@ -254,7 +267,7 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
         }
         jtProtectoras.setModel(modelo);
     }
-
+    
     private void buscarProtectora() {
         try {
             Protectora protectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText());
@@ -269,10 +282,10 @@ public class VentanaListadoProtectora extends javax.swing.JFrame {
             modelo.addRow(ob);
             jtProtectoras.setModel(modelo);
             jlError.setText("");
-
+            
         } catch (NullPointerException e) {
             jlError.setText("¡¡La protectora no existe!!");
         }
-
+        
     }
 }

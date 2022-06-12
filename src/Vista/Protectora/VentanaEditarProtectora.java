@@ -59,7 +59,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
 //            Logger.getLogger(VentanaRegistroProtectora.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -246,14 +245,14 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         // TODO add your handling code here:
-        protectora = GestionarProtectora.obtenerProtectoraCif(protectora.getCif());
+        Usuario usuarioModificar = GestionarUsuario.obtenerUsuario(protectora.getEmail());
+        System.out.println("PASSS " + usuarioModificar.getPassword());
         Protectora comprobarProtectora = null;
         if (!jtfCif.getText().isEmpty() && Utilidades.validarCif(jtfCif.getText())) {
             try {
                 comprobarProtectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim());
                 System.out.println(comprobarProtectora.toString());
             } catch (NullPointerException e) {
-                System.out.println("aa");
             }
         }
         if (comprobarProtectora == null) {
@@ -262,8 +261,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 errorCamposVacios();
             } else {
                 Protectora protectoraModificar = new Protectora();
-                Usuario usuarioModificar = new Usuario();
-                String pass = String.valueOf(jpfPassword.getPassword());
                 if (!jtfCif.getText().trim().isEmpty()) {
                     if (Utilidades.validarCif(jtfCif.getText().trim())) {
                         protectoraModificar.setCif(jtfCif.getText().trim());
@@ -284,17 +281,17 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 } else {
                     protectoraModificar.setRazonSocial(protectora.getRazonSocial());
                 }
-                if (!pass.isEmpty()) {
+                if (jpfPassword.getPassword().length > 0) {
+                    String pass = String.valueOf(jpfPassword.getPassword());
                     if (Utilidades.validarPass(pass)) {
                         pass = Utilidades.getMD5(pass);
                         usuarioModificar.setPassword(pass);
                     } else {
+                        jlError.setText("¡¡Requisitos Insuficientes!!");
                         jpfPassword.setBorder(new LineBorder(Color.red));
-                        jlError.setText("¡¡REQUISITOS INSUFICIENTES!!");
                     }
-                    usuarioModificar.setEmail(GestionarUsuario.obtenerUsuario(protectora.getEmail()).getEmail());
-                    System.out.println(usuarioModificar.toString());
                 }
+
                 if (!jtfUbicacion.getText().trim().isEmpty()) {
                     protectoraModificar.setUbicacion(jtfUbicacion.getText().trim());
                 } else {
@@ -310,17 +307,10 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 } else {
                     protectoraModificar.setTelefono(protectora.getTelefono());
                 }
-                if (!pass.isEmpty()) {
-                    if (Utilidades.validarPass(pass)) {
-                        System.out.println(GestionarUsuario.modificarUsuarioPass(usuarioModificar));
-                    }
-                }
-                System.out.println("FUERA " + protectoraModificar.toString());
-
-                if (Utilidades.validarCif(protectoraModificar.getCif()) && Utilidades.validarTelefono(protectoraModificar.getTelefono())) {
-                    if (GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()).equals(CR_OK_INSERT)) {
-                        modificarCorrecto(protectoraModificar);
-                    }
+                if (GestionarUsuario.modificarUsuarioPass(usuarioModificar).equals(CR_OK_INSERT) || GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()).equals(CR_OK_INSERT)) {
+                    modificarCorrecto();
+                    protectora = GestionarProtectora.obtenerProtectoraCif(protectoraModificar.getCif());
+                    System.out.println("BB");
                 }
             }
         } else {
@@ -329,12 +319,11 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
-    private void modificarCorrecto(Protectora protectoraModificar) {
+    private void modificarCorrecto() {
         vaciarCampos();
         JOptionPane.showMessageDialog(this, "¡Protectora modificada correctamente!");
         jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
         jbModificar.setBorder(new LineBorder(Color.green));
-        protectora = GestionarProtectora.obtenerProtectoraCif(protectoraModificar.getCif());
     }
 
     /**
@@ -455,17 +444,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jpfPassword.setBorder(new LineBorder(Color.red, 1));
         jtfRazonSocial.setBorder(new LineBorder(Color.red, 1));
         jtfUbicacion.setBorder(new LineBorder(Color.red, 1));
-    }
-
-    private void modificarCorrecto() {
-        defaultBorders();
-        jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
-        jbModificar.setBorder(new LineBorder(Color.green));
-        jtfCif.setText("");
-        jtfNombre.setText("");
-        jtfRazonSocial.setText("");
-        jpfPassword.setText("");
-        jtfUbicacion.setText("");
     }
 
     private void vaciarCampos() {

@@ -113,6 +113,11 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jPanel1.add(jbVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         jtfCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfCodigoFocusGained(evt);
+            }
+        });
         jPanel1.add(jtfCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 160, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -200,6 +205,13 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         vPrincipalProtectora.setVisible(true);
     }//GEN-LAST:event_jbVolverActionPerformed
 
+    private void jtfCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusGained
+        // TODO add your handling code here:
+        jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
+        jlError.setText("");
+        defaultBorders();
+    }//GEN-LAST:event_jtfCodigoFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -268,8 +280,9 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
     }
 
     private void borradoIncorrecto() {
-        jlError.setText("¡¡ERROR!!");
-        jtMascota.setModel(null);
+        JOptionPane.showMessageDialog(this, "¡No puede eliminar una mascota con consultas asociadas!", "¡Elimar incorrecto!", JOptionPane.ERROR_MESSAGE);
+        vaciarTabla();
+        jbEliminar.setEnabled(false);
         jtfCodigo.setBorder(new LineBorder(Color.red));
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.red));

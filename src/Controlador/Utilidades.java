@@ -45,4 +45,8 @@ public class Utilidades {
     public static boolean validarTelefono(String telefono) {
         return telefono.matches("^\\d{9}$");
     }
+
+    public static void main(String[] args) {
+        System.out.println(validarPass("Az09@+78"));
+    }
 }

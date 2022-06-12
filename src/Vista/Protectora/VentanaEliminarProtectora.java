@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaEliminarProtectora extends javax.swing.JFrame implements Constantes {
-
+    
     private DefaultTableModel modelo;
 
     /**
@@ -193,7 +193,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jtfCif.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
-
+    
     private void defaultBorders() {
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
@@ -211,6 +211,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         // TODO add your handling code here:
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        vaciarTabla();
         jlError.setText("");
     }//GEN-LAST:event_jtfCifFocusGained
 
@@ -278,7 +279,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             }
         }
     }
-
+    
     private void buscarProtectora() {
         try {
             jlError.setText("");
@@ -296,9 +297,9 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jbEliminar.setEnabled(false);
             jlError.setText("¡La protectora no existe!");
         }
-
+        
     }
-
+    
     private void borradoCorrecto() {
         JOptionPane.showMessageDialog(this, "¡Protectora eliminada correctamente!");
         jlError.setText("");
@@ -308,9 +309,10 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-
+    
     private void borradoIncorrecto() {
-        jlError.setText("¡¡Elimine las mascotas antes!!");
+        JOptionPane.showMessageDialog(this, "¡No puede eliminar un protectora con mascotas asociadas!", "¡Elimado incorrecto!", JOptionPane.ERROR_MESSAGE);
+        jbEliminar.setEnabled(false);
         jtfCif.setBorder(new LineBorder(Color.red));
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.red));
