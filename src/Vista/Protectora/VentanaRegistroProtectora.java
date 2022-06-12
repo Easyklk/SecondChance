@@ -226,6 +226,11 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, -1, -1));
 
         jtfTlfn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtfTlfn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfTlfnKeyTyped(evt);
+            }
+        });
         jPanel1.add(jtfTlfn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 150, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 550));
@@ -241,7 +246,6 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             System.out.println(jtfTlfn.getText().isEmpty());
         } else {
             if (GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim()) == null) {
-//            defaultBorders();
                 if (!Utilidades.validarCif(jtfCif.getText().trim())) {
                     defaultBorders();
                     jtfCif.setBorder(new LineBorder(Color.red));
@@ -347,6 +351,14 @@ public class VentanaRegistroProtectora extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jtfsKeyTyped
+
+    private void jtfTlfnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTlfnKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfTlfnKeyTyped
 
     /**
      * @param args the command line arguments

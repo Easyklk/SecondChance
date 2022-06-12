@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author UsuarioPracticas
  */
 public class VentanaEliminarProtectora extends javax.swing.JFrame implements Constantes {
-    
+
     private DefaultTableModel modelo;
 
     /**
@@ -175,7 +175,8 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         Protectora protectoraEliminar = GestionarProtectora.obtenerProtectoraCif(cif);
         Usuario usuario = GestionarUsuario.obtenerUsuario(protectoraEliminar.getEmail());
         if (jtProtectoras.getValueAt(0, 0) != null) {
-            if (GestionarProtectora.eliminarPortectora(protectoraEliminar).equals(CR_OK_DELETE) && GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
+            if (GestionarProtectora.eliminarPortectora(protectoraEliminar).equals(CR_OK_DELETE)
+                    && GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
                 borradoCorrecto();
             } else {
                 borradoIncorrecto();
@@ -193,7 +194,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jtfCif.setBorder(new LineBorder(Color.red, 1));
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
-    
+
     private void defaultBorders() {
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
@@ -279,7 +280,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             }
         }
     }
-    
+
     private void buscarProtectora() {
         try {
             jlError.setText("");
@@ -297,9 +298,9 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
             jbEliminar.setEnabled(false);
             jlError.setText("¡La protectora no existe!");
         }
-        
+
     }
-    
+
     private void borradoCorrecto() {
         JOptionPane.showMessageDialog(this, "¡Protectora eliminada correctamente!");
         jlError.setText("");
@@ -309,7 +310,7 @@ public class VentanaEliminarProtectora extends javax.swing.JFrame implements Con
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-    
+
     private void borradoIncorrecto() {
         JOptionPane.showMessageDialog(this, "¡No puede eliminar un protectora con mascotas asociadas!", "¡Elimado incorrecto!", JOptionPane.ERROR_MESSAGE);
         jbEliminar.setEnabled(false);

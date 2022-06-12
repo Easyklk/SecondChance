@@ -45,20 +45,12 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     }
 
     private void othersComponents(Protectora protectora) {
-        this.protectora = protectora;
-        jpfPassword.setEchoChar('*');
+        VentanaEditarProtectora.protectora = protectora;
         setLocationRelativeTo(null);
         Image icon = new ImageIcon(getClass().getResource("/Resources/iconSC.png")).getImage();
         setIconImage(icon);
     }
 
-//    private void formatoTlfn() {
-//        try {
-//            mascara = new MaskFormatter("#########");
-//        } catch (ParseException ex) {
-//            Logger.getLogger(VentanaRegistroProtectora.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,18 +68,14 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jtfNombre = new javax.swing.JTextField();
         jtfRazonSocial = new javax.swing.JTextField();
         jtfUbicacion = new javax.swing.JTextField();
-        jpfPassword = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jbModificar = new javax.swing.JButton();
-        jcbShowPass = new javax.swing.JCheckBox();
         jbVolver = new javax.swing.JButton();
         jltitulo6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jltitulo7 = new javax.swing.JLabel();
         jtfTlfn = new javax.swing.JTextField();
 
@@ -128,7 +116,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         });
         jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfKeyTyped(evt);
+                jtfsKeyTyped(evt);
             }
         });
         jPanel4.add(jtfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 30));
@@ -141,10 +129,10 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         });
         jtfRazonSocial.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfKeyTyped(evt);
+                jtfsKeyTyped(evt);
             }
         });
-        jPanel4.add(jtfRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 150, 30));
+        jPanel4.add(jtfRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 150, 30));
 
         jtfUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtfUbicacion.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -152,15 +140,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 jtfsFocusGained(evt);
             }
         });
-        jPanel4.add(jtfUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 150, 30));
-
-        jpfPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jpfPassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtfsFocusGained(evt);
-            }
-        });
-        jPanel4.add(jpfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 150, 30));
+        jPanel4.add(jtfUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 340, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("CIF Nuevo:");
@@ -172,11 +152,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Razón Social:");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Contraseña:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Teléfono:");
@@ -184,7 +160,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Ubicación:");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, -1, -1));
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
 
         jbModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/modificar16px.png"))); // NOI18N
@@ -196,16 +172,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jbModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, -1, -1));
-
-        jcbShowPass.setBackground(new java.awt.Color(255, 255, 255));
-        jcbShowPass.setToolTipText("Mostrar/Ocultar contraseña");
-        jcbShowPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/verPass.png"))); // NOI18N
-        jcbShowPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbShowPassActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jcbShowPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, -1, 30));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -222,10 +188,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jltitulo6.setText("Modificar Protectora");
         jPanel4.add(jltitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
-        jLabel8.setText("Minimo 8 char, A-z,0-9,@-+");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 150, -1));
-
         jltitulo7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jltitulo7.setText("Rellene solo los campos a modificar");
         jPanel4.add(jltitulo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
@@ -236,6 +198,11 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 jtfsFocusGained(evt);
             }
         });
+        jtfTlfn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfTlfnKeyTyped(evt);
+            }
+        });
         jPanel4.add(jtfTlfn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 150, 30));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
@@ -244,30 +211,22 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        // TODO add your handling code here:
-        Usuario usuarioModificar = GestionarUsuario.obtenerUsuario(protectora.getEmail());
-        System.out.println("PASSS " + usuarioModificar.getPassword());
         Protectora comprobarProtectora = null;
         if (!jtfCif.getText().isEmpty() && Utilidades.validarCif(jtfCif.getText())) {
             try {
                 comprobarProtectora = GestionarProtectora.obtenerProtectoraCif(jtfCif.getText().trim());
-                System.out.println(comprobarProtectora.toString());
             } catch (NullPointerException e) {
             }
         }
         if (comprobarProtectora == null) {
-            if (jtfCif.getText().trim().isEmpty() && jtfNombre.getText().trim().isEmpty() && jtfRazonSocial.getText().trim().isEmpty()
-                    && jpfPassword.getPassword().length == 0 && jtfTlfn.getText().trim().isEmpty() && jtfUbicacion.getText().trim().isEmpty()) {
+            if (jtfCif.getText().trim().isEmpty() && jtfNombre.getText().trim().isEmpty()
+                    && jtfRazonSocial.getText().trim().isEmpty() && jtfTlfn.getText().trim().isEmpty()
+                    && jtfUbicacion.getText().trim().isEmpty()) {
                 errorCamposVacios();
             } else {
                 Protectora protectoraModificar = new Protectora();
                 if (!jtfCif.getText().trim().isEmpty()) {
-                    if (Utilidades.validarCif(jtfCif.getText().trim())) {
-                        protectoraModificar.setCif(jtfCif.getText().trim());
-                    } else {
-                        jtfCif.setBorder(new LineBorder(Color.red));
-                        jlError.setText("¡¡Formato incorrecto!!");
-                    }
+                    protectoraModificar.setCif(jtfCif.getText().trim());
                 } else {
                     protectoraModificar.setCif(protectora.getCif());
                 }
@@ -281,36 +240,30 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
                 } else {
                     protectoraModificar.setRazonSocial(protectora.getRazonSocial());
                 }
-                if (jpfPassword.getPassword().length > 0) {
-                    String pass = String.valueOf(jpfPassword.getPassword());
-                    if (Utilidades.validarPass(pass)) {
-                        pass = Utilidades.getMD5(pass);
-                        usuarioModificar.setPassword(pass);
-                    } else {
-                        jlError.setText("¡¡Requisitos Insuficientes!!");
-                        jpfPassword.setBorder(new LineBorder(Color.red));
-                    }
-                }
-
                 if (!jtfUbicacion.getText().trim().isEmpty()) {
                     protectoraModificar.setUbicacion(jtfUbicacion.getText().trim());
                 } else {
                     protectoraModificar.setUbicacion(protectora.getUbicacion());
                 }
                 if (!jtfTlfn.getText().trim().isEmpty()) {
-                    if (Utilidades.validarTelefono(jtfTlfn.getText().trim())) {
-                        protectoraModificar.setTelefono(jtfTlfn.getText().trim());
-                    } else {
-                        jlError.setText("¡¡Formato incorrecto!!");
-                        jtfTlfn.setBorder(new LineBorder(Color.red));
-                    }
+                    protectoraModificar.setTelefono(jtfTlfn.getText().trim());
                 } else {
                     protectoraModificar.setTelefono(protectora.getTelefono());
                 }
-                if (GestionarUsuario.modificarUsuarioPass(usuarioModificar).equals(CR_OK_INSERT) || GestionarProtectora.modificarProtectora(protectoraModificar, protectora.getCif()).equals(CR_OK_INSERT)) {
-                    modificarCorrecto();
-                    protectora = GestionarProtectora.obtenerProtectoraCif(protectoraModificar.getCif());
-                    System.out.println("BB");
+                if (Utilidades.validarCif(protectoraModificar.getCif())) {
+                    if (Utilidades.validarTelefono(protectoraModificar.getTelefono())) {
+                        if (GestionarProtectora.modificarProtectora(protectoraModificar, 
+                                protectora.getCif()).equals(CR_OK_INSERT)) {
+                            modificarCorrecto();
+                            protectora = GestionarProtectora.obtenerProtectoraCif(protectoraModificar.getCif());
+                        }
+                    } else {
+                        jtfTlfn.setBorder(new LineBorder(Color.red));
+                        jlError.setText("¡¡Formato incorrecto!!");
+                    }
+                } else {
+                    jtfCif.setBorder(new LineBorder(Color.red));
+                    jlError.setText("¡¡Formato incorrecto!!");
                 }
             }
         } else {
@@ -333,19 +286,9 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jtfCif.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfNombre.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfRazonSocial.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-        jpfPassword.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfTlfn.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jtfUbicacion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
     }
-
-    private void jcbShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbShowPassActionPerformed
-        // TODO add your handling code here:
-        if (jcbShowPass.isSelected()) {
-            jpfPassword.setEchoChar((char) 0);
-        } else {
-            jpfPassword.setEchoChar('*');
-        }
-    }//GEN-LAST:event_jcbShowPassActionPerformed
 
     private void jbVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVolverActionPerformed
         VentanaPrincipalProtectora vPrincipalProtectora = new VentanaPrincipalProtectora(protectora);
@@ -360,13 +303,16 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         defaultBorders();
     }//GEN-LAST:event_jtfsFocusGained
 
-    /**
-     * Metodo para validar que solo introduce texto
-     *
-     * @param evt tecla pulsada por el usuario
-     */
-    private void jtfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfKeyTyped
-        // TODO add your handling code here: 
+    private void jtfTlfnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTlfnKeyTyped
+        // TODO add your handling code here:char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfTlfnKeyTyped
+
+    private void jtfsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfsKeyTyped
+        // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (Character.isLetter(c) || Character.isWhitespace(c) || Character.isISOControl(c)) {
             jtfNombre.setEditable(true);
@@ -374,7 +320,7 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         } else {
             evt.consume();
         }
-    }//GEN-LAST:event_jtfKeyTyped
+    }//GEN-LAST:event_jtfsKeyTyped
 
     /**
      * @param args the command line arguments
@@ -415,20 +361,16 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbVolver;
-    private javax.swing.JCheckBox jcbShowPass;
     private javax.swing.JLabel jlError;
     private javax.swing.JLabel jlLogo3;
     private javax.swing.JLabel jlTitulo3;
     private javax.swing.JLabel jltitulo6;
     private javax.swing.JLabel jltitulo7;
-    private javax.swing.JPasswordField jpfPassword;
     private javax.swing.JTextField jtfCif;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfRazonSocial;
@@ -441,7 +383,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jtfCif.setBorder(new LineBorder(Color.red, 1));
         jtfNombre.setBorder(new LineBorder(Color.red, 1));
         jtfTlfn.setBorder(new LineBorder(Color.red, 1));
-        jpfPassword.setBorder(new LineBorder(Color.red, 1));
         jtfRazonSocial.setBorder(new LineBorder(Color.red, 1));
         jtfUbicacion.setBorder(new LineBorder(Color.red, 1));
     }
@@ -451,7 +392,6 @@ public class VentanaEditarProtectora extends javax.swing.JFrame {
         jtfCif.setText("");
         jtfNombre.setText("");
         jtfTlfn.setText("");
-        jpfPassword.setText("");
         jtfRazonSocial.setText("");
         jtfUbicacion.setText("");
     }

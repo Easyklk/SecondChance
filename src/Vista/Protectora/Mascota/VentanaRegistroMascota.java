@@ -256,7 +256,9 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
         // TODO add your handling code here:
-        if (jtfCodigo.getText().isEmpty() || jtfNombre.getText().isEmpty() || jcbEspecie.getSelectedItem().toString().equalsIgnoreCase("Seleccionar") == true || jtfRaza.getText().isEmpty() || archivo == null || protectora.getCif() == null || jtaDescripcion.getText().isEmpty()) {
+        if (jtfCodigo.getText().isEmpty() || jtfNombre.getText().isEmpty() || 
+                jcbEspecie.getSelectedItem().toString().equalsIgnoreCase("Seleccionar") == true 
+                || jtfRaza.getText().isEmpty() || archivo == null || protectora.getCif() == null || jtaDescripcion.getText().isEmpty()) {
             errorCamposVacios();
         } else if (jtaDescripcion.getText().length() > 300) {
             jlError.setText("¡¡300 Caracteres max.!!");
@@ -265,7 +267,9 @@ public class VentanaRegistroMascota extends javax.swing.JFrame {
                 String fechaString = sdf.format(jdcFechaAcogida.getDate());
                 String nombreMascota = jtfNombre.getText().trim();
                 String codMascota = jtfCodigo.getText().trim();
-                Mascota mascota = new Mascota(jtfCodigo.getText().trim(), jtfNombre.getText().trim(), jcbEspecie.getSelectedItem().toString(), jtfRaza.getText(), fechaString, SERVERIMAGENES + nombreMascota + "_" + codMascota + "." + obtenerExtension(archivo), protectora.getCif(), jtaDescripcion.getText());
+                Mascota mascota = new Mascota(jtfCodigo.getText().trim(), jtfNombre.getText().trim(), 
+                        jcbEspecie.getSelectedItem().toString(), jtfRaza.getText(), fechaString, 
+                        SERVERIMAGENES + nombreMascota + "_" + codMascota + "." + obtenerExtension(archivo), protectora.getCif(), jtaDescripcion.getText());
                 if (GestionarMascota.insertarMascota(mascota).equals(CR_OK_INSERT)) {
                     HttpRequest.insertarImage(archivo, jtfNombre.getText(), jtfCodigo.getText());
                     registroCorrecto();

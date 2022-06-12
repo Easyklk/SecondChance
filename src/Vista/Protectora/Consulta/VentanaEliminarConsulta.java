@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Isaac-PC
  */
 public class VentanaEliminarConsulta extends javax.swing.JFrame {
-    
+
     private DefaultTableModel modelo;
     private static Protectora protectora;
 
@@ -37,7 +37,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         this.protectora = protectora;
         otherComponents();
     }
-    
+
     private void otherComponents() {
         modelo = (DefaultTableModel) jtConsultas.getModel();
         jtConsultas.setAutoResizeMode(jtConsultas.AUTO_RESIZE_ALL_COLUMNS);
@@ -305,7 +305,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("JButton.border"));
         jlError.setText("");
     }
-    
+
     private void vaciarTabla() {
         if (modelo.getRowCount() > 0) {
             while (modelo.getRowCount() > 0) {
@@ -313,7 +313,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void buscarConsulta() {
         try {
             jlError.setText("");
@@ -335,7 +335,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
             jtaInformacion.setText("");
         }
     }
-    
+
     private void borradoCorrecto() {
         JOptionPane.showMessageDialog(this, "¡Consulta eliminada correctamente!");
         jlError.setText("");
@@ -346,7 +346,7 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
-    
+
     private void borradoIncorrecto() {
         jlError.setText("¡¡ERROR!!");
         jtfCodigo.setBorder(new LineBorder(Color.red));

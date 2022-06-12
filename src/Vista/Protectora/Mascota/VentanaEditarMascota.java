@@ -61,7 +61,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jlTitulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jbModificar = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
         jbVolver = new javax.swing.JButton();
         jtfCodigo = new javax.swing.JTextField();
         jbSeleccionarFoto = new javax.swing.JButton();
@@ -104,16 +104,16 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jLabel6.setText("Foto:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, -1));
 
-        jbModificar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/modificar16px.png"))); // NOI18N
-        jbModificar.setText("Modificar");
-        jbModificar.setToolTipText("Pulse este boton para registrase...");
-        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+        jbEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/modificar16px.png"))); // NOI18N
+        jbEditar.setText("Modificar");
+        jbEditar.setToolTipText("Pulse este boton para registrase...");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModificarActionPerformed(evt);
+                jbEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 450, -1, -1));
+        jPanel1.add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 450, -1, -1));
 
         jbVolver.setBackground(new java.awt.Color(255, 255, 255));
         jbVolver.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -190,7 +190,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
         if (jtfCodigo.getText().isEmpty()) {
             jtfCodigo.setBorder(new LineBorder(Color.RED, 1));
@@ -220,7 +220,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
                 jlError.setText("!La mascota no existe¡");
             }
         }
-    }//GEN-LAST:event_jbModificarActionPerformed
+    }//GEN-LAST:event_jbEditarActionPerformed
 
     private void errorCamposVacios() {
         jlError.setText("¡¡RELLENE ALGUN CAMPO!!");
@@ -236,6 +236,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         }
         return extension;
     }
+
     private void jbSeleccionarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSeleccionarFotoActionPerformed
         // TODO add your handling code here:
         JFileChooser jfcFoto = new JFileChooser();
@@ -330,7 +331,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton jbModificar;
+    private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbSeleccionarFoto;
     private javax.swing.JButton jbVolver;
     private javax.swing.JLabel jlError;
@@ -358,7 +359,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
         jtaDescripcion.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextArea.border"));
         jtfCodigo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
         jbSeleccionarFoto.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
-        jbModificar.setPreferredSize(new Dimension(jbModificar.getWidth(), jbModificar.getHeight()));
-        jbModificar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
+        jbEditar.setPreferredSize(new Dimension(jbEditar.getWidth(), jbEditar.getHeight()));
+        jbEditar.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("Button.border"));
     }
 }
