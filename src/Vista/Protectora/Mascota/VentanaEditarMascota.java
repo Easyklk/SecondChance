@@ -204,7 +204,7 @@ public class VentanaEditarMascota extends javax.swing.JFrame {
                     jtaDescripcion.setBorder(new LineBorder(Color.red, 1));
                 }
                 if (archivo != null) {
-                    mascota.setFoto(SERVERIMAGENES + mascota.getNombre() + "_" + jtfCodigo.getText() + "." + obtenerExtension(archivo));
+                    mascota.setFoto("/Imagenes/" + mascota.getNombre() + "_" + jtfCodigo.getText() + "." + obtenerExtension(archivo));
                     HttpRequest.insertarImage(archivo, mascota.getNombre(), jtfCodigo.getText());
                     jLabelFoto.setIcon(null);
                 }
