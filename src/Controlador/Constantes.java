@@ -13,7 +13,7 @@ public interface Constantes {
     //URLs servidores
     public static final String SERVER = "C:/xampp/htdocs/SecondChance/";
     public static final String SERVERCONSULTA = "http://localhost/SecondChance/ScriptsConsultas/";
-    public static final String SERVERIMAGENES = "http://localhost/SecondChance/Imagenes/";
+    public static final String SERVERIMAGENES = "/Imagenes/";
     public static final String SERVERMASCOTA = "http://localhost/SecondChance/ScriptsMascotas/";
     public static final String SERVERPROTECTORA = "http://localhost/SecondChance/ScriptsProtectoras/";
     public static final String SERVERUSUARIO = "http://localhost/SecondChance/ScriptsUsuarios/";
