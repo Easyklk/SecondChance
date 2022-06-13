@@ -67,7 +67,9 @@ public class GestionarConsulta {
     /**
      * Metodo que devuelve un conjunto de consultas
      *
-     * @param cifProtectora
+     * @param cifProtectora CIF especifico de una protectora para mostrar sus
+     * consultas
+     *
      * @return ArrayList con el listado completo de consultas
      */
     public static ArrayList<Consulta> listarConsultasCifProtectora(String cifProtectora) {

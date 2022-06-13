@@ -31,6 +31,8 @@ public class VentanaEliminarConsulta extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaRegistro
+     *
+     * @param protectora Protectora logeada
      */
     public VentanaEliminarConsulta(Protectora protectora) {
         initComponents();

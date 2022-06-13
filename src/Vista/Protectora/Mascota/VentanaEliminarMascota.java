@@ -30,6 +30,8 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaRegistro
+     *
+     * @param protectora Protectora logeada
      */
     public VentanaEliminarMascota(Protectora protectora) {
         initComponents();

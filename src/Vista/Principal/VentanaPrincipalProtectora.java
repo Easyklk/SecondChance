@@ -26,6 +26,8 @@ public class VentanaPrincipalProtectora extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaPrincipalProtectora
+     *
+     * @param protectora Protectora logeada
      */
     public VentanaPrincipalProtectora(Protectora protectora) {
         this.protectora = protectora;

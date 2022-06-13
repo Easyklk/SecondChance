@@ -28,6 +28,7 @@ public class VentanaListadoMascota extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaListadoMascota
+     * @param protectora Protectora logeada
      */
     public VentanaListadoMascota(Protectora protectora) {
         initComponents();

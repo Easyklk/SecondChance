@@ -39,7 +39,7 @@ public class VentanaRegistroConsulta extends javax.swing.JFrame {
     /**
      * Creates new form VentanaRegistro
      *
-     * @param protectora
+     * @param protectora Protectora logeada
      */
     public VentanaRegistroConsulta(Protectora protectora) {
         initComponents();
