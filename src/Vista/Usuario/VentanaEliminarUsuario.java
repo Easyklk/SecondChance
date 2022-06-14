@@ -164,10 +164,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!jtfEmail.getText().isEmpty()) {
             jtfEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-            String values = "email=" + jtfEmail.getText();
-            System.out.println(values);
-            String resultado = HttpRequest.POST_REQUEST(Constantes.URL_DELETE_USUARIO, values);
-            Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText());
+            Usuario usuario = GestionarUsuario.obtenerUsuario(jtfEmail.getText().trim());
             if (GestionarUsuario.eliminarUsuario(usuario).equals(CR_OK_DELETE)) {
                 borradoCorrecto();
             } else {
@@ -184,6 +181,7 @@ public class VentanaEliminarUsuario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "¡Usuario eliminado correctamente!");
         jtfEmail.setText("");
         jbEliminar.setEnabled(false);
+        vaciarTabla();
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }

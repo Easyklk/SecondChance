@@ -276,7 +276,7 @@ public class VentanaEliminarMascota extends javax.swing.JFrame {
         jbEliminar.setEnabled(false);
         jlError.setText("");
         jtfCodigo.setText("");
-        jtMascota.setModel(null);
+        vaciarTabla();
         jbEliminar.setPreferredSize(new Dimension(jbEliminar.getWidth(), jbEliminar.getHeight()));
         jbEliminar.setBorder(new LineBorder(Color.green));
     }
